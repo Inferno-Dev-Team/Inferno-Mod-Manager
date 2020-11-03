@@ -2,14 +2,6 @@
 
 namespace InfernoModManager {
 
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
-	using namespace System::IO;
-
 	/// <summary>
 	/// Summary for MainForm
 	/// </summary>
@@ -38,12 +30,22 @@ namespace InfernoModManager {
 
 	protected:
 
-	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
-	private: System::Windows::Forms::TextBox^ BTD6FolderInput;
 
-	private: System::Windows::Forms::Button^ BTD6FolderBrowseButton;
+
+
+
 	private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
-	private: System::Windows::Forms::CheckedListBox^ ModsList;
+	private: System::Windows::Forms::Button^ BTD6FolderBrowseButton;
+	private: System::Windows::Forms::TextBox^ BTD6FolderInput;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
+	private: System::Windows::Forms::DataGridView^ ModsList;
+	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ check;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ type;
+
+
+
+
 
 
 
@@ -71,13 +73,17 @@ namespace InfernoModManager {
 		void InitializeComponent(void)
 		{
 			System::Windows::Forms::Label^ label1;
-			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
-			this->BTD6FolderInput = (gcnew System::Windows::Forms::TextBox());
-			this->BTD6FolderBrowseButton = (gcnew System::Windows::Forms::Button());
-			this->ModsList = (gcnew System::Windows::Forms::CheckedListBox());
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
+			this->BTD6FolderBrowseButton = (gcnew System::Windows::Forms::Button());
+			this->BTD6FolderInput = (gcnew System::Windows::Forms::TextBox());
+			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
+			this->check = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
+			this->name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			label1 = (gcnew System::Windows::Forms::Label());
 			this->tableLayoutPanel2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -90,6 +96,26 @@ namespace InfernoModManager {
 			label1->TabIndex = 1;
 			label1->Text = L"BTD6 Install Location:";
 			label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// 
+			// BTD6FolderBrowseButton
+			// 
+			this->BTD6FolderBrowseButton->AutoSize = true;
+			this->BTD6FolderBrowseButton->Location = System::Drawing::Point(943, 3);
+			this->BTD6FolderBrowseButton->Name = L"BTD6FolderBrowseButton";
+			this->BTD6FolderBrowseButton->Size = System::Drawing::Size(30, 27);
+			this->BTD6FolderBrowseButton->TabIndex = 2;
+			this->BTD6FolderBrowseButton->Text = L"...";
+			this->BTD6FolderBrowseButton->UseVisualStyleBackColor = true;
+			this->BTD6FolderBrowseButton->Click += gcnew System::EventHandler(this, &MainForm::BTD6FileBrowseButton_Click);
+			// 
+			// BTD6FolderInput
+			// 
+			this->BTD6FolderInput->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
+			this->BTD6FolderInput->Location = System::Drawing::Point(155, 5);
+			this->BTD6FolderInput->Name = L"BTD6FolderInput";
+			this->BTD6FolderInput->Size = System::Drawing::Size(782, 22);
+			this->BTD6FolderInput->TabIndex = 0;
+			this->BTD6FolderInput->TextChanged += gcnew System::EventHandler(this, &MainForm::BTD6FolderInput_TextChanged);
 			// 
 			// tableLayoutPanel2
 			// 
@@ -112,35 +138,54 @@ namespace InfernoModManager {
 			this->tableLayoutPanel2->Size = System::Drawing::Size(976, 726);
 			this->tableLayoutPanel2->TabIndex = 0;
 			// 
-			// BTD6FolderInput
-			// 
-			this->BTD6FolderInput->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
-			this->BTD6FolderInput->Location = System::Drawing::Point(155, 5);
-			this->BTD6FolderInput->Name = L"BTD6FolderInput";
-			this->BTD6FolderInput->Size = System::Drawing::Size(782, 22);
-			this->BTD6FolderInput->TabIndex = 0;
-			this->BTD6FolderInput->TextChanged += gcnew System::EventHandler(this, &MainForm::BTD6FolderInput_TextChanged);
-			// 
-			// BTD6FolderBrowseButton
-			// 
-			this->BTD6FolderBrowseButton->AutoSize = true;
-			this->BTD6FolderBrowseButton->Location = System::Drawing::Point(943, 3);
-			this->BTD6FolderBrowseButton->Name = L"BTD6FolderBrowseButton";
-			this->BTD6FolderBrowseButton->Size = System::Drawing::Size(30, 27);
-			this->BTD6FolderBrowseButton->TabIndex = 2;
-			this->BTD6FolderBrowseButton->Text = L"...";
-			this->BTD6FolderBrowseButton->UseVisualStyleBackColor = true;
-			this->BTD6FolderBrowseButton->Click += gcnew System::EventHandler(this, &MainForm::BTD6FileBrowseButton_Click);
-			// 
 			// ModsList
 			// 
+			this->ModsList->AllowUserToAddRows = false;
+			this->ModsList->AllowUserToDeleteRows = false;
+			this->ModsList->AllowUserToResizeColumns = false;
+			this->ModsList->AllowUserToResizeRows = false;
+			this->ModsList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->ModsList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->check, this->name,
+					this->type
+			});
 			this->tableLayoutPanel2->SetColumnSpan(this->ModsList, 3);
 			this->ModsList->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->ModsList->FormattingEnabled = true;
 			this->ModsList->Location = System::Drawing::Point(3, 36);
 			this->ModsList->Name = L"ModsList";
+			this->ModsList->RowHeadersVisible = false;
+			this->ModsList->RowHeadersWidth = 51;
+			this->ModsList->RowTemplate->Height = 24;
 			this->ModsList->Size = System::Drawing::Size(970, 687);
 			this->ModsList->TabIndex = 3;
+			this->ModsList->GetType()->GetProperty("DoubleBuffered", 
+				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
+				->SetValue(this->ModsList, true);
+			// 
+			// check
+			// 
+			this->check->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
+			this->check->HeaderText = L"Enabled";
+			this->check->MinimumWidth = 6;
+			this->check->Name = L"check";
+			this->check->Width = 66;
+			// 
+			// name
+			// 
+			this->name->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->name->HeaderText = L"Name";
+			this->name->MinimumWidth = 6;
+			this->name->Name = L"name";
+			this->name->ReadOnly = true;
+			// 
+			// type
+			// 
+			this->type->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
+			this->type->HeaderText = L"Type";
+			this->type->MinimumWidth = 6;
+			this->type->Name = L"type";
+			this->type->ReadOnly = true;
+			this->type->Width = 69;
 			// 
 			// MainForm
 			// 
@@ -152,31 +197,42 @@ namespace InfernoModManager {
 			this->Text = L"Inferno Mod Manager";
 			this->tableLayoutPanel2->ResumeLayout(false);
 			this->tableLayoutPanel2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	private: System::Void BTD6FileBrowseButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		BTD6FolderDialog->SelectedPath = System::Windows::Forms::Application::StartupPath;
-		if (BTD6FolderDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			System::String^ folderPath = BTD6FolderDialog->SelectedPath;
-			BTD6FolderInput->Text = folderPath;
-		}
-	}
-	private: System::Void BTD6FolderInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		// Get mods in selected folder
-		System::Collections::Generic::List<String^>^ files = gcnew System::Collections::Generic::List<String^>(
-			System::IO::Directory::EnumerateFiles(BTD6FolderDialog->SelectedPath + "\\Mods", "*.btd6mod"));
-		files->AddRange(System::IO::Directory::EnumerateFiles(BTD6FolderDialog->SelectedPath + "\\Mods", "*.dll"));
-		if (files->Count > 0) {
-			ModsList->Visible = true;
-			PopulateModsList(files->ToArray());
-		} else ModsList->Visible = false;
-	}
 
-	private: System::Void PopulateModsList(array<System::String^>^ files) {
-		ModsList->Items->Clear();
-		ModsList->Items->AddRange(files);
-	}
-};
+		private: System::String^ btd6Install = nullptr;
+
+		private: System::Void BTD6FileBrowseButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			BTD6FolderDialog->SelectedPath = System::Windows::Forms::Application::StartupPath;
+			if (BTD6FolderDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+				System::String^ folderPath = BTD6FolderDialog->SelectedPath;
+				BTD6FolderInput->Text = folderPath;
+			}
+		}
+		private: System::Void BTD6FolderInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+			btd6Install = BTD6FolderDialog->SelectedPath;
+			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
+			PopulateModsList(files);
+		}
+
+		private: System::Void PopulateModsList(array<System::String^>^ files) {
+			ModsList->Rows->Clear();
+			for each (System::String^ file in files) {
+				if (file->EndsWith(".dll.disabled") || file->EndsWith(".dll") || file->EndsWith(".btd6mod")) {
+					System::Windows::Forms::DataGridViewRow^ newRow = gcnew System::Windows::Forms::DataGridViewRow();
+					ModsList->Rows->Add(!file->EndsWith(".disabled"), System::IO::Path::GetFileNameWithoutExtension(file),
+						file->EndsWith(".dll.disabled") ? ".dll" : System::IO::Path::GetExtension(file));
+				}
+			}
+		}
+
+		private: System::Void ModsList_ItemCheck(System::Object^ sender, System::Windows::Forms::ItemCheckEventArgs^ e) {
+			if (btd6Install != nullptr) {
+				//bool toggle = 
+			}
+		}
+	};
 }
