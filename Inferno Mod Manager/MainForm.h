@@ -223,8 +223,7 @@ namespace InfernoModManager {
 			for each (System::String^ file in files) {
 				if (file->EndsWith(".dll.disabled") || file->EndsWith(".dll") || file->EndsWith(".btd6mod")) {
 					System::Windows::Forms::DataGridViewRow^ newRow = gcnew System::Windows::Forms::DataGridViewRow();
-					ModsList->Rows->Add(!file->EndsWith(".disabled"), System::IO::Path::GetFileNameWithoutExtension(file),
-						file->EndsWith(".dll.disabled") ? ".dll" : System::IO::Path::GetExtension(file));
+					ModsList->Rows->Add(IsEnabled(file), NameOf(file), TypeOf(file));
 				}
 			}
 		}
@@ -233,6 +232,25 @@ namespace InfernoModManager {
 			if (btd6Install != nullptr) {
 				//bool toggle = 
 			}
+		}
+
+		private: bool IsEnabled(System::String^ file) {
+			return !file->EndsWith(".disabled");
+		}
+
+		private: System::String^ NameOf(System::String^ file) {
+			System::String^ name = System::IO::Path::GetFileName(file);
+			int end = name->IndexOf('.');
+			if(end > 0)
+				name = name->Substring(0, end);
+			return name;
+		}
+
+		private: System::String^ TypeOf(System::String^ file) {
+			if (file->EndsWith(".dll.disabled"))
+				return ".dll";
+			else
+				return System::IO::Path::GetExtension(file);
 		}
 	};
 }
