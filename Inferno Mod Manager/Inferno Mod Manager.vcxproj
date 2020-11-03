@@ -124,6 +124,7 @@
     <ClCompile Include="EncryptionManager.cpp" />
     <ClCompile Include="Injection.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="SupportedGames.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EncryptionManager.h" />
