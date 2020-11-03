@@ -5,6 +5,7 @@ namespace InfernoModManager {
 	ref class Injection
 	{
 	public:
-		static void injectDLL(System::String^ location, System::String^ processName);
+		static bool injectDLL(System::String^ procName, char* dllName);
+		static DWORD GetTargetThreadIDFromProcName(System::String^ procName);
 	};
 }

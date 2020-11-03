@@ -9,7 +9,7 @@ using namespace System::Windows::Forms;
 [STAThread]
 int main()
 {
-	InfernoModManager::Injection::injectDLL("D:\\Inferno-Mod-Manager\\LoggingDLL\\x64\\Release\\LoggingDLL.dll", "BloonsTD6");
+	InfernoModManager::Injection::injectDLL("BloonsTD6", "D:\\Inferno-Mod-Manager\\LoggingDLL\\x64\\Release\\LoggingDLL.dll");
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	InfernoModManager::MainForm form;
