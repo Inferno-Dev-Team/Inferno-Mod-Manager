@@ -118,10 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
     <ClCompile Include="Injection.cpp" />
-=======
->>>>>>> Stashed changes
     <ClCompile Include="MainForm.cpp" />
   </ItemGroup>
   <ItemGroup>
