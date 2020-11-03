@@ -28,42 +28,20 @@ namespace InfernoModManager {
 			}
 		}
 
-	protected:
+		private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
+		private: System::Windows::Forms::Button^ BTD6FolderBrowseButton;
+		private: System::Windows::Forms::TextBox^ BTD6FolderInput;
+		private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
+		private: System::Windows::Forms::DataGridView^ ModsList;
+		private: System::Windows::Forms::DataGridViewCheckBoxColumn^ check;
+		private: System::Windows::Forms::DataGridViewTextBoxColumn^ name;
+		private: System::Windows::Forms::DataGridViewTextBoxColumn^ type;
 
-
-
-
-
-	private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
-	private: System::Windows::Forms::Button^ BTD6FolderBrowseButton;
-	private: System::Windows::Forms::TextBox^ BTD6FolderInput;
-	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
-	private: System::Windows::Forms::DataGridView^ ModsList;
-	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ check;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ name;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ type;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	protected:
-
-	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+		private:
+			/// <summary>
+			/// Required designer variable.
+			/// </summary>
+			System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
