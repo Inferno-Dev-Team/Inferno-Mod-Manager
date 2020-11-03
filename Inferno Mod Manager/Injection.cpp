@@ -45,13 +45,16 @@ namespace InfernoModManager
 
     DWORD Injection::GetTargetThreadIDFromProcName(System::String^ procName)
     {
-        System::Diagnostics::Process^ proc = System::Diagnostics::Process::GetProcessesByName(procName)[0];
-        System::Console::WriteLine(proc->Id);
+        array<System::Diagnostics::Process^>^ procs = System::Diagnostics::Process::GetProcessesByName(procName);
+        if (procs->Length > 0) {
+            System::Diagnostics::Process^ proc = procs[0];
+            System::Console::WriteLine(proc->Id);
 
-    	if (proc != nullptr)
-    	{
-            return proc->Id;
-    	}
+            if (proc != nullptr)
+            {
+                return proc->Id;
+            }
+        }
 
         return 0;
 
