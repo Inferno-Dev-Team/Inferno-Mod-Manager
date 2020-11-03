@@ -78,7 +78,6 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -88,7 +87,6 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -120,7 +118,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <ClCompile Include="Injection.cpp" />
+=======
+>>>>>>> Stashed changes
     <ClCompile Include="MainForm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +129,11 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
