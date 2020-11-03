@@ -11,9 +11,10 @@ namespace InfernoModManager {
 		MainForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			//double buffered renders all at once, therefore faster
+			this->ModsList->GetType()->GetProperty("DoubleBuffered",
+				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
+				->SetValue(this->ModsList, true);
 		}
 
 	protected:
@@ -136,9 +137,6 @@ namespace InfernoModManager {
 			this->ModsList->RowTemplate->Height = 24;
 			this->ModsList->Size = System::Drawing::Size(970, 687);
 			this->ModsList->TabIndex = 3;
-			this->ModsList->GetType()->GetProperty("DoubleBuffered", 
-				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
-				->SetValue(this->ModsList, true);
 			// 
 			// check
 			// 
