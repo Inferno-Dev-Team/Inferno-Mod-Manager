@@ -39,7 +39,7 @@ namespace InfernoModManager
 
         CloseHandle(proc);
 
-        return TRUE;
+        return true;
 
     }
 
