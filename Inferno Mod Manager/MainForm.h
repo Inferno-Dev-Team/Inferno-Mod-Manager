@@ -48,11 +48,17 @@ namespace InfernoModManager {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"MainForm";
-			this->Padding = System::Windows::Forms::Padding(0);
+			this->SuspendLayout();
+			// 
+			// MainForm
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(1000, 750);
+			this->Name = L"MainForm";
+			this->Text = L"Inferno Mod Manager";
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 	};
