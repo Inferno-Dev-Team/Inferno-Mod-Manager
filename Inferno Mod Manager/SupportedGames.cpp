@@ -1,6 +1,7 @@
 #include <map>
 #include <msclr\marshal.h>
 
+#pragma once
 namespace InfernoModManager
 {
 
@@ -20,7 +21,7 @@ namespace InfernoModManager
 
 			static System::String^ GetSteamDir()
 			{
-				Microsoft::Win32::Registry::GetValue(Microsoft::Win32::Registry::CurrentUser + "\\Software\\Valve\\Steam", "SteamPath", nullptr);
+				return (System::String^)Microsoft::Win32::Registry::GetValue(Microsoft::Win32::Registry::CurrentUser + "\\Software\\Valve\\Steam", "SteamPath", nullptr);
 			}
 
 			static System::String^ GetGameDir(const __int64 id)

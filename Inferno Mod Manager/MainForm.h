@@ -1,3 +1,5 @@
+#include "SupportedGames.cpp"
+
 #pragma once
 
 namespace InfernoModManager {
@@ -12,9 +14,14 @@ namespace InfernoModManager {
 		{
 			InitializeComponent();
 			//double buffered renders all at once, therefore faster
-			this->ModsList->GetType()->GetProperty("DoubleBuffered",
+			ModsList->GetType()->GetProperty("DoubleBuffered",
 				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
 				->SetValue(this->ModsList, true);
+			/*long long id;
+			for each (auto pair in InfernoModManager::Games::GameInfo)
+				if (pair.second = "BloonsTD6")
+					id = pair.first;*/
+			BTD6FolderWatcher->Path = InfernoModManager::Games::GetGameDir(960090);
 		}
 
 	protected:
@@ -30,13 +37,20 @@ namespace InfernoModManager {
 		}
 
 		private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
-		private: System::Windows::Forms::Button^ BTD6FolderBrowseButton;
-		private: System::Windows::Forms::TextBox^ BTD6FolderInput;
+
+
 		private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
 		private: System::Windows::Forms::DataGridView^ ModsList;
-		private: System::Windows::Forms::DataGridViewCheckBoxColumn^ check;
-		private: System::Windows::Forms::DataGridViewTextBoxColumn^ name;
-		private: System::Windows::Forms::DataGridViewTextBoxColumn^ type;
+	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ EnabledColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
+	private: System::IO::FileSystemWatcher^ BTD6FolderWatcher;
+
+
+
+
+
+
 
 		private:
 			/// <summary>
@@ -51,50 +65,17 @@ namespace InfernoModManager {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::Label^ label1;
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
-			this->BTD6FolderBrowseButton = (gcnew System::Windows::Forms::Button());
-			this->BTD6FolderInput = (gcnew System::Windows::Forms::TextBox());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
-			this->check = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
-			this->name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			label1 = (gcnew System::Windows::Forms::Label());
+			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
+			this->NameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->BTD6FolderWatcher = (gcnew System::IO::FileSystemWatcher());
 			this->tableLayoutPanel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BTD6FolderWatcher))->BeginInit();
 			this->SuspendLayout();
-			// 
-			// label1
-			// 
-			label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom));
-			label1->AutoSize = true;
-			label1->Location = System::Drawing::Point(3, 0);
-			label1->Name = L"label1";
-			label1->Size = System::Drawing::Size(146, 33);
-			label1->TabIndex = 1;
-			label1->Text = L"BTD6 Install Location:";
-			label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// 
-			// BTD6FolderBrowseButton
-			// 
-			this->BTD6FolderBrowseButton->AutoSize = true;
-			this->BTD6FolderBrowseButton->Location = System::Drawing::Point(943, 3);
-			this->BTD6FolderBrowseButton->Name = L"BTD6FolderBrowseButton";
-			this->BTD6FolderBrowseButton->Size = System::Drawing::Size(30, 27);
-			this->BTD6FolderBrowseButton->TabIndex = 2;
-			this->BTD6FolderBrowseButton->Text = L"...";
-			this->BTD6FolderBrowseButton->UseVisualStyleBackColor = true;
-			this->BTD6FolderBrowseButton->Click += gcnew System::EventHandler(this, &MainForm::BTD6FileBrowseButton_Click);
-			// 
-			// BTD6FolderInput
-			// 
-			this->BTD6FolderInput->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
-			this->BTD6FolderInput->Location = System::Drawing::Point(155, 5);
-			this->BTD6FolderInput->Name = L"BTD6FolderInput";
-			this->BTD6FolderInput->Size = System::Drawing::Size(782, 22);
-			this->BTD6FolderInput->TabIndex = 0;
-			this->BTD6FolderInput->TextChanged += gcnew System::EventHandler(this, &MainForm::BTD6FolderInput_TextChanged);
 			// 
 			// tableLayoutPanel2
 			// 
@@ -103,18 +84,14 @@ namespace InfernoModManager {
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 				100)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
-			this->tableLayoutPanel2->Controls->Add(this->BTD6FolderInput, 1, 0);
-			this->tableLayoutPanel2->Controls->Add(label1, 0, 0);
-			this->tableLayoutPanel2->Controls->Add(this->BTD6FolderBrowseButton, 2, 0);
 			this->tableLayoutPanel2->Controls->Add(this->ModsList, 0, 1);
-			this->tableLayoutPanel2->Location = System::Drawing::Point(12, 12);
+			this->tableLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tableLayoutPanel2->Location = System::Drawing::Point(0, 0);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 2;
-			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
-			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->tableLayoutPanel2->Size = System::Drawing::Size(976, 726);
+			this->tableLayoutPanel2->Size = System::Drawing::Size(1000, 750);
 			this->tableLayoutPanel2->TabIndex = 0;
 			// 
 			// ModsList
@@ -125,43 +102,56 @@ namespace InfernoModManager {
 			this->ModsList->AllowUserToResizeRows = false;
 			this->ModsList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->ModsList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
-				this->check, this->name,
-					this->type
+				this->EnabledColumn,
+					this->NameColumn, this->TypeColumn
 			});
 			this->tableLayoutPanel2->SetColumnSpan(this->ModsList, 3);
 			this->ModsList->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->ModsList->Location = System::Drawing::Point(3, 36);
+			this->ModsList->Location = System::Drawing::Point(3, 23);
+			this->ModsList->MultiSelect = false;
 			this->ModsList->Name = L"ModsList";
 			this->ModsList->RowHeadersVisible = false;
 			this->ModsList->RowHeadersWidth = 51;
 			this->ModsList->RowTemplate->Height = 24;
-			this->ModsList->Size = System::Drawing::Size(970, 687);
+			this->ModsList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->ModsList->ShowCellErrors = false;
+			this->ModsList->ShowEditingIcon = false;
+			this->ModsList->ShowRowErrors = false;
+			this->ModsList->Size = System::Drawing::Size(994, 724);
 			this->ModsList->TabIndex = 3;
 			// 
-			// check
+			// EnabledColumn
 			// 
-			this->check->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
-			this->check->HeaderText = L"Enabled";
-			this->check->MinimumWidth = 6;
-			this->check->Name = L"check";
-			this->check->Width = 66;
+			this->EnabledColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
+			this->EnabledColumn->HeaderText = L"Enabled";
+			this->EnabledColumn->MinimumWidth = 6;
+			this->EnabledColumn->Name = L"EnabledColumn";
+			this->EnabledColumn->Width = 66;
 			// 
-			// name
+			// NameColumn
 			// 
-			this->name->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->name->HeaderText = L"Name";
-			this->name->MinimumWidth = 6;
-			this->name->Name = L"name";
-			this->name->ReadOnly = true;
+			this->NameColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->NameColumn->HeaderText = L"Name";
+			this->NameColumn->MinimumWidth = 6;
+			this->NameColumn->Name = L"NameColumn";
+			this->NameColumn->ReadOnly = true;
 			// 
-			// type
+			// TypeColumn
 			// 
-			this->type->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
-			this->type->HeaderText = L"Type";
-			this->type->MinimumWidth = 6;
-			this->type->Name = L"type";
-			this->type->ReadOnly = true;
-			this->type->Width = 69;
+			this->TypeColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
+			this->TypeColumn->HeaderText = L"Type";
+			this->TypeColumn->MinimumWidth = 6;
+			this->TypeColumn->Name = L"TypeColumn";
+			this->TypeColumn->ReadOnly = true;
+			this->TypeColumn->Width = 69;
+			// 
+			// BTD6FolderWatcher
+			// 
+			this->BTD6FolderWatcher->EnableRaisingEvents = true;
+			this->BTD6FolderWatcher->SynchronizingObject = this;
+			this->BTD6FolderWatcher->Created += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
+			this->BTD6FolderWatcher->Deleted += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
+			this->BTD6FolderWatcher->Renamed += gcnew System::IO::RenamedEventHandler(this, &MainForm::FolderUpdate);
 			// 
 			// MainForm
 			// 
@@ -172,8 +162,8 @@ namespace InfernoModManager {
 			this->Name = L"MainForm";
 			this->Text = L"Inferno Mod Manager";
 			this->tableLayoutPanel2->ResumeLayout(false);
-			this->tableLayoutPanel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BTD6FolderWatcher))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -181,37 +171,30 @@ namespace InfernoModManager {
 
 		private: System::String^ btd6Install = nullptr;
 
-		private: System::Void BTD6FileBrowseButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			BTD6FolderDialog->SelectedPath = System::Windows::Forms::Application::StartupPath;
-			if (BTD6FolderDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-				System::String^ folderPath = BTD6FolderDialog->SelectedPath;
-				BTD6FolderInput->Text = folderPath;
-			}
-		}
-		private: System::Void BTD6FolderInput_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-			btd6Install = BTD6FolderDialog->SelectedPath;
-			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
-			PopulateModsList(files);
-		}
-
-		private: System::Void PopulateModsList(array<System::String^>^ files) {
-			ModsList->Rows->Clear();
-			for each (System::String^ file in files) {
-				if (file->EndsWith(".dll.disabled") || file->EndsWith(".dll") || file->EndsWith(".btd6mod")) {
-					System::Windows::Forms::DataGridViewRow^ newRow = gcnew System::Windows::Forms::DataGridViewRow();
-					ModsList->Rows->Add(IsEnabled(file), NameOf(file), TypeOf(file));
-				}
-			}
-		}
-
 		private: System::Void ModsList_ItemCheck(System::Object^ sender, System::Windows::Forms::ItemCheckEventArgs^ e) {
 			if (btd6Install != nullptr) {
 				//bool toggle = 
 			}
 		}
 
+		private: System::Void FolderUpdate(System::Object^ sender, System::IO::FileSystemEventArgs^ e) {
+			PopulateModsList();
+		}
+		private: System::Void FolderUpdate(System::Object^ sender, System::IO::RenamedEventArgs^ e) {
+			PopulateModsList();
+		}
+
 		private: bool IsEnabled(System::String^ file) {
 			return !file->EndsWith(".disabled");
+		}
+
+		private: System::Void PopulateModsList() {
+			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
+			ModsList->Rows->Clear();
+			for each (System::String ^ file in files)
+				if (file->EndsWith(".dll.disabled") || file->EndsWith(".dll") || file->EndsWith(".btd6mod"))
+					ModsList->Rows->Add(IsEnabled(file), NameOf(file), TypeOf(file));
+			ModsList->Sort(NameColumn, System::ComponentModel::ListSortDirection::Ascending);
 		}
 
 		private: System::String^ NameOf(System::String^ file) {
@@ -228,5 +211,5 @@ namespace InfernoModManager {
 			else
 				return System::IO::Path::GetExtension(file);
 		}
-	};
+};
 }
