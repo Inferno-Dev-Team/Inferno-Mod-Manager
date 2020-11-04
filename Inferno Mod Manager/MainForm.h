@@ -151,9 +151,11 @@ namespace InfernoModManager {
 			// BTD6FolderWatcher
 			// 
 			this->BTD6FolderWatcher->EnableRaisingEvents = true;
+			this->BTD6FolderWatcher->NotifyFilter = static_cast<System::IO::NotifyFilters>((((System::IO::NotifyFilters::FileName | System::IO::NotifyFilters::DirectoryName)
+				| System::IO::NotifyFilters::LastWrite)
+				| System::IO::NotifyFilters::LastAccess));
 			this->BTD6FolderWatcher->SynchronizingObject = this;
-			this->BTD6FolderWatcher->NotifyFilter = System::IO::NotifyFilters::LastAccess | System::IO::NotifyFilters::LastWrite | System::IO::NotifyFilters::FileName | System::IO::NotifyFilters::DirectoryName;
-			this->BTD6FolderWatcher->Filter = "*.*";
+			this->BTD6FolderWatcher->Changed += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
 			this->BTD6FolderWatcher->Created += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
 			this->BTD6FolderWatcher->Deleted += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
 			this->BTD6FolderWatcher->Renamed += gcnew System::IO::RenamedEventHandler(this, &MainForm::FolderUpdate);
