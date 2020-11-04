@@ -23,6 +23,7 @@ namespace InfernoModManager {
 					id = pair.first;*/
 			BTD6FolderWatcher->Path = InfernoModManager::Games::GetGameDir(960090);
 			btd6Install = BTD6FolderWatcher->Path;
+			PopulateModsList();
 		}
 
 	protected:
