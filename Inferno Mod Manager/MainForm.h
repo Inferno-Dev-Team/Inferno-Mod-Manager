@@ -38,6 +38,8 @@ namespace InfernoModManager {
 				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(typeWatcher))->EndInit();
 				typeWatcher->Path = btd6Install;
 			}
+
+			CheckBTD6Open();
 		}
 
 	protected:
@@ -61,7 +63,8 @@ namespace InfernoModManager {
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
 	private: System::Windows::Forms::Button^ DoModsButton;
-	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::Timer^ CheckBTD6Timer;
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -87,12 +90,12 @@ namespace InfernoModManager {
 			this->components = (gcnew System::ComponentModel::Container());
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->DoModsButton = (gcnew System::Windows::Forms::Button());
 			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
 			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->NameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->DoModsButton = (gcnew System::Windows::Forms::Button());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tableLayoutPanel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			this->SuspendLayout();
@@ -104,15 +107,25 @@ namespace InfernoModManager {
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 				100)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->tableLayoutPanel2->Controls->Add(this->DoModsButton, 0, 0);
 			this->tableLayoutPanel2->Controls->Add(this->ModsList, 0, 1);
 			this->tableLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tableLayoutPanel2->Location = System::Drawing::Point(0, 0);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 2;
-			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
 			this->tableLayoutPanel2->Size = System::Drawing::Size(1000, 750);
 			this->tableLayoutPanel2->TabIndex = 0;
+			// 
+			// DoModsButton
+			// 
+			this->DoModsButton->Location = System::Drawing::Point(3, 3);
+			this->DoModsButton->Name = L"DoModsButton";
+			this->DoModsButton->Size = System::Drawing::Size(75, 23);
+			this->DoModsButton->TabIndex = 1;
+			this->DoModsButton->Text = L"Launch";
+			this->DoModsButton->UseVisualStyleBackColor = true;
 			// 
 			// ModsList
 			// 
@@ -127,7 +140,7 @@ namespace InfernoModManager {
 			});
 			this->tableLayoutPanel2->SetColumnSpan(this->ModsList, 3);
 			this->ModsList->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->ModsList->Location = System::Drawing::Point(3, 23);
+			this->ModsList->Location = System::Drawing::Point(3, 32);
 			this->ModsList->MultiSelect = false;
 			this->ModsList->Name = L"ModsList";
 			this->ModsList->RowHeadersVisible = false;
@@ -137,7 +150,7 @@ namespace InfernoModManager {
 			this->ModsList->ShowCellErrors = false;
 			this->ModsList->ShowEditingIcon = false;
 			this->ModsList->ShowRowErrors = false;
-			this->ModsList->Size = System::Drawing::Size(994, 724);
+			this->ModsList->Size = System::Drawing::Size(994, 715);
 			this->ModsList->TabIndex = 3;
 			this->ModsList->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
@@ -168,26 +181,17 @@ namespace InfernoModManager {
 			this->TypeColumn->ReadOnly = true;
 			this->TypeColumn->Width = 69;
 			// 
-			// DoModsButton
+			// CheckBTD6Timer
 			// 
-			this->DoModsButton->Location = System::Drawing::Point(0, 0);
-			this->DoModsButton->Name = L"DoModsButton";
-			this->DoModsButton->Size = System::Drawing::Size(75, 23);
-			this->DoModsButton->TabIndex = 1;
-			this->DoModsButton->Text = L"Launch";
-			this->DoModsButton->UseVisualStyleBackColor = true;
-			// 
-			// timer1
-			// 
-			this->timer1->Interval = 1000;
-			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
+			this->CheckBTD6Timer->Enabled = true;
+			this->CheckBTD6Timer->Interval = 1000;
+			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1000, 750);
-			this->Controls->Add(this->DoModsButton);
 			this->Controls->Add(this->tableLayoutPanel2);
 			this->Name = L"MainForm";
 			this->Text = L"Inferno Mod Manager";
@@ -238,11 +242,8 @@ namespace InfernoModManager {
 			}
 		}
 
-		private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
-			if (InfernoModManager::Injection::GetTargetThreadIDFromProcName("BloonsTD6") != -1)
-				DoModsButton->Text = "Launch";
-			else
-				DoModsButton->Text = "Inject";
+		private: System::Void CheckBTD6Open(System::Object^ sender, System::EventArgs^ e) {
+			CheckBTD6Open();
 		}
 
 		private: bool IsEnabled(System::String^ file) {
@@ -271,6 +272,13 @@ namespace InfernoModManager {
 				return ".dll";
 			else
 				return System::IO::Path::GetExtension(file);
+		}
+
+		private: System::Void CheckBTD6Open() {
+			if (InfernoModManager::Injection::GetTargetThreadIDFromProcName("BloonsTD6") != -1)
+				DoModsButton->Text = "Inject";
+			else
+				DoModsButton->Text = "Launch";
 		}
 };
 }
