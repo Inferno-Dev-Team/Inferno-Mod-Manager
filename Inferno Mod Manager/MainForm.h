@@ -19,9 +19,23 @@ namespace InfernoModManager {
 			ModsList->GetType()->GetProperty("DoubleBuffered",
 				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
 				->SetValue(this->ModsList, true);
-			BTD6FolderWatcher->Path = InfernoModManager::Games::GetGameDir(960090);
-			btd6Install = BTD6FolderWatcher->Path;
+			btd6Install = InfernoModManager::Games::GetGameDir(960090);
 			PopulateModsList();
+
+			for each (const char* type in InfernoModManager::Games::Types) {
+				System::IO::FileSystemWatcher^ typeWatcher = gcnew System::IO::FileSystemWatcher();
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(typeWatcher))->BeginInit();
+				typeWatcher->EnableRaisingEvents = true;
+				typeWatcher->NotifyFilter = static_cast<System::IO::NotifyFilters>(
+					System::IO::NotifyFilters::FileName | System::IO::NotifyFilters::LastWrite | System::IO::NotifyFilters::CreationTime);
+				typeWatcher->SynchronizingObject = this;
+				typeWatcher->Changed += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
+				typeWatcher->Created += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
+				typeWatcher->Deleted += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
+				typeWatcher->Renamed += gcnew System::IO::RenamedEventHandler(this, &MainForm::FolderUpdate);
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(typeWatcher))->EndInit();
+				typeWatcher->Path = btd6Install;
+			}
 		}
 
 	protected:
@@ -44,7 +58,6 @@ namespace InfernoModManager {
 		private: System::Windows::Forms::DataGridViewCheckBoxColumn^ EnabledColumn;
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
-		private: System::IO::FileSystemWatcher^ BTD6FolderWatcher;
 
 
 
@@ -72,10 +85,8 @@ namespace InfernoModManager {
 			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->NameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->BTD6FolderWatcher = (gcnew System::IO::FileSystemWatcher());
 			this->tableLayoutPanel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BTD6FolderWatcher))->BeginInit();
 			this->SuspendLayout();
 			//
 			// tableLayoutPanel2
@@ -149,17 +160,6 @@ namespace InfernoModManager {
 			this->TypeColumn->ReadOnly = true;
 			this->TypeColumn->Width = 69;
 			//
-			// BTD6FolderWatcher
-			//
-			this->BTD6FolderWatcher->EnableRaisingEvents = true;
-			this->BTD6FolderWatcher->NotifyFilter = static_cast<System::IO::NotifyFilters>(((System::IO::NotifyFilters::FileName | System::IO::NotifyFilters::LastWrite)
-				| System::IO::NotifyFilters::CreationTime));
-			this->BTD6FolderWatcher->SynchronizingObject = this;
-			this->BTD6FolderWatcher->Changed += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
-			this->BTD6FolderWatcher->Created += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
-			this->BTD6FolderWatcher->Deleted += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
-			this->BTD6FolderWatcher->Renamed += gcnew System::IO::RenamedEventHandler(this, &MainForm::FolderUpdate);
-			//
 			// MainForm
 			//
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -170,7 +170,6 @@ namespace InfernoModManager {
 			this->Text = L"Inferno Mod Manager";
 			this->tableLayoutPanel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BTD6FolderWatcher))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -188,7 +187,7 @@ namespace InfernoModManager {
 			PopulateModsList();
 		}
 		private: System::Void FolderUpdate(System::Object^ sender, System::IO::RenamedEventArgs^ e) {
-			PopulateModsList();
+			FolderUpdate(sender, (System::IO::FileSystemEventArgs^)e);
 		}
 
 		//you gotta do this because microsoft forgot about the checkboxes, I have this tied to content click and double click
