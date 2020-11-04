@@ -42,10 +42,10 @@ namespace InfernoModManager {
 
 		private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
 		private: System::Windows::Forms::DataGridView^ ModsList;
-	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ EnabledColumn;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
-	private: System::IO::FileSystemWatcher^ BTD6FolderWatcher;
+		private: System::Windows::Forms::DataGridViewCheckBoxColumn^ EnabledColumn;
+		private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
+		private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
+		private: System::IO::FileSystemWatcher^ BTD6FolderWatcher;
 
 
 
