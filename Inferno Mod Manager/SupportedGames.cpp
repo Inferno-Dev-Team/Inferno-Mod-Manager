@@ -1,4 +1,7 @@
 #include <map>
+#include <vector>
+#include <string>
+#include <algorithm>
 #include <msclr\marshal.h>
 
 #pragma once
@@ -9,6 +12,7 @@ namespace InfernoModManager
 	{
 		public:
 			static std::map<long long, const char*> GameInfo;
+			static std::vector<const char*> Types;
 
 			static bool IsGameInstalled(const __int64 id)
 			{
@@ -17,6 +21,11 @@ namespace InfernoModManager
 				if (!installed)
 					return 0;
 				return (int)installed == 1;
+			}
+
+			static bool IsCompatibleType(System::String^ file) {
+				const char* extension = msclr::interop::marshal_as<const char*>(file->Substring(file->IndexOf('.')));
+				return std::binary_search(Types.begin(), Types.end(), extension);
 			}
 
 			static System::String^ GetSteamDir()

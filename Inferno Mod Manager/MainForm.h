@@ -150,9 +150,8 @@ namespace InfernoModManager {
 			// BTD6FolderWatcher
 			// 
 			this->BTD6FolderWatcher->EnableRaisingEvents = true;
-			this->BTD6FolderWatcher->NotifyFilter = static_cast<System::IO::NotifyFilters>((((System::IO::NotifyFilters::FileName | System::IO::NotifyFilters::DirectoryName)
-				| System::IO::NotifyFilters::LastWrite)
-				| System::IO::NotifyFilters::LastAccess));
+			this->BTD6FolderWatcher->NotifyFilter = static_cast<System::IO::NotifyFilters>(((System::IO::NotifyFilters::FileName | System::IO::NotifyFilters::LastWrite)
+				| System::IO::NotifyFilters::CreationTime));
 			this->BTD6FolderWatcher->SynchronizingObject = this;
 			this->BTD6FolderWatcher->Changed += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
 			this->BTD6FolderWatcher->Created += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
@@ -209,7 +208,7 @@ namespace InfernoModManager {
 			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
 			ModsList->Rows->Clear();
 			for each (System::String ^ file in files)
-				if (file->EndsWith(".dll.disabled") || file->EndsWith(".dll") || file->EndsWith(".btd6mod"))
+				if (InfernoModManager::Games::IsCompatibleType(file))
 					ModsList->Rows->Add(IsEnabled(file), NameOf(file), TypeOf(file));
 			ModsList->Sort(NameColumn, System::ComponentModel::ListSortDirection::Ascending);
 		}
