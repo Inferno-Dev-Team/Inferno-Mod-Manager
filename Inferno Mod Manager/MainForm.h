@@ -28,6 +28,7 @@ namespace InfernoModManager {
 				typeWatcher->EnableRaisingEvents = true;
 				typeWatcher->NotifyFilter = static_cast<System::IO::NotifyFilters>(
 					System::IO::NotifyFilters::FileName | System::IO::NotifyFilters::LastWrite | System::IO::NotifyFilters::CreationTime);
+				typeWatcher->Filter = '*' + msclr::interop::marshal_as<System::String^>(type);
 				typeWatcher->SynchronizingObject = this;
 				typeWatcher->Changed += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
 				typeWatcher->Created += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
