@@ -198,8 +198,22 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void ModsList_CellEndEdit(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-			if (e->ColumnIndex == EnabledColumn->Index)
-				System::Console::WriteLine("hello");
+			if (e->ColumnIndex == EnabledColumn->Index) {
+				System::Windows::Forms::DataGridViewRow^ row = ModsList->Rows[e->RowIndex];
+				if (((System::String^)row->Cells[2]->Value)->Contains(".dll")) {
+					System::String^ oldName;
+					System::String^ newName;
+					if ((bool)row->Cells[0]->Value) {
+						oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll.disabled";
+						newName = System::IO::Path::ChangeExtension(oldName, "");
+					}
+					else {
+						oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll";
+						newName = System::IO::Path::ChangeExtension(oldName, ".dll.disabled");
+					}
+					System::IO::File::Move(oldName, newName);
+				}
+			}
 		}
 
 		private: bool IsEnabled(System::String^ file) {
