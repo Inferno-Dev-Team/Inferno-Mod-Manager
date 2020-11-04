@@ -24,7 +24,10 @@ namespace InfernoModManager
 			}
 
 			static bool IsCompatibleType(System::String^ file) {
-				const char* extension = msclr::interop::marshal_as<const char*>(file->Substring(file->IndexOf('.')));
+				msclr::interop::marshal_context^ context = gcnew msclr::interop::marshal_context();
+				const char* extension = context->marshal_as<const char*>(file);
+				puts(extension);
+				delete context;
 				return std::binary_search(Types.begin(), Types.end(), extension);
 			}
 
