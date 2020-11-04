@@ -10,7 +10,6 @@ using namespace System::Windows::Forms;
 std::map<long long, const char*> InfernoModManager::Games::GameInfo = {
 	{960090, "BloonsTD6"}
 };
-// make sure we keep this sorted so that we can use the binary search on it O(n) vs O(lgn)
 std::vector<const char*> InfernoModManager::Games::Types = {
 	".btd6mod",
 	".dll",

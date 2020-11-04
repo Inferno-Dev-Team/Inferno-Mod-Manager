@@ -24,11 +24,10 @@ namespace InfernoModManager
 			}
 
 			static bool IsCompatibleType(System::String^ file) {
-				msclr::interop::marshal_context^ context = gcnew msclr::interop::marshal_context();
-				const char* extension = context->marshal_as<const char*>(file);
-				puts(extension);
-				delete context;
-				return std::binary_search(Types.begin(), Types.end(), extension);
+				for each (const char* type in Types)
+					if (file->EndsWith(msclr::interop::marshal_as<System::String^>(type)))
+						return true;
+				return false;
 			}
 
 			static System::String^ GetSteamDir()
