@@ -36,19 +36,18 @@ namespace InfernoModManager
 				System::Collections::Generic::List<System::String^>^ allPossible = gcnew System::Collections::Generic::List<System::String^>();
 				System::String^ config = steamDir + "\\steamapps\\libraryfolders.vdf";
 				allPossible->Add(config);
-				array<System::String^>^ configFile = System::IO::File::ReadAllLines(config);
-				for each (System::String^ configPart in configFile)
-				{
-					System::Text::RegularExpressions::Regex^ reg = gcnew System::Text::RegularExpressions::Regex("\".?\"");
-					for (int i = 0; i < reg->Matches(configPart)->Count; ++i)
-					{
-						int tmp;
 
-						if (i == 1)
-							allPossible->Add(reg->Matches(configPart)[i]->Value->ToString());
-						if (i == 0)
-							if (!int::TryParse(reg->Matches(configPart)[i]->Value->ToString(), tmp))
-								break;
+				System::IO::StreamReader^ din = System::IO::File::OpenText(config);
+
+				System::String^ str;
+				int count = 0;
+				while ((str = din->ReadLine()) != nullptr)
+				{
+					count++;
+					System::Text::RegularExpressions::Regex^ reg = gcnew System::Text::RegularExpressions::Regex("\".*?\"");
+					for (int i = 0; i < reg->Matches(str)->Count; ++i)
+					{
+							allPossible->Add(reg->Matches(str)[i]->Value->ToString()->Replace("\"", "")->Replace("/", "\\")->Replace("\\\\", "\\"));
 					}
 				}
 
@@ -64,12 +63,13 @@ namespace InfernoModManager
 
 				for each (System::String^ possible in allPossible)
 				{
-					System::String^ gameFolder = possible + "\\steamapps\\common\\" + gameName;
+					System::String^ gameFolder = (possible + "\\steamapps\\common\\" + gameName)->Replace("\\libraryfolders.vdf", "");
 					if (System::IO::Directory::Exists(gameFolder))
 					{
 						return gameFolder;
 					}
 				}
+
 				return "ERROR CANT FIND GAME";
 			}
 	};

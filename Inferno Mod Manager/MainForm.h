@@ -76,9 +76,9 @@ namespace InfernoModManager {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->BTD6FolderWatcher))->BeginInit();
 			this->SuspendLayout();
-			// 
+			//
 			// tableLayoutPanel2
-			// 
+			//
 			this->tableLayoutPanel2->ColumnCount = 3;
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
@@ -93,9 +93,9 @@ namespace InfernoModManager {
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
 			this->tableLayoutPanel2->Size = System::Drawing::Size(1000, 750);
 			this->tableLayoutPanel2->TabIndex = 0;
-			// 
+			//
 			// ModsList
-			// 
+			//
 			this->ModsList->AllowUserToAddRows = false;
 			this->ModsList->AllowUserToDeleteRows = false;
 			this->ModsList->AllowUserToResizeColumns = false;
@@ -119,42 +119,42 @@ namespace InfernoModManager {
 			this->ModsList->ShowRowErrors = false;
 			this->ModsList->Size = System::Drawing::Size(994, 724);
 			this->ModsList->TabIndex = 3;
-			// 
+			//
 			// EnabledColumn
-			// 
+			//
 			this->EnabledColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
 			this->EnabledColumn->HeaderText = L"Enabled";
 			this->EnabledColumn->MinimumWidth = 6;
 			this->EnabledColumn->Name = L"EnabledColumn";
 			this->EnabledColumn->Width = 66;
-			// 
+			//
 			// NameColumn
-			// 
+			//
 			this->NameColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
 			this->NameColumn->HeaderText = L"Name";
 			this->NameColumn->MinimumWidth = 6;
 			this->NameColumn->Name = L"NameColumn";
 			this->NameColumn->ReadOnly = true;
-			// 
+			//
 			// TypeColumn
-			// 
+			//
 			this->TypeColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
 			this->TypeColumn->HeaderText = L"Type";
 			this->TypeColumn->MinimumWidth = 6;
 			this->TypeColumn->Name = L"TypeColumn";
 			this->TypeColumn->ReadOnly = true;
 			this->TypeColumn->Width = 69;
-			// 
+			//
 			// BTD6FolderWatcher
-			// 
+			//
 			this->BTD6FolderWatcher->EnableRaisingEvents = true;
 			this->BTD6FolderWatcher->SynchronizingObject = this;
 			this->BTD6FolderWatcher->Created += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
 			this->BTD6FolderWatcher->Deleted += gcnew System::IO::FileSystemEventHandler(this, &MainForm::FolderUpdate);
 			this->BTD6FolderWatcher->Renamed += gcnew System::IO::RenamedEventHandler(this, &MainForm::FolderUpdate);
-			// 
+			//
 			// MainForm
-			// 
+			//
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1000, 750);
@@ -173,7 +173,7 @@ namespace InfernoModManager {
 
 		private: System::Void ModsList_ItemCheck(System::Object^ sender, System::Windows::Forms::ItemCheckEventArgs^ e) {
 			if (btd6Install != nullptr) {
-				//bool toggle = 
+				//bool toggle =
 			}
 		}
 
