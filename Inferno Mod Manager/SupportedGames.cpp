@@ -24,11 +24,11 @@ namespace InfernoModManager
 			}
 
 			static bool IsCompatibleType(System::String^ file) {
-				msclr::interop::marshal_context^ context = gcnew msclr::interop::marshal_context();
+				/*msclr::interop::marshal_context^ context = gcnew msclr::interop::marshal_context();
 				const char* extension = context->marshal_as<const char*>(file);
 				puts(extension);
-				delete context;
-				return std::binary_search(Types.begin(), Types.end(), extension);
+				delete context;*/
+				return file->Contains(".dll") || file->Contains(".btd6mod");
 			}
 
 			static System::String^ GetSteamDir()
