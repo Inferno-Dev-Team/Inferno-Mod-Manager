@@ -287,7 +287,7 @@ namespace InfernoModManager {
 
 		private: System::Void ModsList_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 			if (e->ColumnIndex == EnabledColumn->Index) {
-				ModsList->EndEdit();
+				ModsList->EndEdit(); //makes changes actually register
 				System::Windows::Forms::DataGridViewRow^ row = ModsList->Rows[e->RowIndex];
 				if (((System::String^)row->Cells[2]->Value)->Contains(".dll")) {
 					System::String^ oldName;
