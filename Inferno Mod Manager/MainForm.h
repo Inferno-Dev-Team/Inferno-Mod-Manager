@@ -39,6 +39,8 @@ namespace InfernoModManager {
 			}
 
 			CheckBTD6Open();
+
+
 		}
 
 	protected:
@@ -71,6 +73,12 @@ namespace InfernoModManager {
 
 	private: System::Windows::Forms::TableLayoutPanel^ ModManager;
 	private: System::Windows::Forms::TabPage^ ManagerTab;
+	private: System::Windows::Forms::TableLayoutPanel^ DownloadManager;
+	private: System::Windows::Forms::LinkLabel^ DownloadUrl;
+	private: System::Windows::Forms::Label^ DownloadName;
+	private: System::Windows::Forms::Label^ DownloadAuthor;
+	private: System::Windows::Forms::Label^ DownloadTags;
+	private: System::Windows::Forms::PictureBox^ DownloadImage;
 
 
 
@@ -108,6 +116,7 @@ namespace InfernoModManager {
 			System::Windows::Forms::Label^ label3;
 			System::Windows::Forms::Label^ label4;
 			System::Windows::Forms::Label^ label6;
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->ModManager = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->ModName = (gcnew System::Windows::Forms::Label());
 			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
@@ -123,6 +132,12 @@ namespace InfernoModManager {
 			this->Tabs = (gcnew System::Windows::Forms::TabControl());
 			this->ManagerTab = (gcnew System::Windows::Forms::TabPage());
 			this->DownloadTab = (gcnew System::Windows::Forms::TabPage());
+			this->DownloadManager = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->DownloadUrl = (gcnew System::Windows::Forms::LinkLabel());
+			this->DownloadName = (gcnew System::Windows::Forms::Label());
+			this->DownloadAuthor = (gcnew System::Windows::Forms::Label());
+			this->DownloadTags = (gcnew System::Windows::Forms::Label());
+			this->DownloadImage = (gcnew System::Windows::Forms::PictureBox());
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
 			label3 = (gcnew System::Windows::Forms::Label());
@@ -132,6 +147,9 @@ namespace InfernoModManager {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			this->Tabs->SuspendLayout();
 			this->ManagerTab->SuspendLayout();
+			this->DownloadTab->SuspendLayout();
+			this->DownloadManager->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -360,12 +378,81 @@ namespace InfernoModManager {
 			// 
 			// DownloadTab
 			// 
+			this->DownloadTab->Controls->Add(this->DownloadManager);
 			this->DownloadTab->Location = System::Drawing::Point(4, 25);
 			this->DownloadTab->Name = L"DownloadTab";
 			this->DownloadTab->Size = System::Drawing::Size(1311, 721);
 			this->DownloadTab->TabIndex = 0;
 			this->DownloadTab->Text = L"Download";
 			this->DownloadTab->UseVisualStyleBackColor = true;
+			// 
+			// DownloadManager
+			// 
+			this->DownloadManager->ColumnCount = 1;
+			this->DownloadManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->DownloadManager->Controls->Add(this->DownloadUrl, 0, 0);
+			this->DownloadManager->Controls->Add(this->DownloadName, 0, 1);
+			this->DownloadManager->Controls->Add(this->DownloadAuthor, 0, 2);
+			this->DownloadManager->Controls->Add(this->DownloadTags, 0, 3);
+			this->DownloadManager->Controls->Add(this->DownloadImage, 0, 4);
+			this->DownloadManager->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadManager->Location = System::Drawing::Point(0, 0);
+			this->DownloadManager->Name = L"DownloadManager";
+			this->DownloadManager->RowCount = 5;
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->Size = System::Drawing::Size(1311, 721);
+			this->DownloadManager->TabIndex = 0;
+			// 
+			// DownloadUrl
+			// 
+			this->DownloadUrl->AutoSize = true;
+			this->DownloadUrl->Location = System::Drawing::Point(3, 0);
+			this->DownloadUrl->Name = L"DownloadUrl";
+			this->DownloadUrl->Size = System::Drawing::Size(92, 17);
+			this->DownloadUrl->TabIndex = 0;
+			this->DownloadUrl->TabStop = true;
+			this->DownloadUrl->Text = L"Download Url";
+			// 
+			// DownloadName
+			// 
+			this->DownloadName->AutoSize = true;
+			this->DownloadName->Location = System::Drawing::Point(3, 17);
+			this->DownloadName->Name = L"DownloadName";
+			this->DownloadName->Size = System::Drawing::Size(111, 17);
+			this->DownloadName->TabIndex = 1;
+			this->DownloadName->Text = L"Download Name";
+			// 
+			// DownloadAuthor
+			// 
+			this->DownloadAuthor->AutoSize = true;
+			this->DownloadAuthor->Location = System::Drawing::Point(3, 34);
+			this->DownloadAuthor->Name = L"DownloadAuthor";
+			this->DownloadAuthor->Size = System::Drawing::Size(116, 17);
+			this->DownloadAuthor->TabIndex = 2;
+			this->DownloadAuthor->Text = L"Download Author";
+			// 
+			// DownloadTags
+			// 
+			this->DownloadTags->AutoSize = true;
+			this->DownloadTags->Location = System::Drawing::Point(3, 51);
+			this->DownloadTags->Name = L"DownloadTags";
+			this->DownloadTags->Size = System::Drawing::Size(106, 17);
+			this->DownloadTags->TabIndex = 3;
+			this->DownloadTags->Text = L"Download Tags";
+			// 
+			// DownloadImage
+			// 
+			this->DownloadImage->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.Image")));
+			this->DownloadImage->Location = System::Drawing::Point(3, 71);
+			this->DownloadImage->Name = L"DownloadImage";
+			this->DownloadImage->Size = System::Drawing::Size(1305, 647);
+			this->DownloadImage->TabIndex = 4;
+			this->DownloadImage->TabStop = false;
 			// 
 			// MainForm
 			// 
@@ -380,6 +467,10 @@ namespace InfernoModManager {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
 			this->Tabs->ResumeLayout(false);
 			this->ManagerTab->ResumeLayout(false);
+			this->DownloadTab->ResumeLayout(false);
+			this->DownloadManager->ResumeLayout(false);
+			this->DownloadManager->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->EndInit();
 			this->ResumeLayout(false);
 
 		}

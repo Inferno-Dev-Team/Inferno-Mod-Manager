@@ -16,10 +16,12 @@ std::vector<const char*> InfernoModManager::Games::Types = {
 	".dll",
 	".dll.disabled"
 };
+std::map<long long, const char*> InfernoModManager::Games::GameLocs = {};
+
 std::vector<const char*> InfernoModManager::WebDownloader::Repos = {
 	"https://github.com/KosmicShovel/BTD6-Mods/raw/master/tmp/git.yo"
 };
-std::map<long long, const char*> InfernoModManager::Games::GameLocs = {};
+std::vector<const char*> InfernoModManager::WebDownloader::AllData = {};
 
 [STAThread]
 int main()
