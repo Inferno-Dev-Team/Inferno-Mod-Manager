@@ -147,6 +147,7 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Mod.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="WebDownloader.h" />
   </ItemGroup>

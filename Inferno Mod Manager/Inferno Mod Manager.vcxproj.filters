@@ -50,6 +50,9 @@
     <ClInclude Include="Tags.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mod.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

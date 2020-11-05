@@ -24,7 +24,7 @@ std::vector<const char*> InfernoModManager::WebDownloader::Repos = {
 };
 std::vector<const char*> InfernoModManager::WebDownloader::AllData = {};
 
-[InfernoModAttribute("tmp", "kosmic", "other", "null")]
+[InfernoModAttribute("tmp", "kosmic", "other", "null", "1.0")]
 [STAThread]
 int main()
 {
