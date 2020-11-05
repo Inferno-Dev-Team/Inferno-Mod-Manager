@@ -67,6 +67,7 @@ namespace InfernoModManager {
 	private: System::Windows::Forms::Label^ ModName;
 	private: System::Windows::Forms::Label^ ModType;
 	private: System::Windows::Forms::Label^ ModEnabled;
+	private: System::Windows::Forms::Label^ ModDescription;
 
 
 
@@ -96,6 +97,9 @@ namespace InfernoModManager {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::Windows::Forms::Label^ label1;
 			System::Windows::Forms::Label^ label2;
+			System::Windows::Forms::Label^ label3;
+			System::Windows::Forms::Label^ label4;
+			System::Windows::Forms::Label^ label6;
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->ModName = (gcnew System::Windows::Forms::Label());
@@ -106,9 +110,13 @@ namespace InfernoModManager {
 			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ModType = (gcnew System::Windows::Forms::Label());
 			this->ModEnabled = (gcnew System::Windows::Forms::Label());
+			this->ModDescription = (gcnew System::Windows::Forms::Label());
 			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
+			label3 = (gcnew System::Windows::Forms::Label());
+			label4 = (gcnew System::Windows::Forms::Label());
+			label6 = (gcnew System::Windows::Forms::Label());
 			this->tableLayoutPanel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			this->SuspendLayout();
@@ -116,42 +124,95 @@ namespace InfernoModManager {
 			// label1
 			// 
 			label1->AutoSize = true;
-			label1->Location = System::Drawing::Point(1003, 71);
+			label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label1->Location = System::Drawing::Point(882, 74);
 			label1->Name = L"label1";
-			label1->Size = System::Drawing::Size(44, 17);
+			label1->Size = System::Drawing::Size(49, 17);
 			label1->TabIndex = 5;
 			label1->Text = L"Type:";
 			// 
 			// label2
 			// 
 			label2->AutoSize = true;
-			label2->Location = System::Drawing::Point(1003, 54);
+			label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label2->Location = System::Drawing::Point(882, 91);
 			label2->Name = L"label2";
-			label2->Size = System::Drawing::Size(64, 17);
+			label2->Size = System::Drawing::Size(72, 17);
 			label2->TabIndex = 8;
 			label2->Text = L"Enabled:";
+			// 
+			// label3
+			// 
+			label3->AutoSize = true;
+			label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label3->Location = System::Drawing::Point(882, 128);
+			label3->Name = L"label3";
+			label3->Size = System::Drawing::Size(95, 17);
+			label3->TabIndex = 10;
+			label3->Text = L"Description:";
+			// 
+			// label4
+			// 
+			label4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
+			label4->BackColor = System::Drawing::SystemColors::ActiveBorder;
+			label4->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->tableLayoutPanel2->SetColumnSpan(label4, 2);
+			label4->ForeColor = System::Drawing::SystemColors::ActiveBorder;
+			label4->Location = System::Drawing::Point(882, 63);
+			label4->Name = L"label4";
+			label4->Size = System::Drawing::Size(434, 2);
+			label4->TabIndex = 12;
+			label4->Text = L"label4";
+			// 
+			// label6
+			// 
+			label6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
+			label6->BackColor = System::Drawing::SystemColors::ActiveBorder;
+			label6->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->tableLayoutPanel2->SetColumnSpan(label6, 2);
+			label6->ForeColor = System::Drawing::SystemColors::ActiveBorder;
+			label6->Location = System::Drawing::Point(882, 117);
+			label6->Name = L"label6";
+			label6->Size = System::Drawing::Size(434, 2);
+			label6->TabIndex = 14;
+			label6->Text = L"label6";
 			// 
 			// tableLayoutPanel2
 			// 
 			this->tableLayoutPanel2->ColumnCount = 3;
-			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
-			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
-			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				66.67F)));
+			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				16.665F)));
+			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				16.665F)));
+			this->tableLayoutPanel2->Controls->Add(label6, 1, 5);
 			this->tableLayoutPanel2->Controls->Add(this->ModName, 1, 1);
 			this->tableLayoutPanel2->Controls->Add(this->DoModsButton, 0, 0);
 			this->tableLayoutPanel2->Controls->Add(this->ModsList, 0, 1);
+			this->tableLayoutPanel2->Controls->Add(label3, 1, 6);
+			this->tableLayoutPanel2->Controls->Add(this->ModDescription, 1, 7);
+			this->tableLayoutPanel2->Controls->Add(label4, 1, 2);
+			this->tableLayoutPanel2->Controls->Add(label2, 1, 4);
 			this->tableLayoutPanel2->Controls->Add(label1, 1, 3);
-			this->tableLayoutPanel2->Controls->Add(label2, 1, 2);
+			this->tableLayoutPanel2->Controls->Add(this->ModEnabled, 2, 4);
 			this->tableLayoutPanel2->Controls->Add(this->ModType, 2, 3);
-			this->tableLayoutPanel2->Controls->Add(this->ModEnabled, 2, 2);
 			this->tableLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tableLayoutPanel2->Location = System::Drawing::Point(0, 0);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
-			this->tableLayoutPanel2->RowCount = 4;
+			this->tableLayoutPanel2->RowCount = 7;
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->tableLayoutPanel2->Size = System::Drawing::Size(1319, 750);
 			this->tableLayoutPanel2->TabIndex = 0;
 			// 
@@ -161,7 +222,7 @@ namespace InfernoModManager {
 			this->tableLayoutPanel2->SetColumnSpan(this->ModName, 2);
 			this->ModName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->ModName->Location = System::Drawing::Point(1003, 29);
+			this->ModName->Location = System::Drawing::Point(882, 29);
 			this->ModName->Name = L"ModName";
 			this->ModName->Size = System::Drawing::Size(108, 25);
 			this->ModName->TabIndex = 4;
@@ -193,13 +254,13 @@ namespace InfernoModManager {
 			this->ModsList->Name = L"ModsList";
 			this->ModsList->RowHeadersVisible = false;
 			this->ModsList->RowHeadersWidth = 51;
-			this->tableLayoutPanel2->SetRowSpan(this->ModsList, 3);
+			this->tableLayoutPanel2->SetRowSpan(this->ModsList, 7);
 			this->ModsList->RowTemplate->Height = 24;
 			this->ModsList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->ModsList->ShowCellErrors = false;
 			this->ModsList->ShowEditingIcon = false;
 			this->ModsList->ShowRowErrors = false;
-			this->ModsList->Size = System::Drawing::Size(994, 715);
+			this->ModsList->Size = System::Drawing::Size(873, 715);
 			this->ModsList->TabIndex = 3;
 			this->ModsList->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
@@ -233,7 +294,7 @@ namespace InfernoModManager {
 			// ModType
 			// 
 			this->ModType->AutoSize = true;
-			this->ModType->Location = System::Drawing::Point(1073, 71);
+			this->ModType->Location = System::Drawing::Point(1101, 74);
 			this->ModType->Name = L"ModType";
 			this->ModType->Size = System::Drawing::Size(71, 17);
 			this->ModType->TabIndex = 7;
@@ -242,11 +303,20 @@ namespace InfernoModManager {
 			// ModEnabled
 			// 
 			this->ModEnabled->AutoSize = true;
-			this->ModEnabled->Location = System::Drawing::Point(1073, 54);
+			this->ModEnabled->Location = System::Drawing::Point(1101, 91);
 			this->ModEnabled->Name = L"ModEnabled";
 			this->ModEnabled->Size = System::Drawing::Size(91, 17);
 			this->ModEnabled->TabIndex = 9;
 			this->ModEnabled->Text = L"Mod Enabled";
+			// 
+			// ModDescription
+			// 
+			this->ModDescription->AutoSize = true;
+			this->ModDescription->Location = System::Drawing::Point(882, 145);
+			this->ModDescription->Name = L"ModDescription";
+			this->ModDescription->Size = System::Drawing::Size(110, 17);
+			this->ModDescription->TabIndex = 11;
+			this->ModDescription->Text = L"Mod Description";
 			// 
 			// CheckBTD6Timer
 			// 
