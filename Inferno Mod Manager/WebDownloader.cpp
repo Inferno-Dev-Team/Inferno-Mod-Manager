@@ -7,7 +7,7 @@
 namespace InfernoModManager {
 	std::vector<const char*> WebDownloader::getAllData(bool forcePull, bool log)
 	{
-		if (AllData.size() > 0 || forcePull) {
+		if (AllData.size() == 0 || forcePull) {
 			std::vector<const char*> compList = std::vector<const char*>();
 			System::Net::WebClient^ web = gcnew System::Net::WebClient();
 			web->Headers->Add("user-agent", "Inferno Mod Manager");

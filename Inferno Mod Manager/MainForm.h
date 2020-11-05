@@ -1,9 +1,8 @@
 #include <iostream>
-#include <vector>
-#include <cstring>
 
 #include "SupportedGames.cpp"
 #include "Injection.h"
+#include "WebDownloader.h"
 
 #pragma once
 
@@ -42,7 +41,7 @@ namespace InfernoModManager {
 
 			CheckBTD6Open();
 
-			//UpdateDownloadTab(InfernoModManager::WebDownloader::getAllData()[0]);
+			UpdateDownloadTab(InfernoModManager::WebDownloader::getAllData()[0]);
 		}
 
 	protected:
@@ -522,6 +521,13 @@ namespace InfernoModManager {
 			UpdateStats(ModsList->SelectedRows[0]->Index);
 		}
 
+		private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
+		{
+			System::Diagnostics::ProcessStartInfo^ psi = gcnew System::Diagnostics::ProcessStartInfo("steam://rungameid/960090");
+			System::Diagnostics::Process::Start(psi);
+			System::Threading::Thread::Sleep(5);
+		}
+
 		private: bool IsEnabled(System::String^ file) {
 			return !file->EndsWith(".disabled");
 		}
@@ -565,17 +571,16 @@ namespace InfernoModManager {
 			ModType->Text = (System::String^)row->Cells[2]->Value;
 		}
 
-		private: System::Void UpdateDownloadTab(char* data) {
-			std::vector<const char*> dataList;
-			dataList.push_back(std::strtok(data, "<"));
-			//while()
-		}
-
-		private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
-		{
-			System::Diagnostics::ProcessStartInfo^ psi = gcnew System::Diagnostics::ProcessStartInfo("steam://rungameid/960090");
-			System::Diagnostics::Process::Start(psi);
-			System::Threading::Thread::Sleep(5);
+		private: System::Void UpdateDownloadTab(const char* data) {
+			array<System::String^>^ dataList = msclr::interop::marshal_as<System::String^>(data)->Split('<');
+			DownloadUrl->Text = dataList[0];
+			DownloadName->Text = dataList[1];
+			DownloadAuthor->Text = dataList[2];
+			DownloadTags->Text = dataList[3];
+			System::IO::MemoryStream^ img = gcnew System::IO::MemoryStream(System::Convert::FromBase64String(dataList[4]));
+			DownloadImage->Image = System::Drawing::Image::FromStream(img);
+			img->Close();
+			delete img;
 		}
 };
 }
