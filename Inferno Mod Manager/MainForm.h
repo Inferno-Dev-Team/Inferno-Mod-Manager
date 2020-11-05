@@ -468,9 +468,6 @@ namespace InfernoModManager {
 
 		private: System::String^ btd6Install = nullptr;
 
-		private: array<InfernoModManager::Mod^>^ Installed;
-		private: array<InfernoModManager::Mod^>^ Available;
-
 		private: System::Void ModsList_ItemCheck(System::Object^ sender, System::Windows::Forms::ItemCheckEventArgs^ e) {
 			if (btd6Install != nullptr) {
 				//bool toggle =
@@ -509,7 +506,7 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void ModsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
-			//UpdateStats(ModsList->SelectedRows[0]->Index);
+			UpdateStats(ModsList->SelectedRows[0]->Index, false);
 		}
 
 		private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
@@ -525,12 +522,20 @@ namespace InfernoModManager {
 
 		private: System::Void PopulateModsList() {
 			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
+			InfernoModManager::Mod::Installed->Clear();
 			ModsList->Rows->Clear();
-			for each (System::String ^ file in files)
-				if (InfernoModManager::Games::IsCompatibleType(file))
-					ModsList->Rows->Add(IsEnabled(file), NameOf(file), TypeOf(file));
+			for each (System::String ^ file in files) {
+				if (InfernoModManager::Games::IsCompatibleType(file)) {
+					System::String^ name = NameOf(file);
+					System::String^ type = TypeOf(file);
+					System::Boolean^ enabled = IsEnabled(file);
+					ModsList->Rows->Add(enabled, name, type);
+					InfernoModManager::Mod::Installed->Add(gcnew InfernoModManager::Mod(name, "noone", "1.0", "other", type, "a mod",
+						file, "", enabled));
+				}
+			}
 			ModsList->Sort(NameColumn, System::ComponentModel::ListSortDirection::Ascending);
-			//UpdateStats(0);
+			UpdateStats(0, false);
 		}
 
 		private: System::String^ NameOf(System::String^ file) {
@@ -556,9 +561,11 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void UpdateStats(int index, bool isDownload) {
-			/*ModName->Text = (System::String^)row->Cells[1]->Value;
-			ModEnabled->Text = ((System::Boolean^)row->Cells[0]->Value)->ToString();
-			ModType->Text = (System::String^)row->Cells[2]->Value;*/
+			InfernoModManager::Mod^ mod = (isDownload ? InfernoModManager::Mod::Available : InfernoModManager::Mod::Installed)[index];
+			ModName->Text = mod->Name;
+			ModEnabled->Text = mod->Status->ToString();
+			ModType->Text = mod->Type;
+			ModDescription->Text = mod->Description;
 		}
 
 		private: System::Void UpdateDownloadTab(const char* data) {
