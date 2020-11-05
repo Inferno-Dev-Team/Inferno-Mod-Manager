@@ -3,6 +3,7 @@
 #include "Injection.h"
 #include "WebDownloader.h"
 #include "InfernoModAttribute.h"
+#include "Mod.h"
 #include <map>
 #include <vector>
 
