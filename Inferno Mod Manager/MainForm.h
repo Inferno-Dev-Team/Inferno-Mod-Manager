@@ -105,8 +105,8 @@ namespace InfernoModManager {
 			this->NameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ModType = (gcnew System::Windows::Forms::Label());
-			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->ModEnabled = (gcnew System::Windows::Forms::Label());
+			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
 			this->tableLayoutPanel2->SuspendLayout();
@@ -121,6 +121,15 @@ namespace InfernoModManager {
 			label1->Size = System::Drawing::Size(44, 17);
 			label1->TabIndex = 5;
 			label1->Text = L"Type:";
+			// 
+			// label2
+			// 
+			label2->AutoSize = true;
+			label2->Location = System::Drawing::Point(1003, 54);
+			label2->Name = L"label2";
+			label2->Size = System::Drawing::Size(64, 17);
+			label2->TabIndex = 8;
+			label2->Text = L"Enabled:";
 			// 
 			// tableLayoutPanel2
 			// 
@@ -192,9 +201,9 @@ namespace InfernoModManager {
 			this->ModsList->ShowRowErrors = false;
 			this->ModsList->Size = System::Drawing::Size(994, 715);
 			this->ModsList->TabIndex = 3;
-			this->ModsList->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellClick);
 			this->ModsList->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
+			this->ModsList->SelectionChanged += gcnew System::EventHandler(this, &MainForm::ModsList_SelectionChanged);
 			// 
 			// EnabledColumn
 			// 
@@ -230,21 +239,6 @@ namespace InfernoModManager {
 			this->ModType->TabIndex = 7;
 			this->ModType->Text = L"Mod Type";
 			// 
-			// CheckBTD6Timer
-			// 
-			this->CheckBTD6Timer->Enabled = true;
-			this->CheckBTD6Timer->Interval = 1000;
-			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
-			// 
-			// label2
-			// 
-			label2->AutoSize = true;
-			label2->Location = System::Drawing::Point(1003, 54);
-			label2->Name = L"label2";
-			label2->Size = System::Drawing::Size(64, 17);
-			label2->TabIndex = 8;
-			label2->Text = L"Enabled:";
-			// 
 			// ModEnabled
 			// 
 			this->ModEnabled->AutoSize = true;
@@ -253,6 +247,12 @@ namespace InfernoModManager {
 			this->ModEnabled->Size = System::Drawing::Size(91, 17);
 			this->ModEnabled->TabIndex = 9;
 			this->ModEnabled->Text = L"Mod Enabled";
+			// 
+			// CheckBTD6Timer
+			// 
+			this->CheckBTD6Timer->Enabled = true;
+			this->CheckBTD6Timer->Interval = 1000;
+			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
 			// 
 			// MainForm
 			// 
@@ -308,8 +308,8 @@ namespace InfernoModManager {
 			CheckBTD6Open();
 		}
 
-		private: System::Void ModsList_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-			UpdateStats(e->RowIndex);
+		private: System::Void ModsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
+			UpdateStats(ModsList->SelectedRows[0]->Index);
 		}
 
 		private: bool IsEnabled(System::String^ file) {
