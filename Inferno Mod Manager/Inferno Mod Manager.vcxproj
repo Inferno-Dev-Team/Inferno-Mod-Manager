@@ -138,6 +138,7 @@
     <ClCompile Include="Injection.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="SupportedGames.cpp" />
+    <ClCompile Include="WebDownloader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EncryptionManager.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="WebDownloader.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">

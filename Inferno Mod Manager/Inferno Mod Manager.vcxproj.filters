@@ -27,6 +27,9 @@
     <ClCompile Include="SupportedGames.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WebDownloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EncryptionManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WebDownloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

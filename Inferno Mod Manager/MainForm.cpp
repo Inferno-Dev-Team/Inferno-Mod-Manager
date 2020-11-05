@@ -1,6 +1,7 @@
 #include "MainForm.h"
 #include "SupportedGames.cpp"
 #include "Injection.h"
+#include "WebDownloader.h"
 #include <map>
 #include <vector>
 
@@ -15,11 +16,15 @@ std::vector<const char*> InfernoModManager::Games::Types = {
 	".dll",
 	".dll.disabled"
 };
+std::vector<const char*> InfernoModManager::WebDownloader::Repos = {
+	"https://github.com/KosmicShovel/BTD6-Mods/raw/master/tmp/git.yo"
+};
+std::map<long long, const char*> InfernoModManager::Games::GameLocs = {};
 
 [STAThread]
 int main()
 {
-	InfernoModManager::Injection::injectDLL("BloonsTD6", "D:\\Inferno-Mod-Manager\\LoggingDLL\\x64\\Release\\LoggingDLL.dll");
+	InfernoModManager::WebDownloader::getAllData();
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	InfernoModManager::MainForm form;

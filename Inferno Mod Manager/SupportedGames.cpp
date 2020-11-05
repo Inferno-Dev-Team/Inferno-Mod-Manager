@@ -13,6 +13,7 @@ namespace InfernoModManager
 		public:
 			static std::map<long long, const char*> GameInfo;
 			static std::vector<const char*> Types;
+			static std::map<long long, const char*> GameLocs;
 
 			static bool IsGameInstalled(const __int64 id)
 			{
@@ -43,6 +44,11 @@ namespace InfernoModManager
 
 				if (!IsGameInstalled(id))
 					throw gcnew System::Exception("You don't have that game installed!");
+
+				if (containsKey(GameLocs, id))
+				{
+					return msclr::interop::marshal_as<System::String^>(GameLocs.at(id));
+				}
 
 				System::Collections::Generic::List<System::String^>^ allPossible = gcnew System::Collections::Generic::List<System::String^>();
 				System::String^ config = steamDir + "\\steamapps\\libraryfolders.vdf";
@@ -77,11 +83,63 @@ namespace InfernoModManager
 					System::String^ gameFolder = (possible + "\\steamapps\\common\\" + gameName)->Replace("\\libraryfolders.vdf", "");
 					if (System::IO::Directory::Exists(gameFolder))
 					{
+						msclr::interop::marshal_context^ ctx = gcnew msclr::interop::marshal_context();
+						const char* tmp = ctx->marshal_as<const char*>(gameFolder);
+						GameLocs.insert(std::pair<long long, const char *>(id, tmp));
 						return gameFolder;
 					}
 				}
 
 				return "ERROR CANT FIND GAME";
+			}
+
+		private:
+			template <typename T, typename X>
+			static bool contains(std::map<T, X> map, T value)
+			{
+				return containsKey(map, value) || containsValue(map, value);
+			}
+
+			template <typename T, typename X>
+			static bool containsKey(std::map<T, X> map, T value)
+			{
+				for each (std::pair<T, X> pair in map)
+				{
+					if (pair.first == value)
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			template <typename T, typename X>
+			static bool containsValue(std::map<T, X> map, X value)
+			{
+				for each (std::pair<T, X> pair in map)
+				{
+					if (pair.second == value)
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			template <typename T, typename X>
+			static bool containsPair(std::map<T, X> map, std::pair<T, X> value)
+			{
+				for each (std::pair<T, X> pair in map)
+				{
+					if (pair.first == value.first && pair.second == value.second)
+					{
+						return true;
+					}
+				}
+
+				return false;
 			}
 	};
 }
