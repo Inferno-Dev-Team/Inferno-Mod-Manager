@@ -10,6 +10,6 @@ ref class InfernoModAttribute : public System::Attribute
 
 		~InfernoModAttribute()
 		{
-			delete name, description, tags, base64png;
+			delete name, description, tags, base64png, version;
 		}
 };
