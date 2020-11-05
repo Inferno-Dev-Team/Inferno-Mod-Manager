@@ -26,7 +26,7 @@ namespace InfernoModManager {
 			PopulateModsList();
 
 			for each (const char* type in InfernoModManager::Games::Types) {
-				System::IO::FileSystemWatcher^ typeWatcher = 
+				System::IO::FileSystemWatcher^ typeWatcher =
 					gcnew System::IO::FileSystemWatcher(btd6Install, '*' + msclr::interop::marshal_as<System::String^>(type));
 				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(typeWatcher))->BeginInit();
 				typeWatcher->EnableRaisingEvents = true;
@@ -153,9 +153,9 @@ namespace InfernoModManager {
 			this->DownloadManager->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->BeginInit();
 			this->SuspendLayout();
-			// 
+			//
 			// label1
-			// 
+			//
 			label1->AutoSize = true;
 			label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -164,9 +164,9 @@ namespace InfernoModManager {
 			label1->Size = System::Drawing::Size(49, 17);
 			label1->TabIndex = 5;
 			label1->Text = L"Type:";
-			// 
+			//
 			// label2
-			// 
+			//
 			label2->AutoSize = true;
 			label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -175,9 +175,9 @@ namespace InfernoModManager {
 			label2->Size = System::Drawing::Size(72, 17);
 			label2->TabIndex = 8;
 			label2->Text = L"Enabled:";
-			// 
+			//
 			// label3
-			// 
+			//
 			label3->AutoSize = true;
 			label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -186,9 +186,9 @@ namespace InfernoModManager {
 			label3->Size = System::Drawing::Size(95, 17);
 			label3->TabIndex = 10;
 			label3->Text = L"Description:";
-			// 
+			//
 			// label4
-			// 
+			//
 			label4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
 			label4->BackColor = System::Drawing::SystemColors::ActiveBorder;
 			label4->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
@@ -199,9 +199,9 @@ namespace InfernoModManager {
 			label4->Size = System::Drawing::Size(431, 2);
 			label4->TabIndex = 12;
 			label4->Text = L"label4";
-			// 
+			//
 			// label6
-			// 
+			//
 			label6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
 			label6->BackColor = System::Drawing::SystemColors::ActiveBorder;
 			label6->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
@@ -212,9 +212,9 @@ namespace InfernoModManager {
 			label6->Size = System::Drawing::Size(431, 2);
 			label6->TabIndex = 14;
 			label6->Text = L"label6";
-			// 
+			//
 			// ModManager
-			// 
+			//
 			this->ModManager->ColumnCount = 3;
 			this->ModManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 66.67F)));
 			this->ModManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 16.665F)));
@@ -248,9 +248,9 @@ namespace InfernoModManager {
 			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->ModManager->Size = System::Drawing::Size(1311, 721);
 			this->ModManager->TabIndex = 0;
-			// 
+			//
 			// ModName
-			// 
+			//
 			this->ModName->AutoSize = true;
 			this->ModManager->SetColumnSpan(this->ModName, 2);
 			this->ModName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -260,9 +260,9 @@ namespace InfernoModManager {
 			this->ModName->Size = System::Drawing::Size(108, 25);
 			this->ModName->TabIndex = 4;
 			this->ModName->Text = L"Mod Name";
-			// 
+			//
 			// ModsList
-			// 
+			//
 			this->ModsList->AllowUserToAddRows = false;
 			this->ModsList->AllowUserToDeleteRows = false;
 			this->ModsList->AllowUserToResizeColumns = false;
@@ -289,76 +289,77 @@ namespace InfernoModManager {
 			this->ModsList->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->SelectionChanged += gcnew System::EventHandler(this, &MainForm::ModsList_SelectionChanged);
-			// 
+			//
 			// EnabledColumn
-			// 
+			//
 			this->EnabledColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
 			this->EnabledColumn->HeaderText = L"Enabled";
 			this->EnabledColumn->MinimumWidth = 6;
 			this->EnabledColumn->Name = L"EnabledColumn";
 			this->EnabledColumn->Width = 66;
-			// 
+			//
 			// NameColumn
-			// 
+			//
 			this->NameColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
 			this->NameColumn->HeaderText = L"Name";
 			this->NameColumn->MinimumWidth = 6;
 			this->NameColumn->Name = L"NameColumn";
 			this->NameColumn->ReadOnly = true;
-			// 
+			//
 			// TypeColumn
-			// 
+			//
 			this->TypeColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
 			this->TypeColumn->HeaderText = L"Type";
 			this->TypeColumn->MinimumWidth = 6;
 			this->TypeColumn->Name = L"TypeColumn";
 			this->TypeColumn->ReadOnly = true;
 			this->TypeColumn->Width = 69;
-			// 
+			//
 			// ModDescription
-			// 
+			//
 			this->ModDescription->AutoSize = true;
 			this->ModDescription->Location = System::Drawing::Point(877, 145);
 			this->ModDescription->Name = L"ModDescription";
 			this->ModDescription->Size = System::Drawing::Size(110, 17);
 			this->ModDescription->TabIndex = 11;
 			this->ModDescription->Text = L"Mod Description";
-			// 
+			//
 			// ModType
-			// 
+			//
 			this->ModType->AutoSize = true;
 			this->ModType->Location = System::Drawing::Point(1095, 91);
 			this->ModType->Name = L"ModType";
 			this->ModType->Size = System::Drawing::Size(71, 17);
 			this->ModType->TabIndex = 7;
 			this->ModType->Text = L"Mod Type";
-			// 
+			//
 			// ModEnabled
-			// 
+			//
 			this->ModEnabled->AutoSize = true;
 			this->ModEnabled->Location = System::Drawing::Point(1095, 74);
 			this->ModEnabled->Name = L"ModEnabled";
 			this->ModEnabled->Size = System::Drawing::Size(91, 17);
 			this->ModEnabled->TabIndex = 9;
 			this->ModEnabled->Text = L"Mod Enabled";
-			// 
+			//
 			// DoModsButton
-			// 
+			//
 			this->DoModsButton->Location = System::Drawing::Point(3, 3);
 			this->DoModsButton->Name = L"DoModsButton";
 			this->DoModsButton->Size = System::Drawing::Size(75, 23);
 			this->DoModsButton->TabIndex = 1;
 			this->DoModsButton->Text = L"Launch";
 			this->DoModsButton->UseVisualStyleBackColor = true;
-			// 
+			this->DoModsButton->Click += gcnew System::EventHandler(this, &MainForm::LaunchGame);
+			//
 			// CheckBTD6Timer
-			// 
+			//
 			this->CheckBTD6Timer->Enabled = true;
 			this->CheckBTD6Timer->Interval = 1000;
 			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
-			// 
+			//
 			// Tabs
-			// 
+			//
 			this->Tabs->Controls->Add(this->ManagerTab);
 			this->Tabs->Controls->Add(this->DownloadTab);
 			this->Tabs->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -367,9 +368,9 @@ namespace InfernoModManager {
 			this->Tabs->SelectedIndex = 0;
 			this->Tabs->Size = System::Drawing::Size(1319, 750);
 			this->Tabs->TabIndex = 1;
-			// 
+			//
 			// ManagerTab
-			// 
+			//
 			this->ManagerTab->Controls->Add(this->ModManager);
 			this->ManagerTab->Location = System::Drawing::Point(4, 25);
 			this->ManagerTab->Name = L"ManagerTab";
@@ -377,9 +378,9 @@ namespace InfernoModManager {
 			this->ManagerTab->TabIndex = 1;
 			this->ManagerTab->Text = L"Manager";
 			this->ManagerTab->UseVisualStyleBackColor = true;
-			// 
+			//
 			// DownloadTab
-			// 
+			//
 			this->DownloadTab->Controls->Add(this->DownloadManager);
 			this->DownloadTab->Location = System::Drawing::Point(4, 25);
 			this->DownloadTab->Name = L"DownloadTab";
@@ -387,9 +388,9 @@ namespace InfernoModManager {
 			this->DownloadTab->TabIndex = 0;
 			this->DownloadTab->Text = L"Download";
 			this->DownloadTab->UseVisualStyleBackColor = true;
-			// 
+			//
 			// DownloadManager
-			// 
+			//
 			this->DownloadManager->ColumnCount = 1;
 			this->DownloadManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
 			this->DownloadManager->Controls->Add(this->DownloadUrl, 0, 0);
@@ -408,9 +409,9 @@ namespace InfernoModManager {
 			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->DownloadManager->Size = System::Drawing::Size(1311, 721);
 			this->DownloadManager->TabIndex = 0;
-			// 
+			//
 			// DownloadUrl
-			// 
+			//
 			this->DownloadUrl->AutoSize = true;
 			this->DownloadUrl->Location = System::Drawing::Point(3, 0);
 			this->DownloadUrl->Name = L"DownloadUrl";
@@ -418,36 +419,36 @@ namespace InfernoModManager {
 			this->DownloadUrl->TabIndex = 0;
 			this->DownloadUrl->TabStop = true;
 			this->DownloadUrl->Text = L"Download Url";
-			// 
+			//
 			// DownloadName
-			// 
+			//
 			this->DownloadName->AutoSize = true;
 			this->DownloadName->Location = System::Drawing::Point(3, 17);
 			this->DownloadName->Name = L"DownloadName";
 			this->DownloadName->Size = System::Drawing::Size(111, 17);
 			this->DownloadName->TabIndex = 1;
 			this->DownloadName->Text = L"Download Name";
-			// 
+			//
 			// DownloadAuthor
-			// 
+			//
 			this->DownloadAuthor->AutoSize = true;
 			this->DownloadAuthor->Location = System::Drawing::Point(3, 34);
 			this->DownloadAuthor->Name = L"DownloadAuthor";
 			this->DownloadAuthor->Size = System::Drawing::Size(116, 17);
 			this->DownloadAuthor->TabIndex = 2;
 			this->DownloadAuthor->Text = L"Download Author";
-			// 
+			//
 			// DownloadTags
-			// 
+			//
 			this->DownloadTags->AutoSize = true;
 			this->DownloadTags->Location = System::Drawing::Point(3, 51);
 			this->DownloadTags->Name = L"DownloadTags";
 			this->DownloadTags->Size = System::Drawing::Size(106, 17);
 			this->DownloadTags->TabIndex = 3;
 			this->DownloadTags->Text = L"Download Tags";
-			// 
+			//
 			// DownloadImage
-			// 
+			//
 			this->DownloadImage->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->DownloadImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.Image")));
 			this->DownloadImage->Location = System::Drawing::Point(3, 71);
@@ -455,9 +456,9 @@ namespace InfernoModManager {
 			this->DownloadImage->Size = System::Drawing::Size(1305, 647);
 			this->DownloadImage->TabIndex = 4;
 			this->DownloadImage->TabStop = false;
-			// 
+			//
 			// MainForm
-			// 
+			//
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1319, 750);
@@ -568,6 +569,13 @@ namespace InfernoModManager {
 			std::vector<const char*> dataList;
 			dataList.push_back(std::strtok(data, "<"));
 			//while()
+		}
+	
+		private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
+		{
+			System::Diagnostics::ProcessStartInfo^ psi = gcnew System::Diagnostics::ProcessStartInfo("steam://rungameid/960090");
+			System::Diagnostics::Process::Start(psi);
+			System::Threading::Thread::Sleep(5);
 		}
 };
 }

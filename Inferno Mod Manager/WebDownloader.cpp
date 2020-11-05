@@ -5,7 +5,7 @@
 #include <string>
 
 namespace InfernoModManager {
-	std::vector<const char*> WebDownloader::getAllData(bool forcePull)
+	std::vector<const char*> WebDownloader::getAllData(bool forcePull, bool log)
 	{
 		if (AllData.size() > 0 || forcePull) {
 			std::vector<const char*> compList = std::vector<const char*>();
@@ -21,6 +21,7 @@ namespace InfernoModManager {
 					msclr::interop::marshal_context^ ctx = gcnew msclr::interop::marshal_context();
 					const char* tmp = ctx->marshal_as<const char*>(section);
 					compList.push_back(tmp);
+					if (log) std::cout << tmp << "\n";
 				}
 			}
 			AllData = compList;
