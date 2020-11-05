@@ -142,10 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EncryptionManager.h" />
+    <ClInclude Include="InfernoModAttribute.h" />
     <ClInclude Include="Injection.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Tags.h" />
     <ClInclude Include="WebDownloader.h" />
   </ItemGroup>
   <ItemGroup>

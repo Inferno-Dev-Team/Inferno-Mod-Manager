@@ -2,6 +2,7 @@
 #include "SupportedGames.cpp"
 #include "Injection.h"
 #include "WebDownloader.h"
+#include "InfernoModAttribute.h"
 #include <map>
 #include <vector>
 
@@ -23,6 +24,7 @@ std::vector<const char*> InfernoModManager::WebDownloader::Repos = {
 };
 std::vector<const char*> InfernoModManager::WebDownloader::AllData = {};
 
+[InfernoModAttribute("tmp", "kosmic", "other", "null")]
 [STAThread]
 int main()
 {

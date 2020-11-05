@@ -42,7 +42,7 @@ namespace InfernoModManager {
 
 			CheckBTD6Open();
 
-			UpdateDownloadTab(InfernoModManager::WebDownloader::getAllData()[0]);
+			//UpdateDownloadTab(InfernoModManager::WebDownloader::getAllData()[0]);
 		}
 
 	protected:
@@ -570,7 +570,7 @@ namespace InfernoModManager {
 			dataList.push_back(std::strtok(data, "<"));
 			//while()
 		}
-	
+
 		private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
 		{
 			System::Diagnostics::ProcessStartInfo^ psi = gcnew System::Diagnostics::ProcessStartInfo("steam://rungameid/960090");

@@ -44,6 +44,12 @@
     <ClInclude Include="WebDownloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InfernoModAttribute.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tags.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
