@@ -64,6 +64,12 @@ namespace InfernoModManager {
 		private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
 	private: System::Windows::Forms::Button^ DoModsButton;
 	private: System::Windows::Forms::Timer^ CheckBTD6Timer;
+	private: System::Windows::Forms::Label^ ModName;
+	private: System::Windows::Forms::Label^ ModType;
+	private: System::Windows::Forms::Label^ ModEnabled;
+
+
+
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -88,35 +94,69 @@ namespace InfernoModManager {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::Windows::Forms::Label^ label1;
+			System::Windows::Forms::Label^ label2;
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->ModName = (gcnew System::Windows::Forms::Label());
 			this->DoModsButton = (gcnew System::Windows::Forms::Button());
 			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
 			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->NameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ModType = (gcnew System::Windows::Forms::Label());
 			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->ModEnabled = (gcnew System::Windows::Forms::Label());
+			label1 = (gcnew System::Windows::Forms::Label());
+			label2 = (gcnew System::Windows::Forms::Label());
 			this->tableLayoutPanel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			this->SuspendLayout();
+			// 
+			// label1
+			// 
+			label1->AutoSize = true;
+			label1->Location = System::Drawing::Point(1003, 71);
+			label1->Name = L"label1";
+			label1->Size = System::Drawing::Size(44, 17);
+			label1->TabIndex = 5;
+			label1->Text = L"Type:";
 			// 
 			// tableLayoutPanel2
 			// 
 			this->tableLayoutPanel2->ColumnCount = 3;
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
-			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				100)));
 			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->tableLayoutPanel2->Controls->Add(this->ModName, 1, 1);
 			this->tableLayoutPanel2->Controls->Add(this->DoModsButton, 0, 0);
 			this->tableLayoutPanel2->Controls->Add(this->ModsList, 0, 1);
+			this->tableLayoutPanel2->Controls->Add(label1, 1, 3);
+			this->tableLayoutPanel2->Controls->Add(label2, 1, 2);
+			this->tableLayoutPanel2->Controls->Add(this->ModType, 2, 3);
+			this->tableLayoutPanel2->Controls->Add(this->ModEnabled, 2, 2);
 			this->tableLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tableLayoutPanel2->Location = System::Drawing::Point(0, 0);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
-			this->tableLayoutPanel2->RowCount = 2;
+			this->tableLayoutPanel2->RowCount = 4;
 			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
-			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
-			this->tableLayoutPanel2->Size = System::Drawing::Size(1000, 750);
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->tableLayoutPanel2->Size = System::Drawing::Size(1319, 750);
 			this->tableLayoutPanel2->TabIndex = 0;
+			// 
+			// ModName
+			// 
+			this->ModName->AutoSize = true;
+			this->tableLayoutPanel2->SetColumnSpan(this->ModName, 2);
+			this->ModName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->ModName->Location = System::Drawing::Point(1003, 29);
+			this->ModName->Name = L"ModName";
+			this->ModName->Size = System::Drawing::Size(108, 25);
+			this->ModName->TabIndex = 4;
+			this->ModName->Text = L"Mod Name";
 			// 
 			// DoModsButton
 			// 
@@ -138,13 +178,13 @@ namespace InfernoModManager {
 				this->EnabledColumn,
 					this->NameColumn, this->TypeColumn
 			});
-			this->tableLayoutPanel2->SetColumnSpan(this->ModsList, 3);
 			this->ModsList->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ModsList->Location = System::Drawing::Point(3, 32);
 			this->ModsList->MultiSelect = false;
 			this->ModsList->Name = L"ModsList";
 			this->ModsList->RowHeadersVisible = false;
 			this->ModsList->RowHeadersWidth = 51;
+			this->tableLayoutPanel2->SetRowSpan(this->ModsList, 3);
 			this->ModsList->RowTemplate->Height = 24;
 			this->ModsList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->ModsList->ShowCellErrors = false;
@@ -152,9 +192,9 @@ namespace InfernoModManager {
 			this->ModsList->ShowRowErrors = false;
 			this->ModsList->Size = System::Drawing::Size(994, 715);
 			this->ModsList->TabIndex = 3;
+			this->ModsList->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellClick);
 			this->ModsList->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
-			this->ModsList->CellEndEdit += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellEndEdit);
 			// 
 			// EnabledColumn
 			// 
@@ -181,21 +221,49 @@ namespace InfernoModManager {
 			this->TypeColumn->ReadOnly = true;
 			this->TypeColumn->Width = 69;
 			// 
+			// ModType
+			// 
+			this->ModType->AutoSize = true;
+			this->ModType->Location = System::Drawing::Point(1073, 71);
+			this->ModType->Name = L"ModType";
+			this->ModType->Size = System::Drawing::Size(71, 17);
+			this->ModType->TabIndex = 7;
+			this->ModType->Text = L"Mod Type";
+			// 
 			// CheckBTD6Timer
 			// 
 			this->CheckBTD6Timer->Enabled = true;
 			this->CheckBTD6Timer->Interval = 1000;
 			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
 			// 
+			// label2
+			// 
+			label2->AutoSize = true;
+			label2->Location = System::Drawing::Point(1003, 54);
+			label2->Name = L"label2";
+			label2->Size = System::Drawing::Size(64, 17);
+			label2->TabIndex = 8;
+			label2->Text = L"Enabled:";
+			// 
+			// ModEnabled
+			// 
+			this->ModEnabled->AutoSize = true;
+			this->ModEnabled->Location = System::Drawing::Point(1073, 54);
+			this->ModEnabled->Name = L"ModEnabled";
+			this->ModEnabled->Size = System::Drawing::Size(91, 17);
+			this->ModEnabled->TabIndex = 9;
+			this->ModEnabled->Text = L"Mod Enabled";
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1000, 750);
+			this->ClientSize = System::Drawing::Size(1319, 750);
 			this->Controls->Add(this->tableLayoutPanel2);
 			this->Name = L"MainForm";
 			this->Text = L"Inferno Mod Manager";
 			this->tableLayoutPanel2->ResumeLayout(false);
+			this->tableLayoutPanel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
 			this->ResumeLayout(false);
 
@@ -217,13 +285,7 @@ namespace InfernoModManager {
 			FolderUpdate(sender, (System::IO::FileSystemEventArgs^)e);
 		}
 
-		//you gotta do this because microsoft forgot about the checkboxes, I have this tied to content click and double click
 		private: System::Void ModsList_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-			if (e->ColumnIndex == EnabledColumn->Index)
-				ModsList->EndEdit();
-		}
-
-		private: System::Void ModsList_CellEndEdit(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 			if (e->ColumnIndex == EnabledColumn->Index) {
 				System::Windows::Forms::DataGridViewRow^ row = ModsList->Rows[e->RowIndex];
 				if (((System::String^)row->Cells[2]->Value)->Contains(".dll")) {
@@ -246,6 +308,10 @@ namespace InfernoModManager {
 			CheckBTD6Open();
 		}
 
+		private: System::Void ModsList_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+			UpdateStats(e->RowIndex);
+		}
+
 		private: bool IsEnabled(System::String^ file) {
 			return !file->EndsWith(".disabled");
 		}
@@ -257,6 +323,7 @@ namespace InfernoModManager {
 				if (InfernoModManager::Games::IsCompatibleType(file))
 					ModsList->Rows->Add(IsEnabled(file), NameOf(file), TypeOf(file));
 			ModsList->Sort(NameColumn, System::ComponentModel::ListSortDirection::Ascending);
+			UpdateStats(0);
 		}
 
 		private: System::String^ NameOf(System::String^ file) {
@@ -279,6 +346,13 @@ namespace InfernoModManager {
 				DoModsButton->Text = "Inject";
 			else
 				DoModsButton->Text = "Launch";
+		}
+
+		private: System::Void UpdateStats(int rowIndex) {
+			System::Windows::Forms::DataGridViewRow^ row = ModsList->Rows[rowIndex];
+			ModName->Text = (System::String^)row->Cells[1]->Value;
+			ModEnabled->Text = ((System::Boolean^)row->Cells[0]->Value)->ToString();
+			ModType->Text = (System::String^)row->Cells[2]->Value;
 		}
 };
 }
