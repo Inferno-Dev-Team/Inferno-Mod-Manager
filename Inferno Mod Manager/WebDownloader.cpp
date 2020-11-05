@@ -5,11 +5,12 @@
 #include <string>
 
 namespace InfernoModManager {
-	std::vector<const char*> WebDownloader::getAllData(bool forcePull = false)
+	std::vector<const char*> WebDownloader::getAllData(bool forcePull)
 	{
 		if (AllData.size() > 0 || forcePull) {
 			std::vector<const char*> compList = std::vector<const char*>();
 			System::Net::WebClient^ web = gcnew System::Net::WebClient();
+			web->Headers->Add("user-agent", "Inferno Mod Manager");
 			for each (const char* addr in WebDownloader::Repos)
 			{
 				System::String^ address = msclr::interop::marshal_as<System::String^>(addr);
@@ -31,6 +32,7 @@ namespace InfernoModManager {
 	void WebDownloader::downloadFile(const char* fileloc, const char* filename)
 	{
 		System::Net::WebClient^ web = gcnew System::Net::WebClient();
+		web->Headers->Add("user-agent", "Inferno Mod Manager");
 		web->DownloadFile(msclr::interop::marshal_as<System::String^>(fileloc), msclr::interop::marshal_as<System::String^>(filename));
 	}
 

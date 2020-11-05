@@ -7,7 +7,7 @@ namespace InfernoModManager {
 		public:
 			static std::vector<const char*> Repos;
 			static std::vector<const char*> AllData;
-		    static std::vector<const char*> getAllData(bool forcePull);
+		    static std::vector<const char*> getAllData(bool forcePull = false);
 			static void downloadFile(const char* fileloc, const char* filename);
 	};
 }
