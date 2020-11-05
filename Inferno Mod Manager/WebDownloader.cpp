@@ -1,6 +1,5 @@
 #include "WebDownloader.h"
 
-
 #include <iostream>
 #include <msclr\marshal.h>
 #include <string>
