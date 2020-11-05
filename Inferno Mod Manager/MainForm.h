@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <cstring>
 
 #include "SupportedGames.cpp"
 #include "Injection.h"
@@ -40,7 +42,7 @@ namespace InfernoModManager {
 
 			CheckBTD6Open();
 
-
+			UpdateDownloadTab(InfernoModManager::WebDownloader::getAllData()[0]);
 		}
 
 	protected:
@@ -560,6 +562,12 @@ namespace InfernoModManager {
 			ModName->Text = (System::String^)row->Cells[1]->Value;
 			ModEnabled->Text = ((System::Boolean^)row->Cells[0]->Value)->ToString();
 			ModType->Text = (System::String^)row->Cells[2]->Value;
+		}
+
+		private: System::Void UpdateDownloadTab(char* data) {
+			std::vector<const char*> dataList;
+			dataList.push_back(std::strtok(data, "<"));
+			//while()
 		}
 };
 }
