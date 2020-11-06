@@ -22,7 +22,7 @@ using UnityEngine;
 using Image = UnityEngine.UI.Image;
 
 namespace Inferno_Api {
-    public class Utilities {
+    /*public class Utilities {
         public static void SetTexture(Image image, string name, ResourceManager resourceManager) {
             object bitmap = resourceManager.GetObject(name);
             if (bitmap != null) {
@@ -213,5 +213,5 @@ namespace Inferno_Api {
         public static int GetTier(int tier1, int tier2, int tier3) => new int[] { tier1, tier2, tier3 }.Max();
         
         public static int GetTier(int[] tiers) => GetTier(tiers[0], tiers[1], tiers[2]);
-    }
+    }*/
 }

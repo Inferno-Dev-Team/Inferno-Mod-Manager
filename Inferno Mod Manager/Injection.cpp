@@ -25,26 +25,17 @@ namespace InfernoModManager
             if (!proc)
                 return false;
 
-            //GetProcAddress :: Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL).
-            HMODULE kernel32 = GetModuleHandleW(L"kernel32.dll");
-            if (kernel32) {
-                LoadLibAddy = (LPVOID)GetProcAddress(kernel32, "LoadLibraryA");
-
                 //Allocate memory space for the dll name in the process space
                 RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, strlen(dllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-
+                HMODULE dllModule = LoadLibraryA(dllName);
                 //write the name of the dll in this address space
                 if (RemoteString) {
-                    WriteProcessMemory(proc, RemoteString, dllName, strlen(dllName), NULL);
-
-                    //Load our dll using loadlibrary
-                    CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)LoadLibAddy, (LPVOID)RemoteString, NULL, NULL);
+                    CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)dllModule, (LPVOID)RemoteString, NULL, NULL);
 
                     CloseHandle(proc);
 
                     return true;
                 }
-            }
         }
         return false;
     }
