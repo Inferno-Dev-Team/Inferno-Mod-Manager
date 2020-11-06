@@ -25,17 +25,17 @@ namespace InfernoModManager
             if (!proc)
                 return false;
 
-                //Allocate memory space for the dll name in the process space
-                RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, strlen(dllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-                HMODULE dllModule = LoadLibraryA(dllName);
-                //write the name of the dll in this address space
-                if (RemoteString) {
-                    CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)dllModule, (LPVOID)RemoteString, NULL, NULL);
+            //Allocate memory space for the dll name in the process space
+            RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, strlen(dllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+            HMODULE dllModule = LoadLibraryA(dllName);
+            //write the name of the dll in this address space
+            if (RemoteString) {
+                CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)dllModule, (LPVOID)RemoteString, NULL, NULL);
 
-                    CloseHandle(proc);
+                CloseHandle(proc);
 
-                    return true;
-                }
+                return true;
+            }
         }
         return false;
     }
