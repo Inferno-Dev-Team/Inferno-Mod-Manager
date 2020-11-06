@@ -1,4 +1,6 @@
 #include "Injection.h"
+
+#include <string>
 #include <msclr/marshal.h>
 
 namespace InfernoModManager
@@ -13,23 +15,17 @@ namespace InfernoModManager
             if (!pId)
                 return false;
 
-            HANDLE proc = 0;
-            HMODULE hLib = 0;
-
-            char buf[50] = { 0 };
-
-            LPVOID RemoteString, LoadLibAddy;
-
-            proc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pId);
+            HANDLE proc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pId);
 
             if (!proc)
                 return false;
 
-            //Allocate memory space for the dll name in the process space
-            RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, strlen(dllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+            std::string tmp = dllName;
+
+            LPVOID RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, tmp.length(), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
             HMODULE dllModule = LoadLibraryA(dllName);
-            //write the name of the dll in this address space
-            if (RemoteString) {
+
+            if (RemoteString && dllModule) {
                 CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)dllModule, (LPVOID)RemoteString, NULL, NULL);
 
                 CloseHandle(proc);
