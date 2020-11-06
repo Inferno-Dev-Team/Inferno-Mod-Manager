@@ -1,4 +1,5 @@
 #include "Injection.h"
+#include <msclr/marshal.h>
 
 namespace InfernoModManager
 {
@@ -6,41 +7,46 @@ namespace InfernoModManager
 
     bool Injection::injectDLL(System::String^ procName, char* dllName)
     {
-        DWORD pId = Injection::GetTargetThreadIDFromProcName(procName);
+        if (dllName) {
+            DWORD pId = Injection::GetTargetThreadIDFromProcName(procName);
 
-        if (!pId)
-            return false;
+            if (!pId)
+                return false;
 
-        HANDLE proc = 0;
-        HMODULE hLib = 0;
+            HANDLE proc = 0;
+            HMODULE hLib = 0;
 
-        char buf[50] = { 0 };
+            char buf[50] = { 0 };
 
-        LPVOID RemoteString, LoadLibAddy;
+            LPVOID RemoteString, LoadLibAddy;
 
-        proc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pId);
+            proc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pId);
 
-        if (!proc)
-            return false;
+            if (!proc)
+                return false;
 
-        //GetProcAddress :: Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL).
-        LoadLibAddy = (LPVOID)GetProcAddress(GetModuleHandle(L"kernel32.dll"), "LoadLibraryA");
+            //GetProcAddress :: Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL).
+            HMODULE kernel32 = GetModuleHandleW(L"kernel32.dll");
+            if (kernel32) {
+                LoadLibAddy = (LPVOID)GetProcAddress(kernel32, "LoadLibraryA");
 
-        //Allocate memory space for the dll name in the process space
-        RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, strlen(dllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+                //Allocate memory space for the dll name in the process space
+                RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, strlen(dllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
-        //write the name of the dll in this address space
-        WriteProcessMemory(proc, RemoteString, dllName, strlen(dllName), NULL);
+                //write the name of the dll in this address space
+                if (RemoteString) {
+                    WriteProcessMemory(proc, RemoteString, dllName, strlen(dllName), NULL);
 
+                    //Load our dll using loadlibrary
+                    CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)LoadLibAddy, (LPVOID)RemoteString, NULL, NULL);
 
-        //Load our dll using loadlibrary
-        CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)LoadLibAddy, (LPVOID)RemoteString, NULL, NULL);
+                    CloseHandle(proc);
 
-
-        CloseHandle(proc);
-
-        return true;
-
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     DWORD Injection::GetTargetThreadIDFromProcName(System::String^ procName)

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\2matt\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\2matt\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Inferno Mod Manager.580758524.00" t="ExcludeRecursive" />
+    <e p="D:\Inferno-Mod-Manager\Inferno Mod Manager" t="IncludeRecursive">
+      <e p="EncryptionManager.cpp" t="Include" />
+      <e p="EncryptionManager.h" t="Include" />
+      <e p="Inferno Mod Manager.sln" t="IncludeFlat" />
+      <e p="Inferno Mod Manager.vcxproj" t="IncludeRecursive" />
+      <e p="InfernoModAttribute.h" t="Include" />
+      <e p="Injection.cpp" t="Include" />
+      <e p="Injection.h" t="Include" />
+      <e p="MainForm.cpp" t="Include" />
+      <e p="MainForm.h" t="Include" />
+      <e p="MainForm.resx" t="Include" />
+      <e p="Mod.h" t="Include" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="SupportedGames.cpp" t="Include" />
+      <e p="Tags.h" t="Include" />
+      <e p="WebDownloader.cpp" t="Include" />
+      <e p="WebDownloader.h" t="Include" />
+      <e p="x64\Debug" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

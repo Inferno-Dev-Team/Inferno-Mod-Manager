@@ -6,12 +6,18 @@
     <e p="D:\Inferno-Mod-Manager\Inferno Api" t="IncludeFlat">
       <e p="Inferno Api" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Extensions" t="Include">
+          <e p="ImagesEXT.cs" t="Include" />
+          <e p="LocalizationEXT.cs" t="Include" />
+          <e p="ModelsEXT.cs" t="Include" />
+        </e>
         <e p="Inferno Api.csproj" t="IncludeRecursive" />
         <e p="Inferno_Main.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
+        <e p="Utilities.cs" t="Include" />
       </e>
       <e p="Inferno Api.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
