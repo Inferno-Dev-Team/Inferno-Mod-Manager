@@ -76,10 +76,36 @@ namespace InfernoModManager {
 
 	private: System::Windows::Forms::TableLayoutPanel^ ModManager;
 	private: System::Windows::Forms::TabPage^ ManagerTab;
+	private: System::Windows::Forms::TableLayoutPanel^ DownloadManager;
 	private: System::Windows::Forms::DataGridView^ DownloadsList;
+
+
+
+	private: System::Windows::Forms::CheckBox^ ShowInstalledCheck;
+
+
+	private: System::Windows::Forms::Label^ DownloadDescription;
+	private: System::Windows::Forms::Label^ DownloadInstalled;
+	private: System::Windows::Forms::Label^ DownloadType;
+	private: System::Windows::Forms::Button^ DownloadMod;
 	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ InstalledColumn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadNameColumn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadTypeColumn;
+	private: System::Windows::Forms::PictureBox^ DownloadImage;
+	private: System::Windows::Forms::Label^ DownloadName;
+	private: System::Windows::Forms::LinkLabel^ DownloadLink;
+	private: System::Windows::Forms::Label^ DownloadAuthor;
+	private: System::Windows::Forms::Label^ DownloadTags;
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -129,36 +155,68 @@ namespace InfernoModManager {
 			System::Windows::Forms::Label^ label3;
 			System::Windows::Forms::Label^ label4;
 			System::Windows::Forms::Label^ label6;
+			System::Windows::Forms::Label^ label7;
+			System::Windows::Forms::Label^ label8;
+			System::Windows::Forms::Label^ label9;
+			System::Windows::Forms::Label^ label10;
+			System::Windows::Forms::Label^ label11;
+			System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel1;
+			System::Windows::Forms::Label^ label5;
+			System::Windows::Forms::Label^ label12;
+			System::Windows::Forms::Label^ label13;
+			this->DownloadImage = (gcnew System::Windows::Forms::PictureBox());
+			this->DownloadName = (gcnew System::Windows::Forms::Label());
+			this->DownloadMod = (gcnew System::Windows::Forms::Button());
 			this->ModManager = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->ModName = (gcnew System::Windows::Forms::Label());
 			this->ModDescription = (gcnew System::Windows::Forms::Label());
 			this->ModType = (gcnew System::Windows::Forms::Label());
 			this->ModEnabled = (gcnew System::Windows::Forms::Label());
 			this->DoModsButton = (gcnew System::Windows::Forms::Button());
-			this->Tabs = (gcnew System::Windows::Forms::TabControl());
-			this->ManagerTab = (gcnew System::Windows::Forms::TabPage());
 			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
 			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->NameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->DownloadTab = (gcnew System::Windows::Forms::TabPage());
 			this->DownloadsList = (gcnew System::Windows::Forms::DataGridView());
-			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
-			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->InstalledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->DownloadNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->DownloadTypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Tabs = (gcnew System::Windows::Forms::TabControl());
+			this->ManagerTab = (gcnew System::Windows::Forms::TabPage());
+			this->DownloadTab = (gcnew System::Windows::Forms::TabPage());
+			this->DownloadManager = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->DownloadDescription = (gcnew System::Windows::Forms::Label());
+			this->DownloadInstalled = (gcnew System::Windows::Forms::Label());
+			this->DownloadType = (gcnew System::Windows::Forms::Label());
+			this->ShowInstalledCheck = (gcnew System::Windows::Forms::CheckBox());
+			this->DownloadLink = (gcnew System::Windows::Forms::LinkLabel());
+			this->DownloadAuthor = (gcnew System::Windows::Forms::Label());
+			this->DownloadTags = (gcnew System::Windows::Forms::Label());
+			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
+			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
 			label3 = (gcnew System::Windows::Forms::Label());
 			label4 = (gcnew System::Windows::Forms::Label());
 			label6 = (gcnew System::Windows::Forms::Label());
+			label7 = (gcnew System::Windows::Forms::Label());
+			label8 = (gcnew System::Windows::Forms::Label());
+			label9 = (gcnew System::Windows::Forms::Label());
+			label10 = (gcnew System::Windows::Forms::Label());
+			label11 = (gcnew System::Windows::Forms::Label());
+			tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			label5 = (gcnew System::Windows::Forms::Label());
+			label12 = (gcnew System::Windows::Forms::Label());
+			label13 = (gcnew System::Windows::Forms::Label());
+			tableLayoutPanel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->BeginInit();
 			this->ModManager->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadsList))->BeginInit();
 			this->Tabs->SuspendLayout();
 			this->ManagerTab->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			this->DownloadTab->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadsList))->BeginInit();
+			this->DownloadManager->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -166,7 +224,7 @@ namespace InfernoModManager {
 			label1->AutoSize = true;
 			label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label1->Location = System::Drawing::Point(882, 91);
+			label1->Location = System::Drawing::Point(877, 91);
 			label1->Name = L"label1";
 			label1->Size = System::Drawing::Size(49, 17);
 			label1->TabIndex = 5;
@@ -177,7 +235,7 @@ namespace InfernoModManager {
 			label2->AutoSize = true;
 			label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label2->Location = System::Drawing::Point(882, 74);
+			label2->Location = System::Drawing::Point(877, 74);
 			label2->Name = L"label2";
 			label2->Size = System::Drawing::Size(72, 17);
 			label2->TabIndex = 8;
@@ -188,7 +246,7 @@ namespace InfernoModManager {
 			label3->AutoSize = true;
 			label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label3->Location = System::Drawing::Point(882, 128);
+			label3->Location = System::Drawing::Point(877, 128);
 			label3->Name = L"label3";
 			label3->Size = System::Drawing::Size(95, 17);
 			label3->TabIndex = 10;
@@ -201,9 +259,9 @@ namespace InfernoModManager {
 			label4->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->ModManager->SetColumnSpan(label4, 2);
 			label4->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label4->Location = System::Drawing::Point(882, 63);
+			label4->Location = System::Drawing::Point(877, 63);
 			label4->Name = L"label4";
-			label4->Size = System::Drawing::Size(434, 2);
+			label4->Size = System::Drawing::Size(431, 2);
 			label4->TabIndex = 12;
 			label4->Text = L"label4";
 			// 
@@ -214,11 +272,156 @@ namespace InfernoModManager {
 			label6->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->ModManager->SetColumnSpan(label6, 2);
 			label6->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label6->Location = System::Drawing::Point(882, 117);
+			label6->Location = System::Drawing::Point(877, 117);
 			label6->Name = L"label6";
-			label6->Size = System::Drawing::Size(434, 2);
+			label6->Size = System::Drawing::Size(431, 2);
 			label6->TabIndex = 14;
 			label6->Text = L"label6";
+			// 
+			// label7
+			// 
+			label7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
+			label7->BackColor = System::Drawing::SystemColors::ActiveBorder;
+			label7->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->DownloadManager->SetColumnSpan(label7, 2);
+			label7->ForeColor = System::Drawing::SystemColors::ActiveBorder;
+			label7->Location = System::Drawing::Point(876, 92);
+			label7->Name = L"label7";
+			label7->Size = System::Drawing::Size(432, 2);
+			label7->TabIndex = 13;
+			label7->Text = L"label7";
+			// 
+			// label8
+			// 
+			label8->AutoSize = true;
+			label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label8->Location = System::Drawing::Point(876, 103);
+			label8->Name = L"label8";
+			label8->Size = System::Drawing::Size(74, 17);
+			label8->TabIndex = 14;
+			label8->Text = L"Installed:";
+			// 
+			// label9
+			// 
+			label9->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			label9->AutoSize = true;
+			label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label9->Location = System::Drawing::Point(876, 120);
+			label9->Name = L"label9";
+			label9->Size = System::Drawing::Size(212, 17);
+			label9->TabIndex = 1;
+			label9->Text = L"Type:";
+			// 
+			// label10
+			// 
+			label10->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
+			label10->BackColor = System::Drawing::SystemColors::ActiveBorder;
+			label10->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->DownloadManager->SetColumnSpan(label10, 2);
+			label10->ForeColor = System::Drawing::SystemColors::ActiveBorder;
+			label10->Location = System::Drawing::Point(876, 146);
+			label10->Name = L"label10";
+			label10->Size = System::Drawing::Size(432, 2);
+			label10->TabIndex = 15;
+			label10->Text = L"label10";
+			// 
+			// label11
+			// 
+			label11->AutoSize = true;
+			label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label11->Location = System::Drawing::Point(876, 191);
+			label11->Name = L"label11";
+			label11->Size = System::Drawing::Size(95, 17);
+			label11->TabIndex = 16;
+			label11->Text = L"Description:";
+			// 
+			// tableLayoutPanel1
+			// 
+			tableLayoutPanel1->AutoSize = true;
+			tableLayoutPanel1->ColumnCount = 3;
+			this->DownloadManager->SetColumnSpan(tableLayoutPanel1, 2);
+			tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 100)));
+			tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			tableLayoutPanel1->Controls->Add(this->DownloadImage, 0, 0);
+			tableLayoutPanel1->Controls->Add(this->DownloadName, 1, 0);
+			tableLayoutPanel1->Controls->Add(this->DownloadMod, 2, 0);
+			tableLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Fill;
+			tableLayoutPanel1->Location = System::Drawing::Point(873, 27);
+			tableLayoutPanel1->Margin = System::Windows::Forms::Padding(0);
+			tableLayoutPanel1->Name = L"tableLayoutPanel1";
+			tableLayoutPanel1->RowCount = 1;
+			tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			tableLayoutPanel1->Size = System::Drawing::Size(438, 56);
+			tableLayoutPanel1->TabIndex = 21;
+			// 
+			// DownloadImage
+			// 
+			this->DownloadImage->Location = System::Drawing::Point(3, 3);
+			this->DownloadImage->Name = L"DownloadImage";
+			this->DownloadImage->Size = System::Drawing::Size(50, 50);
+			this->DownloadImage->TabIndex = 20;
+			this->DownloadImage->TabStop = false;
+			// 
+			// DownloadName
+			// 
+			this->DownloadName->AutoSize = true;
+			this->DownloadName->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->DownloadName->Location = System::Drawing::Point(59, 0);
+			this->DownloadName->Name = L"DownloadName";
+			this->DownloadName->Size = System::Drawing::Size(295, 56);
+			this->DownloadName->TabIndex = 21;
+			this->DownloadName->Text = L"Download Name";
+			this->DownloadName->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// DownloadMod
+			// 
+			this->DownloadMod->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->DownloadMod->Location = System::Drawing::Point(360, 16);
+			this->DownloadMod->Name = L"DownloadMod";
+			this->DownloadMod->Size = System::Drawing::Size(75, 23);
+			this->DownloadMod->TabIndex = 1;
+			this->DownloadMod->Text = L"Install";
+			this->DownloadMod->UseVisualStyleBackColor = true;
+			// 
+			// label5
+			// 
+			label5->AutoSize = true;
+			label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label5->Location = System::Drawing::Point(876, 157);
+			label5->Name = L"label5";
+			label5->Size = System::Drawing::Size(61, 17);
+			label5->TabIndex = 22;
+			label5->Text = L"Author:";
+			// 
+			// label12
+			// 
+			label12->AutoSize = true;
+			label12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label12->Location = System::Drawing::Point(876, 704);
+			label12->Name = L"label12";
+			label12->Size = System::Drawing::Size(118, 17);
+			label12->TabIndex = 23;
+			label12->Text = L"Download Link:";
+			// 
+			// label13
+			// 
+			label13->AutoSize = true;
+			label13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			label13->Location = System::Drawing::Point(876, 174);
+			label13->Name = L"label13";
+			label13->Size = System::Drawing::Size(49, 17);
+			label13->TabIndex = 24;
+			label13->Text = L"Tags:";
 			// 
 			// ModManager
 			// 
@@ -236,7 +439,7 @@ namespace InfernoModManager {
 			this->ModManager->Controls->Add(this->ModType, 2, 4);
 			this->ModManager->Controls->Add(this->ModEnabled, 2, 3);
 			this->ModManager->Controls->Add(this->DoModsButton, 0, 0);
-			this->ModManager->Controls->Add(this->Tabs, 0, 1);
+			this->ModManager->Controls->Add(this->ModsList, 0, 1);
 			this->ModManager->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ModManager->Location = System::Drawing::Point(0, 0);
 			this->ModManager->Name = L"ModManager";
@@ -249,11 +452,7 @@ namespace InfernoModManager {
 			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
 			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
-			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-			this->ModManager->Size = System::Drawing::Size(1319, 750);
+			this->ModManager->Size = System::Drawing::Size(1311, 721);
 			this->ModManager->TabIndex = 0;
 			// 
 			// ModName
@@ -262,7 +461,7 @@ namespace InfernoModManager {
 			this->ModManager->SetColumnSpan(this->ModName, 2);
 			this->ModName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->ModName->Location = System::Drawing::Point(882, 29);
+			this->ModName->Location = System::Drawing::Point(877, 29);
 			this->ModName->Name = L"ModName";
 			this->ModName->Size = System::Drawing::Size(108, 25);
 			this->ModName->TabIndex = 4;
@@ -271,16 +470,18 @@ namespace InfernoModManager {
 			// ModDescription
 			// 
 			this->ModDescription->AutoSize = true;
-			this->ModDescription->Location = System::Drawing::Point(882, 145);
+			this->ModManager->SetColumnSpan(this->ModDescription, 2);
+			this->ModDescription->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->ModDescription->Location = System::Drawing::Point(877, 145);
 			this->ModDescription->Name = L"ModDescription";
-			this->ModDescription->Size = System::Drawing::Size(110, 17);
+			this->ModDescription->Size = System::Drawing::Size(431, 576);
 			this->ModDescription->TabIndex = 11;
 			this->ModDescription->Text = L"Mod Description";
 			// 
 			// ModType
 			// 
 			this->ModType->AutoSize = true;
-			this->ModType->Location = System::Drawing::Point(1101, 91);
+			this->ModType->Location = System::Drawing::Point(1095, 91);
 			this->ModType->Name = L"ModType";
 			this->ModType->Size = System::Drawing::Size(71, 17);
 			this->ModType->TabIndex = 7;
@@ -289,7 +490,7 @@ namespace InfernoModManager {
 			// ModEnabled
 			// 
 			this->ModEnabled->AutoSize = true;
-			this->ModEnabled->Location = System::Drawing::Point(1101, 74);
+			this->ModEnabled->Location = System::Drawing::Point(1095, 74);
 			this->ModEnabled->Name = L"ModEnabled";
 			this->ModEnabled->Size = System::Drawing::Size(91, 17);
 			this->ModEnabled->TabIndex = 9;
@@ -305,28 +506,6 @@ namespace InfernoModManager {
 			this->DoModsButton->UseVisualStyleBackColor = true;
 			this->DoModsButton->Click += gcnew System::EventHandler(this, &MainForm::LaunchGame);
 			// 
-			// Tabs
-			// 
-			this->Tabs->Controls->Add(this->ManagerTab);
-			this->Tabs->Controls->Add(this->DownloadTab);
-			this->Tabs->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->Tabs->Location = System::Drawing::Point(3, 32);
-			this->Tabs->Name = L"Tabs";
-			this->ModManager->SetRowSpan(this->Tabs, 7);
-			this->Tabs->SelectedIndex = 0;
-			this->Tabs->Size = System::Drawing::Size(873, 715);
-			this->Tabs->TabIndex = 1;
-			// 
-			// ManagerTab
-			// 
-			this->ManagerTab->Controls->Add(this->ModsList);
-			this->ManagerTab->Location = System::Drawing::Point(4, 25);
-			this->ManagerTab->Name = L"ManagerTab";
-			this->ManagerTab->Size = System::Drawing::Size(865, 686);
-			this->ManagerTab->TabIndex = 1;
-			this->ManagerTab->Text = L"Manager";
-			this->ManagerTab->UseVisualStyleBackColor = true;
-			// 
 			// ModsList
 			// 
 			this->ModsList->AllowUserToAddRows = false;
@@ -339,17 +518,18 @@ namespace InfernoModManager {
 					this->NameColumn, this->TypeColumn
 			});
 			this->ModsList->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->ModsList->Location = System::Drawing::Point(0, 0);
+			this->ModsList->Location = System::Drawing::Point(3, 32);
 			this->ModsList->MultiSelect = false;
 			this->ModsList->Name = L"ModsList";
 			this->ModsList->RowHeadersVisible = false;
 			this->ModsList->RowHeadersWidth = 51;
+			this->ModManager->SetRowSpan(this->ModsList, 7);
 			this->ModsList->RowTemplate->Height = 24;
 			this->ModsList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->ModsList->ShowCellErrors = false;
 			this->ModsList->ShowEditingIcon = false;
 			this->ModsList->ShowRowErrors = false;
-			this->ModsList->Size = System::Drawing::Size(865, 686);
+			this->ModsList->Size = System::Drawing::Size(868, 686);
 			this->ModsList->TabIndex = 3;
 			this->ModsList->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
@@ -380,16 +560,6 @@ namespace InfernoModManager {
 			this->TypeColumn->ReadOnly = true;
 			this->TypeColumn->Width = 69;
 			// 
-			// DownloadTab
-			// 
-			this->DownloadTab->Controls->Add(this->DownloadsList);
-			this->DownloadTab->Location = System::Drawing::Point(4, 25);
-			this->DownloadTab->Name = L"DownloadTab";
-			this->DownloadTab->Size = System::Drawing::Size(865, 686);
-			this->DownloadTab->TabIndex = 0;
-			this->DownloadTab->Text = L"Download";
-			this->DownloadTab->UseVisualStyleBackColor = true;
-			// 
 			// DownloadsList
 			// 
 			this->DownloadsList->AllowUserToAddRows = false;
@@ -402,24 +572,19 @@ namespace InfernoModManager {
 					this->DownloadNameColumn, this->DownloadTypeColumn
 			});
 			this->DownloadsList->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadsList->Location = System::Drawing::Point(0, 0);
+			this->DownloadsList->Location = System::Drawing::Point(3, 30);
 			this->DownloadsList->MultiSelect = false;
 			this->DownloadsList->Name = L"DownloadsList";
 			this->DownloadsList->RowHeadersVisible = false;
 			this->DownloadsList->RowHeadersWidth = 51;
+			this->DownloadManager->SetRowSpan(this->DownloadsList, 10);
 			this->DownloadsList->RowTemplate->Height = 24;
 			this->DownloadsList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->DownloadsList->ShowCellErrors = false;
 			this->DownloadsList->ShowEditingIcon = false;
 			this->DownloadsList->ShowRowErrors = false;
-			this->DownloadsList->Size = System::Drawing::Size(865, 686);
-			this->DownloadsList->TabIndex = 4;
-			// 
-			// CheckBTD6Timer
-			// 
-			this->CheckBTD6Timer->Enabled = true;
-			this->CheckBTD6Timer->Interval = 1000;
-			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
+			this->DownloadsList->Size = System::Drawing::Size(867, 688);
+			this->DownloadsList->TabIndex = 3;
 			// 
 			// InstalledColumn
 			// 
@@ -427,7 +592,9 @@ namespace InfernoModManager {
 			this->InstalledColumn->HeaderText = L"Installed";
 			this->InstalledColumn->MinimumWidth = 6;
 			this->InstalledColumn->Name = L"InstalledColumn";
-			this->InstalledColumn->Width = 66;
+			this->InstalledColumn->ReadOnly = true;
+			this->InstalledColumn->Visible = false;
+			this->InstalledColumn->Width = 125;
 			// 
 			// DownloadNameColumn
 			// 
@@ -446,21 +613,179 @@ namespace InfernoModManager {
 			this->DownloadTypeColumn->ReadOnly = true;
 			this->DownloadTypeColumn->Width = 69;
 			// 
+			// Tabs
+			// 
+			this->Tabs->Controls->Add(this->ManagerTab);
+			this->Tabs->Controls->Add(this->DownloadTab);
+			this->Tabs->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->Tabs->Location = System::Drawing::Point(0, 0);
+			this->Tabs->Name = L"Tabs";
+			this->Tabs->SelectedIndex = 0;
+			this->Tabs->Size = System::Drawing::Size(1319, 750);
+			this->Tabs->TabIndex = 1;
+			// 
+			// ManagerTab
+			// 
+			this->ManagerTab->Controls->Add(this->ModManager);
+			this->ManagerTab->Location = System::Drawing::Point(4, 25);
+			this->ManagerTab->Name = L"ManagerTab";
+			this->ManagerTab->Size = System::Drawing::Size(1311, 721);
+			this->ManagerTab->TabIndex = 1;
+			this->ManagerTab->Text = L"Manager";
+			this->ManagerTab->UseVisualStyleBackColor = true;
+			// 
+			// DownloadTab
+			// 
+			this->DownloadTab->Controls->Add(this->DownloadManager);
+			this->DownloadTab->Location = System::Drawing::Point(4, 25);
+			this->DownloadTab->Name = L"DownloadTab";
+			this->DownloadTab->Size = System::Drawing::Size(1311, 721);
+			this->DownloadTab->TabIndex = 0;
+			this->DownloadTab->Text = L"Download";
+			this->DownloadTab->UseVisualStyleBackColor = true;
+			// 
+			// DownloadManager
+			// 
+			this->DownloadManager->ColumnCount = 3;
+			this->DownloadManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				66.66336F)));
+			this->DownloadManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				16.66832F)));
+			this->DownloadManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				16.66832F)));
+			this->DownloadManager->Controls->Add(this->DownloadDescription, 1, 9);
+			this->DownloadManager->Controls->Add(label9, 1, 4);
+			this->DownloadManager->Controls->Add(this->DownloadsList, 0, 1);
+			this->DownloadManager->Controls->Add(label7, 1, 2);
+			this->DownloadManager->Controls->Add(label8, 1, 3);
+			this->DownloadManager->Controls->Add(label11, 1, 8);
+			this->DownloadManager->Controls->Add(this->DownloadInstalled, 2, 3);
+			this->DownloadManager->Controls->Add(this->DownloadType, 2, 4);
+			this->DownloadManager->Controls->Add(label10, 1, 5);
+			this->DownloadManager->Controls->Add(this->ShowInstalledCheck, 0, 0);
+			this->DownloadManager->Controls->Add(tableLayoutPanel1, 1, 1);
+			this->DownloadManager->Controls->Add(label5, 1, 6);
+			this->DownloadManager->Controls->Add(this->DownloadLink, 2, 10);
+			this->DownloadManager->Controls->Add(this->DownloadAuthor, 2, 6);
+			this->DownloadManager->Controls->Add(this->DownloadTags, 2, 7);
+			this->DownloadManager->Controls->Add(label13, 1, 7);
+			this->DownloadManager->Controls->Add(label12, 1, 10);
+			this->DownloadManager->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadManager->Location = System::Drawing::Point(0, 0);
+			this->DownloadManager->Name = L"DownloadManager";
+			this->DownloadManager->RowCount = 11;
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
+			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			this->DownloadManager->Size = System::Drawing::Size(1311, 721);
+			this->DownloadManager->TabIndex = 0;
+			// 
+			// DownloadDescription
+			// 
+			this->DownloadDescription->AutoSize = true;
+			this->DownloadManager->SetColumnSpan(this->DownloadDescription, 2);
+			this->DownloadDescription->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadDescription->Location = System::Drawing::Point(876, 208);
+			this->DownloadDescription->Name = L"DownloadDescription";
+			this->DownloadDescription->Size = System::Drawing::Size(432, 496);
+			this->DownloadDescription->TabIndex = 1;
+			this->DownloadDescription->Text = L"Download Description";
+			// 
+			// DownloadInstalled
+			// 
+			this->DownloadInstalled->AutoSize = true;
+			this->DownloadInstalled->Location = System::Drawing::Point(1094, 103);
+			this->DownloadInstalled->Name = L"DownloadInstalled";
+			this->DownloadInstalled->Size = System::Drawing::Size(126, 17);
+			this->DownloadInstalled->TabIndex = 17;
+			this->DownloadInstalled->Text = L"Download Installed";
+			// 
+			// DownloadType
+			// 
+			this->DownloadType->AutoSize = true;
+			this->DownloadType->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadType->Location = System::Drawing::Point(1094, 120);
+			this->DownloadType->Name = L"DownloadType";
+			this->DownloadType->Size = System::Drawing::Size(214, 17);
+			this->DownloadType->TabIndex = 18;
+			this->DownloadType->Text = L"Download Type";
+			// 
+			// ShowInstalledCheck
+			// 
+			this->ShowInstalledCheck->AutoSize = true;
+			this->ShowInstalledCheck->Checked = true;
+			this->ShowInstalledCheck->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->ShowInstalledCheck->Location = System::Drawing::Point(3, 3);
+			this->ShowInstalledCheck->Name = L"ShowInstalledCheck";
+			this->ShowInstalledCheck->Size = System::Drawing::Size(155, 21);
+			this->ShowInstalledCheck->TabIndex = 4;
+			this->ShowInstalledCheck->Text = L"Don\'t show installed";
+			this->ShowInstalledCheck->UseVisualStyleBackColor = true;
+			// 
+			// DownloadLink
+			// 
+			this->DownloadLink->AutoSize = true;
+			this->DownloadLink->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadLink->Location = System::Drawing::Point(1094, 704);
+			this->DownloadLink->Name = L"DownloadLink";
+			this->DownloadLink->Size = System::Drawing::Size(214, 17);
+			this->DownloadLink->TabIndex = 25;
+			this->DownloadLink->TabStop = true;
+			this->DownloadLink->Text = L"https://www.Download Link.com";
+			// 
+			// DownloadAuthor
+			// 
+			this->DownloadAuthor->AutoSize = true;
+			this->DownloadAuthor->Location = System::Drawing::Point(1094, 157);
+			this->DownloadAuthor->Name = L"DownloadAuthor";
+			this->DownloadAuthor->Size = System::Drawing::Size(116, 17);
+			this->DownloadAuthor->TabIndex = 26;
+			this->DownloadAuthor->Text = L"Download Author";
+			// 
+			// DownloadTags
+			// 
+			this->DownloadTags->AutoSize = true;
+			this->DownloadTags->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadTags->Location = System::Drawing::Point(1094, 174);
+			this->DownloadTags->Name = L"DownloadTags";
+			this->DownloadTags->Size = System::Drawing::Size(214, 17);
+			this->DownloadTags->TabIndex = 27;
+			this->DownloadTags->Text = L"Download Tags";
+			// 
+			// CheckBTD6Timer
+			// 
+			this->CheckBTD6Timer->Enabled = true;
+			this->CheckBTD6Timer->Interval = 1000;
+			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1319, 750);
-			this->Controls->Add(this->ModManager);
+			this->Controls->Add(this->Tabs);
 			this->Name = L"MainForm";
 			this->Text = L"Inferno Mod Manager";
+			tableLayoutPanel1->ResumeLayout(false);
+			tableLayoutPanel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->EndInit();
 			this->ModManager->ResumeLayout(false);
 			this->ModManager->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadsList))->EndInit();
 			this->Tabs->ResumeLayout(false);
 			this->ManagerTab->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
 			this->DownloadTab->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadsList))->EndInit();
+			this->DownloadManager->ResumeLayout(false);
+			this->DownloadManager->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
