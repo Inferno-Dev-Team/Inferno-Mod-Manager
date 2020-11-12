@@ -132,6 +132,7 @@ namespace InfernoModManager {
 			System::Windows::Forms::Label^ label5;
 			System::Windows::Forms::Label^ label12;
 			System::Windows::Forms::Label^ label13;
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->DownloadImage = (gcnew System::Windows::Forms::PictureBox());
 			this->DownloadName = (gcnew System::Windows::Forms::Label());
 			this->DownloadMod = (gcnew System::Windows::Forms::Button());
@@ -490,7 +491,7 @@ namespace InfernoModManager {
 			//
 			// DoModsButton
 			//
-			this->DoModsButton->Font = (gcnew System::Drawing::Font(fontCollection->Families[0], 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->DoModsButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->DoModsButton->Location = System::Drawing::Point(2, 2);
 			this->DoModsButton->Margin = System::Windows::Forms::Padding(2);
@@ -781,6 +782,7 @@ namespace InfernoModManager {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(989, 609);
 			this->Controls->Add(this->Tabs);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"MainForm";
 			this->Text = L"Inferno Mod Manager";
