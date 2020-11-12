@@ -19,8 +19,9 @@ namespace InfernoModManager {
 		MainForm(void)
 		{
 
+
 			//System::Drawing::Text::PrivateFontCollection::AddMemoryFont()
-			//System::Console::WriteLine()
+			//System::Console::WriteLine(System::Convert::ToBase64String(System::IO::File::ReadAllBytes("D:\\LuckiestGuy-Regular.ttf")));
 			InitializeComponent();
 			//double buffered renders all at once, therefore faster
 			System::Windows::Forms::DataGridView::typeid->GetProperty("DoubleBuffered",
@@ -59,6 +60,7 @@ namespace InfernoModManager {
 				delete components;
 			}
 		}
+
 
 		private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
 
@@ -336,7 +338,7 @@ namespace InfernoModManager {
 			// DownloadImage
 			//
 			this->DownloadImage->Location = System::Drawing::Point(2, 2);
-			this->DownloadImage->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->DownloadImage->Margin = System::Windows::Forms::Padding(2);
 			this->DownloadImage->Name = L"DownloadImage";
 			this->DownloadImage->Size = System::Drawing::Size(48, 52);
 			this->DownloadImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
@@ -362,7 +364,7 @@ namespace InfernoModManager {
 			//
 			this->DownloadMod->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->DownloadMod->Location = System::Drawing::Point(270, 18);
-			this->DownloadMod->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->DownloadMod->Margin = System::Windows::Forms::Padding(2);
 			this->DownloadMod->Name = L"DownloadMod";
 			this->DownloadMod->Size = System::Drawing::Size(56, 19);
 			this->DownloadMod->TabIndex = 1;
@@ -425,7 +427,7 @@ namespace InfernoModManager {
 			this->ModManager->Controls->Add(this->ModsList, 0, 1);
 			this->ModManager->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ModManager->Location = System::Drawing::Point(0, 0);
-			this->ModManager->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->ModManager->Margin = System::Windows::Forms::Padding(2);
 			this->ModManager->Name = L"ModManager";
 			this->ModManager->RowCount = 7;
 			this->ModManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
@@ -486,8 +488,10 @@ namespace InfernoModManager {
 			//
 			// DoModsButton
 			//
+			this->DoModsButton->Font = (gcnew System::Drawing::Font(L"Luckiest Guy", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->DoModsButton->Location = System::Drawing::Point(2, 2);
-			this->DoModsButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->DoModsButton->Margin = System::Windows::Forms::Padding(2);
 			this->DoModsButton->Name = L"DoModsButton";
 			this->DoModsButton->Size = System::Drawing::Size(56, 19);
 			this->DoModsButton->TabIndex = 1;
@@ -508,7 +512,7 @@ namespace InfernoModManager {
 			});
 			this->ModsList->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ModsList->Location = System::Drawing::Point(2, 25);
-			this->ModsList->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->ModsList->Margin = System::Windows::Forms::Padding(2);
 			this->ModsList->MultiSelect = false;
 			this->ModsList->Name = L"ModsList";
 			this->ModsList->RowHeadersVisible = false;
@@ -563,7 +567,7 @@ namespace InfernoModManager {
 			});
 			this->DownloadsList->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->DownloadsList->Location = System::Drawing::Point(2, 23);
-			this->DownloadsList->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->DownloadsList->Margin = System::Windows::Forms::Padding(2);
 			this->DownloadsList->MultiSelect = false;
 			this->DownloadsList->Name = L"DownloadsList";
 			this->DownloadsList->RowHeadersVisible = false;
@@ -610,7 +614,7 @@ namespace InfernoModManager {
 			this->Tabs->Controls->Add(this->DownloadTab);
 			this->Tabs->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->Tabs->Location = System::Drawing::Point(0, 0);
-			this->Tabs->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Tabs->Margin = System::Windows::Forms::Padding(2);
 			this->Tabs->Name = L"Tabs";
 			this->Tabs->SelectedIndex = 0;
 			this->Tabs->Size = System::Drawing::Size(989, 609);
@@ -621,7 +625,7 @@ namespace InfernoModManager {
 			//
 			this->ManagerTab->Controls->Add(this->ModManager);
 			this->ManagerTab->Location = System::Drawing::Point(4, 22);
-			this->ManagerTab->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->ManagerTab->Margin = System::Windows::Forms::Padding(2);
 			this->ManagerTab->Name = L"ManagerTab";
 			this->ManagerTab->Size = System::Drawing::Size(981, 583);
 			this->ManagerTab->TabIndex = 1;
@@ -632,7 +636,7 @@ namespace InfernoModManager {
 			//
 			this->DownloadTab->Controls->Add(this->DownloadManager);
 			this->DownloadTab->Location = System::Drawing::Point(4, 22);
-			this->DownloadTab->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->DownloadTab->Margin = System::Windows::Forms::Padding(2);
 			this->DownloadTab->Name = L"DownloadTab";
 			this->DownloadTab->Size = System::Drawing::Size(981, 583);
 			this->DownloadTab->TabIndex = 0;
@@ -667,7 +671,7 @@ namespace InfernoModManager {
 			this->DownloadManager->Controls->Add(label12, 1, 10);
 			this->DownloadManager->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->DownloadManager->Location = System::Drawing::Point(0, 0);
-			this->DownloadManager->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->DownloadManager->Margin = System::Windows::Forms::Padding(2);
 			this->DownloadManager->Name = L"DownloadManager";
 			this->DownloadManager->RowCount = 11;
 			this->DownloadManager->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
@@ -723,7 +727,7 @@ namespace InfernoModManager {
 			this->ShowInstalledCheck->Checked = true;
 			this->ShowInstalledCheck->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->ShowInstalledCheck->Location = System::Drawing::Point(2, 2);
-			this->ShowInstalledCheck->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->ShowInstalledCheck->Margin = System::Windows::Forms::Padding(2);
 			this->ShowInstalledCheck->Name = L"ShowInstalledCheck";
 			this->ShowInstalledCheck->Size = System::Drawing::Size(120, 17);
 			this->ShowInstalledCheck->TabIndex = 4;
@@ -775,7 +779,7 @@ namespace InfernoModManager {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(989, 609);
 			this->Controls->Add(this->Tabs);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"MainForm";
 			this->Text = L"Inferno Mod Manager";
 			tableLayoutPanel1->ResumeLayout(false);
@@ -903,7 +907,7 @@ namespace InfernoModManager {
 			ModsList->Rows->Clear();
 			for each (InfernoModManager::Mod^ mod in InfernoModManager::Mod::Installed)
 				ModsList->Rows->Add(mod->Status, mod->Name, mod->Type);
-			ModsList->Sort(ModNameColumn, System::ComponentModel::ListSortDirection::Ascending);
+			//ModsList->Sort(ModNameColumn, System::ComponentModel::ListSortDirection::Ascending);
 			UpdateModStats(0);
 		}
 
