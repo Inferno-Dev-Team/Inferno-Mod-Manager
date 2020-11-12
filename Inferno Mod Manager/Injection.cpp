@@ -9,31 +9,31 @@ namespace InfernoModManager
 
     bool Injection::injectDLL(System::String^ procName, char* dllName)
     {
-        if (!dllName)
-            return false;
+        if (dllName) {
+            DWORD pId = Injection::GetTargetThreadIDFromProcName(procName);
 
-        DWORD pId = Injection::GetTargetThreadIDFromProcName(procName);
+            if (!pId)
+                return false;
 
-        if (!pId)
-            return false;
+            HANDLE proc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pId);
 
-        HANDLE proc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pId);
+            if (!proc)
+                return false;
 
-        if (!proc)
-            return false;
+            std::string tmp = dllName;
 
-        std::string tmp = dllName;
+            LPVOID RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, tmp.length(), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+            HMODULE dllModule = LoadLibraryA(dllName);
 
-        LPVOID RemoteString = (LPVOID)VirtualAllocEx(proc, NULL, tmp.length(), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-        HMODULE dllModule = LoadLibraryA(dllName);
+            if (RemoteString && dllModule) {
+                CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)dllModule, (LPVOID)RemoteString, NULL, NULL);
 
-        if (!RemoteString || !dllModule)
-            return false;
+                CloseHandle(proc);
 
-        CreateRemoteThread(proc, NULL, NULL, (LPTHREAD_START_ROUTINE)dllModule, (LPVOID)RemoteString, NULL, NULL);
-        CloseHandle(proc);
-
-        return true;
+                return true;
+            }
+        }
+        return false;
     }
 
     DWORD Injection::GetTargetThreadIDFromProcName(System::String^ procName)
@@ -50,5 +50,6 @@ namespace InfernoModManager
         }
 
         return -1;
+
     }
 }
