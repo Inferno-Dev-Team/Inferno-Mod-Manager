@@ -7,6 +7,8 @@
 #include <map>
 #include <vector>
 
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
 using namespace System;
 using namespace System::Windows::Forms;
 
