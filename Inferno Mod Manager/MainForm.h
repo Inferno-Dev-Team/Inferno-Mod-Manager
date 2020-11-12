@@ -18,9 +18,12 @@ namespace InfernoModManager {
 	public:
 		MainForm(void)
 		{
-			
-			//System::Drawing::Text::PrivateFontCollection::AddMemoryFont()
-			//System::Console::WriteLine(System::Convert::ToBase64String(System::IO::File::ReadAllBytes("D:\\LuckiestGuy-Regular.ttf")));
+			if (!System::IO::File::Exists("LuckiestGuy.ttf"))
+			{
+				InfernoModManager::WebDownloader::downloadFile("https://github.com/Inferno-Dev-Team/Assets/blob/main/Luckiest_Guy/LuckiestGuy-Regular.ttf?raw=true", "LuckiestGuy.ttf");
+			}
+			fontCollection = gcnew System::Drawing::Text::PrivateFontCollection();
+			fontCollection->AddFontFile(System::IO::Path::GetFullPath("LuckiestGuy.ttf"));
 			InitializeComponent();
 			//double buffered renders all at once, therefore faster
 			System::Windows::Forms::DataGridView::typeid->GetProperty("DoubleBuffered",
@@ -60,7 +63,7 @@ namespace InfernoModManager {
 			}
 		}
 
-
+	private: System::Drawing::Text::PrivateFontCollection^ fontCollection;
 		private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
 
 		private: System::Windows::Forms::DataGridView^ ModsList;
@@ -487,7 +490,7 @@ namespace InfernoModManager {
 			//
 			// DoModsButton
 			//
-			this->DoModsButton->Font = (gcnew System::Drawing::Font(L"Luckiest Guy", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->DoModsButton->Font = (gcnew System::Drawing::Font(fontCollection->Families[0], 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->DoModsButton->Location = System::Drawing::Point(2, 2);
 			this->DoModsButton->Margin = System::Windows::Forms::Padding(2);
