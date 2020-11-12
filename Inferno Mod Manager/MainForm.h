@@ -860,8 +860,7 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void DownloadImage_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-			//e->Graphics->Clear(System::Drawing::Color::Red);
-			//e->Graphics->SmoothingMode = System::Drawing::Drawing2D::SmoothingMode::AntiAlias;
+			e->Graphics->Clear(System::Drawing::SystemColors::Window);
 			e->Graphics->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
 			e->Graphics->DrawImage(((System::Windows::Forms::PictureBox^)sender)->Image, e->ClipRectangle);
 		}
