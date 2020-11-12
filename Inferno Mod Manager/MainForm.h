@@ -5,7 +5,6 @@
 #include "Injection.h"
 #include "WebDownloader.h"
 #include "Mod.h"
-#include "SmoothablePictureBox.h"
 
 #pragma once
 
@@ -21,7 +20,7 @@ namespace InfernoModManager {
 		{
 			InitializeComponent();
 			//double buffered renders all at once, therefore faster
-			ModsList->GetType()->GetProperty("DoubleBuffered",
+			System::Windows::Forms::DataGridView::typeid->GetProperty("DoubleBuffered",
 				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
 				->SetValue(this->ModsList, true);
 			btd6Install = InfernoModManager::Games::GetGameDir(960090);
@@ -247,7 +246,7 @@ namespace InfernoModManager {
 			label7->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->DownloadManager->SetColumnSpan(label7, 2);
 			label7->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label7->Location = System::Drawing::Point(876, 92);
+			label7->Location = System::Drawing::Point(876, 106);
 			label7->Name = L"label7";
 			label7->Size = System::Drawing::Size(432, 2);
 			label7->TabIndex = 13;
@@ -258,7 +257,7 @@ namespace InfernoModManager {
 			label8->AutoSize = true;
 			label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label8->Location = System::Drawing::Point(876, 103);
+			label8->Location = System::Drawing::Point(876, 117);
 			label8->Name = L"label8";
 			label8->Size = System::Drawing::Size(74, 17);
 			label8->TabIndex = 14;
@@ -271,7 +270,7 @@ namespace InfernoModManager {
 			label9->AutoSize = true;
 			label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label9->Location = System::Drawing::Point(876, 120);
+			label9->Location = System::Drawing::Point(876, 134);
 			label9->Name = L"label9";
 			label9->Size = System::Drawing::Size(212, 17);
 			label9->TabIndex = 1;
@@ -284,7 +283,7 @@ namespace InfernoModManager {
 			label10->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->DownloadManager->SetColumnSpan(label10, 2);
 			label10->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label10->Location = System::Drawing::Point(876, 146);
+			label10->Location = System::Drawing::Point(876, 160);
 			label10->Name = L"label10";
 			label10->Size = System::Drawing::Size(432, 2);
 			label10->TabIndex = 15;
@@ -295,7 +294,7 @@ namespace InfernoModManager {
 			label11->AutoSize = true;
 			label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label11->Location = System::Drawing::Point(876, 191);
+			label11->Location = System::Drawing::Point(876, 205);
 			label11->Name = L"label11";
 			label11->Size = System::Drawing::Size(95, 17);
 			label11->TabIndex = 16;
@@ -318,17 +317,18 @@ namespace InfernoModManager {
 			tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			tableLayoutPanel1->RowCount = 1;
 			tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
-			tableLayoutPanel1->Size = System::Drawing::Size(438, 56);
+			tableLayoutPanel1->Size = System::Drawing::Size(438, 70);
 			tableLayoutPanel1->TabIndex = 21;
 			// 
 			// DownloadImage
 			// 
 			this->DownloadImage->Location = System::Drawing::Point(3, 3);
 			this->DownloadImage->Name = L"DownloadImage";
-			this->DownloadImage->Size = System::Drawing::Size(50, 50);
+			this->DownloadImage->Size = System::Drawing::Size(64, 64);
 			this->DownloadImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->DownloadImage->TabIndex = 20;
 			this->DownloadImage->TabStop = false;
+			this->DownloadImage->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::DownloadImage_Paint);
 			// 
 			// DownloadName
 			// 
@@ -336,9 +336,9 @@ namespace InfernoModManager {
 			this->DownloadName->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->DownloadName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->DownloadName->Location = System::Drawing::Point(59, 0);
+			this->DownloadName->Location = System::Drawing::Point(73, 0);
 			this->DownloadName->Name = L"DownloadName";
-			this->DownloadName->Size = System::Drawing::Size(295, 56);
+			this->DownloadName->Size = System::Drawing::Size(281, 70);
 			this->DownloadName->TabIndex = 21;
 			this->DownloadName->Text = L"Download Name";
 			this->DownloadName->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
@@ -346,7 +346,7 @@ namespace InfernoModManager {
 			// DownloadMod
 			// 
 			this->DownloadMod->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->DownloadMod->Location = System::Drawing::Point(360, 16);
+			this->DownloadMod->Location = System::Drawing::Point(360, 23);
 			this->DownloadMod->Name = L"DownloadMod";
 			this->DownloadMod->Size = System::Drawing::Size(75, 23);
 			this->DownloadMod->TabIndex = 1;
@@ -358,7 +358,7 @@ namespace InfernoModManager {
 			label5->AutoSize = true;
 			label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label5->Location = System::Drawing::Point(876, 157);
+			label5->Location = System::Drawing::Point(876, 171);
 			label5->Name = L"label5";
 			label5->Size = System::Drawing::Size(61, 17);
 			label5->TabIndex = 22;
@@ -380,7 +380,7 @@ namespace InfernoModManager {
 			label13->AutoSize = true;
 			label13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label13->Location = System::Drawing::Point(876, 174);
+			label13->Location = System::Drawing::Point(876, 188);
 			label13->Name = L"label13";
 			label13->Size = System::Drawing::Size(49, 17);
 			label13->TabIndex = 24;
@@ -658,16 +658,16 @@ namespace InfernoModManager {
 			this->DownloadDescription->AutoSize = true;
 			this->DownloadManager->SetColumnSpan(this->DownloadDescription, 2);
 			this->DownloadDescription->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadDescription->Location = System::Drawing::Point(876, 208);
+			this->DownloadDescription->Location = System::Drawing::Point(876, 222);
 			this->DownloadDescription->Name = L"DownloadDescription";
-			this->DownloadDescription->Size = System::Drawing::Size(432, 496);
+			this->DownloadDescription->Size = System::Drawing::Size(432, 482);
 			this->DownloadDescription->TabIndex = 1;
 			this->DownloadDescription->Text = L"Download Description";
 			// 
 			// DownloadInstalled
 			// 
 			this->DownloadInstalled->AutoSize = true;
-			this->DownloadInstalled->Location = System::Drawing::Point(1094, 103);
+			this->DownloadInstalled->Location = System::Drawing::Point(1094, 117);
 			this->DownloadInstalled->Name = L"DownloadInstalled";
 			this->DownloadInstalled->Size = System::Drawing::Size(126, 17);
 			this->DownloadInstalled->TabIndex = 17;
@@ -677,7 +677,7 @@ namespace InfernoModManager {
 			// 
 			this->DownloadType->AutoSize = true;
 			this->DownloadType->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadType->Location = System::Drawing::Point(1094, 120);
+			this->DownloadType->Location = System::Drawing::Point(1094, 134);
 			this->DownloadType->Name = L"DownloadType";
 			this->DownloadType->Size = System::Drawing::Size(214, 17);
 			this->DownloadType->TabIndex = 18;
@@ -709,7 +709,7 @@ namespace InfernoModManager {
 			// DownloadAuthor
 			// 
 			this->DownloadAuthor->AutoSize = true;
-			this->DownloadAuthor->Location = System::Drawing::Point(1094, 157);
+			this->DownloadAuthor->Location = System::Drawing::Point(1094, 171);
 			this->DownloadAuthor->Name = L"DownloadAuthor";
 			this->DownloadAuthor->Size = System::Drawing::Size(116, 17);
 			this->DownloadAuthor->TabIndex = 26;
@@ -719,7 +719,7 @@ namespace InfernoModManager {
 			// 
 			this->DownloadTags->AutoSize = true;
 			this->DownloadTags->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadTags->Location = System::Drawing::Point(1094, 174);
+			this->DownloadTags->Location = System::Drawing::Point(1094, 188);
 			this->DownloadTags->Name = L"DownloadTags";
 			this->DownloadTags->Size = System::Drawing::Size(214, 17);
 			this->DownloadTags->TabIndex = 27;
@@ -818,6 +818,12 @@ namespace InfernoModManager {
 				GetAvailable();
 				PopulateDownloadsList();
 			}
+		}
+
+		private: System::Void DownloadImage_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+			e->Graphics->Clear(System::Drawing::Color::Red);
+			//e->Graphics->SmoothingMode = System::Drawing::Drawing2D::SmoothingMode::AntiAlias;
+			e->Graphics->DrawImage(((System::Windows::Forms::PictureBox^)sender)->Image, e->ClipRectangle);
 		}
 
 		private: bool IsEnabled(System::String^ file) {
