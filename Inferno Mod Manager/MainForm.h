@@ -5,6 +5,7 @@
 #include "Injection.h"
 #include "WebDownloader.h"
 #include "Mod.h"
+#include "SmoothablePictureBox.h"
 
 #pragma once
 
@@ -24,6 +25,7 @@ namespace InfernoModManager {
 				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
 				->SetValue(this->ModsList, true);
 			btd6Install = InfernoModManager::Games::GetGameDir(960090);
+			GetInstalled();
 			PopulateModsList();
 
 			for each (const char* type in InfernoModManager::Games::Types) {
@@ -42,8 +44,6 @@ namespace InfernoModManager {
 			}
 
 			CheckBTD6Open();
-
-			UpdateDownloadTab(InfernoModManager::WebDownloader::getAllData()[0]);
 		}
 
 	protected:
@@ -60,11 +60,10 @@ namespace InfernoModManager {
 
 		private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
 
-
 		private: System::Windows::Forms::DataGridView^ ModsList;
 		private: System::Windows::Forms::DataGridViewCheckBoxColumn^ EnabledColumn;
-		private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
-		private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
+		private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModNameColumn;
+		private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModTypeColumn;
 	private: System::Windows::Forms::Button^ DoModsButton;
 	private: System::Windows::Forms::Timer^ CheckBTD6Timer;
 	private: System::Windows::Forms::Label^ ModName;
@@ -79,10 +78,7 @@ namespace InfernoModManager {
 	private: System::Windows::Forms::TableLayoutPanel^ DownloadManager;
 	private: System::Windows::Forms::DataGridView^ DownloadsList;
 
-
-
 	private: System::Windows::Forms::CheckBox^ ShowInstalledCheck;
-
 
 	private: System::Windows::Forms::Label^ DownloadDescription;
 	private: System::Windows::Forms::Label^ DownloadInstalled;
@@ -93,48 +89,14 @@ namespace InfernoModManager {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadTypeColumn;
 	private: System::Windows::Forms::PictureBox^ DownloadImage;
 	private: System::Windows::Forms::Label^ DownloadName;
-	private: System::Windows::Forms::LinkLabel^ DownloadLink;
+	private: System::Windows::Forms::LinkLabel^ DownloadUrl;
+
 	private: System::Windows::Forms::Label^ DownloadAuthor;
 	private: System::Windows::Forms::Label^ DownloadTags;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
 
 	private: System::ComponentModel::IContainer^ components;
-
-
-
-
-
-
-
 
 		private:
 			/// <summary>
@@ -189,7 +151,7 @@ namespace InfernoModManager {
 			this->DownloadInstalled = (gcnew System::Windows::Forms::Label());
 			this->DownloadType = (gcnew System::Windows::Forms::Label());
 			this->ShowInstalledCheck = (gcnew System::Windows::Forms::CheckBox());
-			this->DownloadLink = (gcnew System::Windows::Forms::LinkLabel());
+			this->DownloadUrl = (gcnew System::Windows::Forms::LinkLabel());
 			this->DownloadAuthor = (gcnew System::Windows::Forms::Label());
 			this->DownloadTags = (gcnew System::Windows::Forms::Label());
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
@@ -364,6 +326,7 @@ namespace InfernoModManager {
 			this->DownloadImage->Location = System::Drawing::Point(3, 3);
 			this->DownloadImage->Name = L"DownloadImage";
 			this->DownloadImage->Size = System::Drawing::Size(50, 50);
+			this->DownloadImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->DownloadImage->TabIndex = 20;
 			this->DownloadImage->TabStop = false;
 			// 
@@ -585,6 +548,7 @@ namespace InfernoModManager {
 			this->DownloadsList->ShowRowErrors = false;
 			this->DownloadsList->Size = System::Drawing::Size(867, 688);
 			this->DownloadsList->TabIndex = 3;
+			this->DownloadsList->SelectionChanged += gcnew System::EventHandler(this, &MainForm::DownloadsList_SelectionChanged);
 			// 
 			// InstalledColumn
 			// 
@@ -623,6 +587,7 @@ namespace InfernoModManager {
 			this->Tabs->SelectedIndex = 0;
 			this->Tabs->Size = System::Drawing::Size(1319, 750);
 			this->Tabs->TabIndex = 1;
+			this->Tabs->Selected += gcnew System::Windows::Forms::TabControlEventHandler(this, &MainForm::Tabs_Selected);
 			// 
 			// ManagerTab
 			// 
@@ -665,7 +630,7 @@ namespace InfernoModManager {
 			this->DownloadManager->Controls->Add(this->ShowInstalledCheck, 0, 0);
 			this->DownloadManager->Controls->Add(tableLayoutPanel1, 1, 1);
 			this->DownloadManager->Controls->Add(label5, 1, 6);
-			this->DownloadManager->Controls->Add(this->DownloadLink, 2, 10);
+			this->DownloadManager->Controls->Add(this->DownloadUrl, 2, 10);
 			this->DownloadManager->Controls->Add(this->DownloadAuthor, 2, 6);
 			this->DownloadManager->Controls->Add(this->DownloadTags, 2, 7);
 			this->DownloadManager->Controls->Add(label13, 1, 7);
@@ -730,16 +695,16 @@ namespace InfernoModManager {
 			this->ShowInstalledCheck->Text = L"Don\'t show installed";
 			this->ShowInstalledCheck->UseVisualStyleBackColor = true;
 			// 
-			// DownloadLink
+			// DownloadUrl
 			// 
-			this->DownloadLink->AutoSize = true;
-			this->DownloadLink->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadLink->Location = System::Drawing::Point(1094, 704);
-			this->DownloadLink->Name = L"DownloadLink";
-			this->DownloadLink->Size = System::Drawing::Size(214, 17);
-			this->DownloadLink->TabIndex = 25;
-			this->DownloadLink->TabStop = true;
-			this->DownloadLink->Text = L"https://www.Download Link.com";
+			this->DownloadUrl->AutoSize = true;
+			this->DownloadUrl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->DownloadUrl->Location = System::Drawing::Point(1094, 704);
+			this->DownloadUrl->Name = L"DownloadUrl";
+			this->DownloadUrl->Size = System::Drawing::Size(214, 17);
+			this->DownloadUrl->TabIndex = 25;
+			this->DownloadUrl->TabStop = true;
+			this->DownloadUrl->Text = L"https://www.Download Link.com";
 			// 
 			// DownloadAuthor
 			// 
@@ -800,6 +765,7 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void FolderUpdate(System::Object^ sender, System::IO::FileSystemEventArgs^ e) {
+			GetInstalled();
 			PopulateModsList();
 		}
 		private: System::Void FolderUpdate(System::Object^ sender, System::IO::RenamedEventArgs^ e) {
@@ -831,7 +797,13 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void ModsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
-			UpdateStats(ModsList->SelectedRows[0]->Index, false);
+			if(ModsList->SelectedRows->Count > 0)
+				UpdateModStats(ModsList->SelectedRows[0]->Index);
+		}
+
+		private: System::Void DownloadsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
+			if (DownloadsList->SelectedRows->Count > 0)
+				UpdateDownloadStats(DownloadsList->SelectedRows[0]->Index);
 		}
 
 		private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
@@ -841,26 +813,61 @@ namespace InfernoModManager {
 			System::Threading::Thread::Sleep(5);
 		}
 
+		private: System::Void Tabs_Selected(System::Object^ sender, System::Windows::Forms::TabControlEventArgs^ e) {
+			if(e->TabPageIndex == 1) {
+				GetAvailable();
+				PopulateDownloadsList();
+			}
+		}
+
 		private: bool IsEnabled(System::String^ file) {
 			return !file->EndsWith(".disabled");
 		}
 
-		private: System::Void PopulateModsList() {
-			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
+		private: System::Void GetInstalled() {
 			InfernoModManager::Mod::Installed->Clear();
-			ModsList->Rows->Clear();
+			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
 			for each (System::String ^ file in files) {
 				if (InfernoModManager::Games::IsCompatibleType(file)) {
-					System::String^ name = NameOf(file);
-					System::String^ type = TypeOf(file);
-					System::Boolean^ enabled = IsEnabled(file);
-					ModsList->Rows->Add(enabled, name, type);
-					InfernoModManager::Mod::Installed->Add(gcnew InfernoModManager::Mod(name, "noone", "1.0", "other", type, "a mod",
-						file, "", enabled));
+					InfernoModManager::Mod::Installed->Add(gcnew InfernoModManager::Mod(NameOf(file), "noone", "1.0", "other", 
+						TypeOf(file), "a mod", file, "", IsEnabled(file)));
 				}
 			}
-			ModsList->Sort(NameColumn, System::ComponentModel::ListSortDirection::Ascending);
-			UpdateStats(0, false);
+		}
+		
+		private: System::Void GetAvailable() {
+			InfernoModManager::Mod::Available->Clear();
+			std::vector<const char*> allData = InfernoModManager::WebDownloader::getAllData(true);
+			for (int i = 0; i < allData.size(); i++) {
+				array<System::String^>^ data = msclr::interop::marshal_as<System::String^>(allData[i])->Split('<');
+				if (data->Length > 6) {
+					bool isInstalled = false;
+					for (int i = 0; i < InfernoModManager::Mod::Installed->Count; i++) {
+						if (InfernoModManager::Mod::Installed[i]->Name->Equals(data[1])) {
+							isInstalled = true;
+							break;
+						}
+					}
+					InfernoModManager::Mod::Available->Add(gcnew InfernoModManager::Mod(data[1], data[2], "1.0", data[4], data[5],
+						data[3], data[0], data[6], isInstalled));
+				}
+			}
+		}
+
+		private: System::Void PopulateModsList() {
+			ModsList->Rows->Clear();
+			for each (InfernoModManager::Mod^ mod in InfernoModManager::Mod::Installed)
+				ModsList->Rows->Add(mod->Status, mod->Name, mod->Type);
+			//ModsList->Sort(ModNameColumn, System::ComponentModel::ListSortDirection::Ascending);
+			UpdateModStats(0);
+		}
+
+		private: System::Void PopulateDownloadsList() {
+			DownloadsList->Rows->Clear();
+			for each (InfernoModManager::Mod ^ mod in InfernoModManager::Mod::Available)
+				DownloadsList->Rows->Add(mod->Status, mod->Name, mod->Type);
+			//DownloadsList->Sort(DownloadNameColumn, System::ComponentModel::ListSortDirection::Ascending);
+			UpdateDownloadStats(0);
 		}
 
 		private: System::String^ NameOf(System::String^ file) {
@@ -885,25 +892,27 @@ namespace InfernoModManager {
 				DoModsButton->Text = "Launch";
 		}
 
-		private: System::Void UpdateStats(int index, bool isDownload) {
-			InfernoModManager::Mod^ mod = (isDownload ? InfernoModManager::Mod::Available : InfernoModManager::Mod::Installed)[index];
+		private: System::Void UpdateModStats(int index) {
+			InfernoModManager::Mod^ mod = InfernoModManager::Mod::Installed[index];
 			ModName->Text = mod->Name;
 			ModEnabled->Text = mod->Status->ToString();
 			ModType->Text = mod->Type;
 			ModDescription->Text = mod->Description;
 		}
 
-		private: System::Void UpdateDownloadTab(const char* data) {
-			array<System::String^>^ dataList = msclr::interop::marshal_as<System::String^>(data)->Split('<');
-			/*DownloadUrl->Text = dataList[0];
-			DownloadName->Text = dataList[1];
-			DownloadAuthor->Text = dataList[2];
-			DownloadDescription->Text = dataList[3];
-			DownloadTags->Text = dataList[4];
-			System::IO::MemoryStream^ img = gcnew System::IO::MemoryStream(System::Convert::FromBase64String(dataList[5]));
+		private: System::Void UpdateDownloadStats(int index) {
+			InfernoModManager::Mod^ mod = InfernoModManager::Mod::Available[index];
+			System::IO::MemoryStream^ img =  gcnew System::IO::MemoryStream(System::Convert::FromBase64String(mod->Base64Png));
 			DownloadImage->Image = System::Drawing::Image::FromStream(img);
 			img->Close();
-			delete img;*/
+			delete img;
+			DownloadName->Text = mod->Name;
+			DownloadInstalled->Text = mod->Status->ToString();
+			DownloadType->Text = mod->Type;
+			DownloadAuthor->Text = mod->Author;
+			DownloadTags->Text = mod->Tags;
+			DownloadDescription->Text = mod->Description;
+			DownloadUrl->Text = mod->Location;
 		}
 };
 }

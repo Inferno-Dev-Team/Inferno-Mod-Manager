@@ -30,6 +30,9 @@
     <ClCompile Include="WebDownloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SmoothablePictureBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Mod.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoothablePictureBox.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

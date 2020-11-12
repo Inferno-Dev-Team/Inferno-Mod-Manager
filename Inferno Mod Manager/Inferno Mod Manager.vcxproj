@@ -137,6 +137,7 @@
     <ClCompile Include="EncryptionManager.cpp" />
     <ClCompile Include="Injection.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="SmoothablePictureBox.cpp" />
     <ClCompile Include="SupportedGames.cpp" />
     <ClCompile Include="WebDownloader.cpp" />
   </ItemGroup>
@@ -148,6 +149,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Mod.h" />
+    <ClInclude Include="SmoothablePictureBox.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="Tags.h" />
     <ClInclude Include="WebDownloader.h" />
   </ItemGroup>
