@@ -30,11 +30,11 @@ namespace InfernoModManager {
 		return AllData;
 	}
 
-	void WebDownloader::downloadFile(const char* fileloc, const char* filename)
+	void WebDownloader::downloadFile(System::String^ fileloc, System::String^ filename)
 	{
 		System::Net::WebClient^ web = gcnew System::Net::WebClient();
 		web->Headers->Add("user-agent", "Inferno Mod Manager");
-		web->DownloadFile(msclr::interop::marshal_as<System::String^>(fileloc), msclr::interop::marshal_as<System::String^>(filename));
+		web->DownloadFile(fileloc, filename);
 	}
 
 }
