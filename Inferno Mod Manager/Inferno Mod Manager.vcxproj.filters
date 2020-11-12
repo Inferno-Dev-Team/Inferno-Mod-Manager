@@ -59,5 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\..\LuckiestGuy-Regular.ttf" />
+    <Font Include="LuckiestGuy-Regular.ttf" />
   </ItemGroup>
 </Project>

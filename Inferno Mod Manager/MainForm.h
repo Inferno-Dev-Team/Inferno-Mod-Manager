@@ -18,8 +18,7 @@ namespace InfernoModManager {
 	public:
 		MainForm(void)
 		{
-
-
+			
 			//System::Drawing::Text::PrivateFontCollection::AddMemoryFont()
 			//System::Console::WriteLine(System::Convert::ToBase64String(System::IO::File::ReadAllBytes("D:\\LuckiestGuy-Regular.ttf")));
 			InitializeComponent();
