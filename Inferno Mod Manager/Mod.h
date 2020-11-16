@@ -10,7 +10,7 @@ namespace InfernoModManager {
 			System::String^ description;
 			System::String^ location;
 			System::String^ base64png;
-			System::Boolean^ status;
+			bool status;
 
 		public:
 			static System::Collections::Generic::List<Mod^>^ Installed = gcnew System::Collections::Generic::List<Mod^>();
@@ -22,12 +22,18 @@ namespace InfernoModManager {
 			property System::String^ Tags { System::String^ get() { return tags; } }
 			property System::String^ Type { System::String^ get() { return type; } }
 			property System::String^ Description { System::String^ get() { return description; } }
-			property System::String^ Location { System::String^ get() { return location; } }
+			property System::String^ Location { 
+				System::String^ get() { return location; } 
+				System::Void set(System::String^ value) { location = value; } 
+			}
 			property System::String^ Base64Png { System::String^ get() { return base64png; } }
-			property System::Boolean^ Status { System::Boolean^ get() { return status; } }
+			property bool Status {
+				bool get() { return status; }
+				System::Void set(bool value) { status = value; }
+			}
 
 			Mod(System::String^ name, System::String^ author, System::String^ version, System::String^ tags, System::String^ type,
-				System::String^ description, System::String^ location, System::String^ base64png, System::Boolean^ status) :
+				System::String^ description, System::String^ location, System::String^ base64png, bool status) :
 				name(name), author(author), version(version), tags(tags), type(type), description(description), location(location),
 				base64png(base64png), status(status) {
 				// Makes sure that the base64png is the correct length

@@ -16,7 +16,6 @@ std::map<long long, const char*> InfernoModManager::Games::GameInfo = {
 std::vector<const char*> InfernoModManager::Games::Types = {
 	".btd6mod",
 	".dll",
-	".dll.disabled"
 };
 std::map<long long, const char*> InfernoModManager::Games::GameLocs = {};
 
