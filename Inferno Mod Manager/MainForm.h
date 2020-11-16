@@ -32,6 +32,7 @@ namespace InfernoModManager {
 				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
 				->SetValue(this->ModsList, true);
 			btd6Install = InfernoModManager::Games::GetGameDir(960090);
+			System::IO::Directory::CreateDirectory(GetDisabledDir());
 			GetInstalled();
 			PopulateModsList();
 
@@ -819,12 +820,6 @@ namespace InfernoModManager {
 
 		private: System::String^ btd6Install = nullptr;
 
-		private: System::Void ModsList_ItemCheck(System::Object^ sender, System::Windows::Forms::ItemCheckEventArgs^ e) {
-			if (btd6Install != nullptr) {
-				//bool toggle =
-			}
-		}
-
 		private: System::Void FolderUpdate(System::Object^ sender, System::IO::FileSystemEventArgs^ e) {
 			GetInstalled();
 			PopulateModsList();
@@ -837,20 +832,15 @@ namespace InfernoModManager {
 			if (e->ColumnIndex == EnabledColumn->Index) {
 				ModsList->EndEdit(); //makes changes actually register
 				if (e->RowIndex > -1) {
-					System::Windows::Forms::DataGridViewRow^ row = ModsList->Rows[e->RowIndex];
-					if (((System::String^)row->Cells[2]->Value)->Contains(".dll")) {
-						System::String^ oldName;
-						System::String^ newName;
-						if ((bool)row->Cells[0]->Value) {
-							oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll.disabled";
-							newName = System::IO::Path::ChangeExtension(oldName, "");
-						}
-						else {
-							oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll";
-							newName = System::IO::Path::ChangeExtension(oldName, ".dll.disabled");
-						}
-						System::IO::File::Move(oldName, newName);
-					}
+					InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->Rows[e->RowIndex]->Cells[ModInfoColumn->Index]->Value;
+					System::Diagnostics::Debug::WriteLine(mod->Status);
+					mod->Status = !mod->Status;
+					System::Diagnostics::Debug::WriteLine(mod->Status);
+					System::String^ newLoc = (mod->Status ? GetInstalledDir() : GetDisabledDir()) +
+						"\\" + System::IO::Path::GetFileName(mod->Location);
+					System::IO::File::Move(mod->Location, newLoc);
+					mod->Location = newLoc;
+					UpdateModStats(mod);
 				}
 			}
 		}
@@ -889,19 +879,23 @@ namespace InfernoModManager {
 			e->Graphics->DrawImage(((System::Windows::Forms::PictureBox^)sender)->Image, e->ClipRectangle);
 		}
 
-		private: bool IsEnabled(System::String^ file) {
-			return !file->EndsWith(".disabled");
+		private: System::Void DownloadMod_Click(System::Object^ sender, System::EventArgs^ e) {
+			InfernoModManager::WebDownloader::downloadFile(DownloadUrl->Text, btd6Install + "\\Mods\\" + DownloadName->Text + ".dll");
+			GetInstalled();
+			PopulateModsList();
+		}
+
+		private: System::Void GetFiles(array<System::String^>^ files, bool enabled) {
+			for each (System::String ^ file in files)
+				if (InfernoModManager::Games::IsCompatibleType(file))
+					InfernoModManager::Mod::Installed->Add(gcnew InfernoModManager::Mod(NameOf(file), "noone", "1.0", "other",
+						System::IO::Path::GetExtension(file), "a mod", file, "", enabled));
 		}
 
 		private: System::Void GetInstalled() {
 			InfernoModManager::Mod::Installed->Clear();
-			array<System::String^>^ files = System::IO::Directory::GetFiles(btd6Install + "\\Mods");
-			for each (System::String ^ file in files) {
-				if (InfernoModManager::Games::IsCompatibleType(file)) {
-					InfernoModManager::Mod::Installed->Add(gcnew InfernoModManager::Mod(NameOf(file), "noone", "1.0", "other",
-						TypeOf(file), "a mod", file, "", IsEnabled(file)));
-				}
-			}
+			GetFiles(System::IO::Directory::GetFiles(GetInstalledDir()), true);
+			GetFiles(System::IO::Directory::GetFiles(GetDisabledDir()), false);
 		}
 
 		private: System::Void GetAvailable() {
@@ -941,17 +935,10 @@ namespace InfernoModManager {
 
 		private: System::String^ NameOf(System::String^ file) {
 			System::String^ name = System::IO::Path::GetFileName(file);
-			int end = name->IndexOf('.');
+			int end = name->LastIndexOf('.');
 			if(end > 0)
 				name = name->Substring(0, end);
 			return name;
-		}
-
-		private: System::String^ TypeOf(System::String^ file) {
-			if (file->EndsWith(".dll.disabled"))
-				return ".dll";
-			else
-				return System::IO::Path::GetExtension(file);
 		}
 
 		private: System::Void CheckBTD6Open() {
@@ -961,32 +948,43 @@ namespace InfernoModManager {
 				DoModsButton->Text = "Launch";
 		}
 
-		private: System::Void UpdateModStats(int index) {
-			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->Rows[index]->Cells[ModInfoColumn->Index]->Value;
+		private: System::Void UpdateModStats(InfernoModManager::Mod^ mod) {
 			ModName->Text = mod->Name;
-			ModEnabled->Text = mod->Status->ToString();
+			ModEnabled->Text = (gcnew System::Boolean(mod->Status))->ToString();
 			ModType->Text = mod->Type;
 			ModDescription->Text = mod->Description;
 		}
 
-		private: System::Void UpdateDownloadStats(int index) {
-			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)DownloadsList->Rows[index]->Cells[DownloadInfoColumn->Index]->Value;
-			System::IO::MemoryStream^ img =  gcnew System::IO::MemoryStream(System::Convert::FromBase64String(mod->Base64Png));
+		private: System::Void UpdateModStats(int index) {
+			if (index > -1 && index < ModsList->Rows->Count)
+				UpdateModStats((InfernoModManager::Mod^)ModsList->Rows[index]->Cells[ModInfoColumn->Index]->Value);
+		}
+
+		private: System::Void UpdateDownloadStats(InfernoModManager::Mod^ mod) {
+			System::IO::MemoryStream^ img = gcnew System::IO::MemoryStream(System::Convert::FromBase64String(mod->Base64Png));
 			DownloadImage->Image = System::Drawing::Image::FromStream(img);
 			img->Close();
 			delete img;
 			DownloadName->Text = mod->Name;
-			DownloadInstalled->Text = mod->Status->ToString();
+			DownloadInstalled->Text = (gcnew System::Boolean(mod->Status))->ToString();
 			DownloadType->Text = mod->Type;
 			DownloadAuthor->Text = mod->Author;
 			DownloadTags->Text = mod->Tags;
 			DownloadDescription->Text = mod->Description;
 			DownloadUrl->Text = mod->Location;
 		}
-		private: System::Void DownloadMod_Click(System::Object^ sender, System::EventArgs^ e) {
-			InfernoModManager::WebDownloader::downloadFile(DownloadUrl->Text, btd6Install + "\\Mods\\" + DownloadName->Text + ".dll");
-			GetInstalled();
-			PopulateModsList();
+
+		private: System::Void UpdateDownloadStats(int index) {
+			if (index > -1 && index < DownloadsList->Rows->Count)
+				UpdateDownloadStats((InfernoModManager::Mod^)DownloadsList->Rows[index]->Cells[DownloadInfoColumn->Index]->Value);
+		}
+
+		private: System::String^ GetInstalledDir() {
+			return btd6Install + "\\Mods";
+		}
+
+		private: System::String^ GetDisabledDir() {
+			return btd6Install + "\\Mods\\Disabled";
 		}
 };
 }
