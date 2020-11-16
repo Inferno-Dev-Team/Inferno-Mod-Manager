@@ -73,7 +73,7 @@ namespace InfernoModManager {
 
 	private: System::Windows::Forms::Button^ DoModsButton;
 	private: System::Windows::Forms::Timer^ CheckBTD6Timer;
-	private: System::Windows::Forms::Label^ ModName;
+
 	private: System::Windows::Forms::Label^ ModType;
 	private: System::Windows::Forms::Label^ ModEnabled;
 	private: System::Windows::Forms::Label^ ModDescription;
@@ -112,6 +112,11 @@ namespace InfernoModManager {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModNameColumn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModTypeColumn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModInfoColumn;
+	private: System::Windows::Forms::PictureBox^ ModImage;
+
+	private: System::Windows::Forms::Label^ ModName;
+	private: System::Windows::Forms::Button^ RemoveMod;
+
 
 
 
@@ -150,17 +155,24 @@ namespace InfernoModManager {
 			System::Windows::Forms::Label^ label5;
 			System::Windows::Forms::Label^ label12;
 			System::Windows::Forms::Label^ label13;
+			System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->DownloadImage = (gcnew System::Windows::Forms::PictureBox());
 			this->DownloadName = (gcnew System::Windows::Forms::Label());
 			this->DownloadMod = (gcnew System::Windows::Forms::Button());
-			this->ModManager = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->ModName = (gcnew System::Windows::Forms::Label());
+			this->ModImage = (gcnew System::Windows::Forms::PictureBox());
+			this->RemoveMod = (gcnew System::Windows::Forms::Button());
+			this->ModManager = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->ModDescription = (gcnew System::Windows::Forms::Label());
 			this->ModType = (gcnew System::Windows::Forms::Label());
 			this->ModEnabled = (gcnew System::Windows::Forms::Label());
 			this->DoModsButton = (gcnew System::Windows::Forms::Button());
 			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
+			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
+			this->ModNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ModTypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ModInfoColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->DownloadsList = (gcnew System::Windows::Forms::DataGridView());
 			this->InstalledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->DownloadNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -179,10 +191,6 @@ namespace InfernoModManager {
 			this->DownloadTags = (gcnew System::Windows::Forms::Label());
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
-			this->ModNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ModTypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ModInfoColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
 			label3 = (gcnew System::Windows::Forms::Label());
@@ -197,8 +205,11 @@ namespace InfernoModManager {
 			label5 = (gcnew System::Windows::Forms::Label());
 			label12 = (gcnew System::Windows::Forms::Label());
 			label13 = (gcnew System::Windows::Forms::Label());
+			tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			tableLayoutPanel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->BeginInit();
+			tableLayoutPanel2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModImage))->BeginInit();
 			this->ModManager->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadsList))->BeginInit();
@@ -213,7 +224,7 @@ namespace InfernoModManager {
 			label1->AutoSize = true;
 			label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label1->Location = System::Drawing::Point(877, 89);
+			label1->Location = System::Drawing::Point(877, 134);
 			label1->Name = L"label1";
 			label1->Size = System::Drawing::Size(49, 17);
 			label1->TabIndex = 5;
@@ -224,7 +235,7 @@ namespace InfernoModManager {
 			label2->AutoSize = true;
 			label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label2->Location = System::Drawing::Point(877, 72);
+			label2->Location = System::Drawing::Point(877, 117);
 			label2->Name = L"label2";
 			label2->Size = System::Drawing::Size(72, 17);
 			label2->TabIndex = 8;
@@ -235,7 +246,7 @@ namespace InfernoModManager {
 			label3->AutoSize = true;
 			label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label3->Location = System::Drawing::Point(877, 126);
+			label3->Location = System::Drawing::Point(877, 171);
 			label3->Name = L"label3";
 			label3->Size = System::Drawing::Size(95, 17);
 			label3->TabIndex = 10;
@@ -248,7 +259,7 @@ namespace InfernoModManager {
 			label4->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->ModManager->SetColumnSpan(label4, 2);
 			label4->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label4->Location = System::Drawing::Point(877, 61);
+			label4->Location = System::Drawing::Point(877, 106);
 			label4->Name = L"label4";
 			label4->Size = System::Drawing::Size(431, 2);
 			label4->TabIndex = 12;
@@ -261,7 +272,7 @@ namespace InfernoModManager {
 			label6->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->ModManager->SetColumnSpan(label6, 2);
 			label6->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label6->Location = System::Drawing::Point(877, 115);
+			label6->Location = System::Drawing::Point(877, 160);
 			label6->Name = L"label6";
 			label6->Size = System::Drawing::Size(431, 2);
 			label6->TabIndex = 14;
@@ -350,6 +361,9 @@ namespace InfernoModManager {
 			// 
 			// DownloadImage
 			// 
+			this->DownloadImage->ErrorImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.ErrorImage")));
+			this->DownloadImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.Image")));
+			this->DownloadImage->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.InitialImage")));
 			this->DownloadImage->Location = System::Drawing::Point(3, 2);
 			this->DownloadImage->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->DownloadImage->Name = L"DownloadImage";
@@ -357,7 +371,7 @@ namespace InfernoModManager {
 			this->DownloadImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->DownloadImage->TabIndex = 20;
 			this->DownloadImage->TabStop = false;
-			this->DownloadImage->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::DownloadImage_Paint);
+			this->DownloadImage->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::Image_Paint);
 			// 
 			// DownloadName
 			// 
@@ -417,6 +431,63 @@ namespace InfernoModManager {
 			label13->TabIndex = 24;
 			label13->Text = L"Tags:";
 			// 
+			// tableLayoutPanel2
+			// 
+			tableLayoutPanel2->AutoSize = true;
+			tableLayoutPanel2->ColumnCount = 3;
+			this->ModManager->SetColumnSpan(tableLayoutPanel2, 2);
+			tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 100)));
+			tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			tableLayoutPanel2->Controls->Add(this->ModName, 1, 0);
+			tableLayoutPanel2->Controls->Add(this->ModImage, 0, 0);
+			tableLayoutPanel2->Controls->Add(this->RemoveMod, 2, 0);
+			tableLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Fill;
+			tableLayoutPanel2->Location = System::Drawing::Point(874, 27);
+			tableLayoutPanel2->Margin = System::Windows::Forms::Padding(0);
+			tableLayoutPanel2->Name = L"tableLayoutPanel2";
+			tableLayoutPanel2->RowCount = 1;
+			tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			tableLayoutPanel2->Size = System::Drawing::Size(437, 70);
+			tableLayoutPanel2->TabIndex = 15;
+			// 
+			// ModName
+			// 
+			this->ModName->AutoSize = true;
+			this->ModName->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->ModName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->ModName->Location = System::Drawing::Point(73, 0);
+			this->ModName->Name = L"ModName";
+			this->ModName->Size = System::Drawing::Size(280, 70);
+			this->ModName->TabIndex = 22;
+			this->ModName->Text = L"Mod Name";
+			this->ModName->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// ModImage
+			// 
+			this->ModImage->ErrorImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ModImage.ErrorImage")));
+			this->ModImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ModImage.Image")));
+			this->ModImage->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ModImage.InitialImage")));
+			this->ModImage->Location = System::Drawing::Point(3, 3);
+			this->ModImage->Name = L"ModImage";
+			this->ModImage->Size = System::Drawing::Size(64, 64);
+			this->ModImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->ModImage->TabIndex = 0;
+			this->ModImage->TabStop = false;
+			this->ModImage->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::Image_Paint);
+			// 
+			// RemoveMod
+			// 
+			this->RemoveMod->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->RemoveMod->Location = System::Drawing::Point(359, 23);
+			this->RemoveMod->Name = L"RemoveMod";
+			this->RemoveMod->Size = System::Drawing::Size(75, 23);
+			this->RemoveMod->TabIndex = 23;
+			this->RemoveMod->Text = L"Remove";
+			this->RemoveMod->UseVisualStyleBackColor = true;
+			this->RemoveMod->Click += gcnew System::EventHandler(this, &MainForm::RemoveMod_Click);
+			// 
 			// ModManager
 			// 
 			this->ModManager->ColumnCount = 3;
@@ -424,7 +495,6 @@ namespace InfernoModManager {
 			this->ModManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 16.665F)));
 			this->ModManager->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 16.665F)));
 			this->ModManager->Controls->Add(label6, 1, 5);
-			this->ModManager->Controls->Add(this->ModName, 1, 1);
 			this->ModManager->Controls->Add(label3, 1, 6);
 			this->ModManager->Controls->Add(this->ModDescription, 1, 7);
 			this->ModManager->Controls->Add(label4, 1, 2);
@@ -434,6 +504,7 @@ namespace InfernoModManager {
 			this->ModManager->Controls->Add(this->ModEnabled, 2, 3);
 			this->ModManager->Controls->Add(this->DoModsButton, 0, 0);
 			this->ModManager->Controls->Add(this->ModsList, 0, 1);
+			this->ModManager->Controls->Add(tableLayoutPanel2, 1, 1);
 			this->ModManager->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ModManager->Location = System::Drawing::Point(0, 0);
 			this->ModManager->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
@@ -450,33 +521,21 @@ namespace InfernoModManager {
 			this->ModManager->Size = System::Drawing::Size(1311, 721);
 			this->ModManager->TabIndex = 0;
 			// 
-			// ModName
-			// 
-			this->ModName->AutoSize = true;
-			this->ModManager->SetColumnSpan(this->ModName, 2);
-			this->ModName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->ModName->Location = System::Drawing::Point(877, 27);
-			this->ModName->Name = L"ModName";
-			this->ModName->Size = System::Drawing::Size(108, 25);
-			this->ModName->TabIndex = 4;
-			this->ModName->Text = L"Mod Name";
-			// 
 			// ModDescription
 			// 
 			this->ModDescription->AutoSize = true;
 			this->ModManager->SetColumnSpan(this->ModDescription, 2);
 			this->ModDescription->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->ModDescription->Location = System::Drawing::Point(877, 143);
+			this->ModDescription->Location = System::Drawing::Point(877, 188);
 			this->ModDescription->Name = L"ModDescription";
-			this->ModDescription->Size = System::Drawing::Size(431, 578);
+			this->ModDescription->Size = System::Drawing::Size(431, 533);
 			this->ModDescription->TabIndex = 11;
 			this->ModDescription->Text = L"Mod Description";
 			// 
 			// ModType
 			// 
 			this->ModType->AutoSize = true;
-			this->ModType->Location = System::Drawing::Point(1095, 89);
+			this->ModType->Location = System::Drawing::Point(1095, 134);
 			this->ModType->Name = L"ModType";
 			this->ModType->Size = System::Drawing::Size(71, 17);
 			this->ModType->TabIndex = 7;
@@ -485,7 +544,7 @@ namespace InfernoModManager {
 			// ModEnabled
 			// 
 			this->ModEnabled->AutoSize = true;
-			this->ModEnabled->Location = System::Drawing::Point(1095, 72);
+			this->ModEnabled->Location = System::Drawing::Point(1095, 117);
 			this->ModEnabled->Name = L"ModEnabled";
 			this->ModEnabled->Size = System::Drawing::Size(91, 17);
 			this->ModEnabled->TabIndex = 9;
@@ -533,6 +592,40 @@ namespace InfernoModManager {
 			this->ModsList->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->SelectionChanged += gcnew System::EventHandler(this, &MainForm::ModsList_SelectionChanged);
+			// 
+			// EnabledColumn
+			// 
+			this->EnabledColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
+			this->EnabledColumn->HeaderText = L"Enabled";
+			this->EnabledColumn->MinimumWidth = 6;
+			this->EnabledColumn->Name = L"EnabledColumn";
+			this->EnabledColumn->Width = 66;
+			// 
+			// ModNameColumn
+			// 
+			this->ModNameColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->ModNameColumn->HeaderText = L"Name";
+			this->ModNameColumn->MinimumWidth = 6;
+			this->ModNameColumn->Name = L"ModNameColumn";
+			this->ModNameColumn->ReadOnly = true;
+			// 
+			// ModTypeColumn
+			// 
+			this->ModTypeColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
+			this->ModTypeColumn->HeaderText = L"Type";
+			this->ModTypeColumn->MinimumWidth = 6;
+			this->ModTypeColumn->Name = L"ModTypeColumn";
+			this->ModTypeColumn->ReadOnly = true;
+			this->ModTypeColumn->Width = 69;
+			// 
+			// ModInfoColumn
+			// 
+			this->ModInfoColumn->HeaderText = L"Mod";
+			this->ModInfoColumn->MinimumWidth = 6;
+			this->ModInfoColumn->Name = L"ModInfoColumn";
+			this->ModInfoColumn->ReadOnly = true;
+			this->ModInfoColumn->Visible = false;
+			this->ModInfoColumn->Width = 125;
 			// 
 			// DownloadsList
 			// 
@@ -757,40 +850,6 @@ namespace InfernoModManager {
 			this->CheckBTD6Timer->Interval = 1000;
 			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
 			// 
-			// EnabledColumn
-			// 
-			this->EnabledColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
-			this->EnabledColumn->HeaderText = L"Enabled";
-			this->EnabledColumn->MinimumWidth = 6;
-			this->EnabledColumn->Name = L"EnabledColumn";
-			this->EnabledColumn->Width = 66;
-			// 
-			// ModNameColumn
-			// 
-			this->ModNameColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->ModNameColumn->HeaderText = L"Name";
-			this->ModNameColumn->MinimumWidth = 6;
-			this->ModNameColumn->Name = L"ModNameColumn";
-			this->ModNameColumn->ReadOnly = true;
-			// 
-			// ModTypeColumn
-			// 
-			this->ModTypeColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
-			this->ModTypeColumn->HeaderText = L"Type";
-			this->ModTypeColumn->MinimumWidth = 6;
-			this->ModTypeColumn->Name = L"ModTypeColumn";
-			this->ModTypeColumn->ReadOnly = true;
-			this->ModTypeColumn->Width = 69;
-			// 
-			// ModInfoColumn
-			// 
-			this->ModInfoColumn->HeaderText = L"Mod";
-			this->ModInfoColumn->MinimumWidth = 6;
-			this->ModInfoColumn->Name = L"ModInfoColumn";
-			this->ModInfoColumn->ReadOnly = true;
-			this->ModInfoColumn->Visible = false;
-			this->ModInfoColumn->Width = 125;
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -804,6 +863,9 @@ namespace InfernoModManager {
 			tableLayoutPanel1->ResumeLayout(false);
 			tableLayoutPanel1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->EndInit();
+			tableLayoutPanel2->ResumeLayout(false);
+			tableLayoutPanel2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModImage))->EndInit();
 			this->ModManager->ResumeLayout(false);
 			this->ModManager->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ModsList))->EndInit();
@@ -833,9 +895,7 @@ namespace InfernoModManager {
 				ModsList->EndEdit(); //makes changes actually register
 				if (e->RowIndex > -1) {
 					InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->Rows[e->RowIndex]->Cells[ModInfoColumn->Index]->Value;
-					System::Diagnostics::Debug::WriteLine(mod->Status);
 					mod->Status = !mod->Status;
-					System::Diagnostics::Debug::WriteLine(mod->Status);
 					System::String^ newLoc = (mod->Status ? GetInstalledDir() : GetDisabledDir()) +
 						"\\" + System::IO::Path::GetFileName(mod->Location);
 					System::IO::File::Move(mod->Location, newLoc);
@@ -873,14 +933,22 @@ namespace InfernoModManager {
 			}
 		}
 
-		private: System::Void DownloadImage_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		private: System::Void Image_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 			e->Graphics->Clear(System::Drawing::SystemColors::Window);
 			e->Graphics->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
 			e->Graphics->DrawImage(((System::Windows::Forms::PictureBox^)sender)->Image, e->ClipRectangle);
 		}
 
 		private: System::Void DownloadMod_Click(System::Object^ sender, System::EventArgs^ e) {
-			InfernoModManager::WebDownloader::downloadFile(DownloadUrl->Text, btd6Install + "\\Mods\\" + DownloadName->Text + ".dll");
+			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)DownloadsList->SelectedRows[0]->Cells[DownloadInfoColumn->Index]->Value;
+			InfernoModManager::WebDownloader::downloadFile(mod->Location, GetInstalledDir() + mod->Name + mod->Type);
+			GetInstalled();
+			PopulateModsList();
+		}
+
+		private: System::Void RemoveMod_Click(System::Object^ sender, System::EventArgs^ e) {
+			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->SelectedRows[0]->Cells[ModInfoColumn->Index]->Value;
+			System::IO::File::Delete(mod->Location);
 			GetInstalled();
 			PopulateModsList();
 		}
@@ -961,10 +1029,12 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void UpdateDownloadStats(InfernoModManager::Mod^ mod) {
-			System::IO::MemoryStream^ img = gcnew System::IO::MemoryStream(System::Convert::FromBase64String(mod->Base64Png));
-			DownloadImage->Image = System::Drawing::Image::FromStream(img);
-			img->Close();
-			delete img;
+			try {
+				System::IO::MemoryStream^ img = gcnew System::IO::MemoryStream(System::Convert::FromBase64String(mod->Base64Png));
+				DownloadImage->Image = System::Drawing::Image::FromStream(img);
+				img->Close();
+				delete img;
+			} catch (System::Exception^ e) {}
 			DownloadName->Text = mod->Name;
 			DownloadInstalled->Text = (gcnew System::Boolean(mod->Status))->ToString();
 			DownloadType->Text = mod->Type;
