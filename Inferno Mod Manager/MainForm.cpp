@@ -20,7 +20,7 @@ std::vector<const char*> InfernoModManager::Games::Types = {
 std::map<long long, const char*> InfernoModManager::Games::GameLocs = {};
 
 std::vector<const char*> InfernoModManager::WebDownloader::Repos = {
-	"https://github.com/KosmicShovel/BTD6-Mods/raw/master/tmp/git.yo"
+	"https://pastebin.com/raw/mmsZH6UC"
 };
 std::vector<const char*> InfernoModManager::WebDownloader::AllData = {};
 
