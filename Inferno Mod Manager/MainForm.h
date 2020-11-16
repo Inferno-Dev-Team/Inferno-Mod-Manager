@@ -69,9 +69,7 @@ namespace InfernoModManager {
 		private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
 
 		private: System::Windows::Forms::DataGridView^ ModsList;
-		private: System::Windows::Forms::DataGridViewCheckBoxColumn^ EnabledColumn;
-		private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModNameColumn;
-		private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModTypeColumn;
+
 	private: System::Windows::Forms::Button^ DoModsButton;
 	private: System::Windows::Forms::Timer^ CheckBTD6Timer;
 	private: System::Windows::Forms::Label^ ModName;
@@ -92,17 +90,34 @@ namespace InfernoModManager {
 	private: System::Windows::Forms::Label^ DownloadInstalled;
 	private: System::Windows::Forms::Label^ DownloadType;
 	private: System::Windows::Forms::Button^ DownloadMod;
-	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ InstalledColumn;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadNameColumn;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadTypeColumn;
+
+
+
 	private: System::Windows::Forms::PictureBox^ DownloadImage;
 	private: System::Windows::Forms::Label^ DownloadName;
 	private: System::Windows::Forms::LinkLabel^ DownloadUrl;
 
 	private: System::Windows::Forms::Label^ DownloadAuthor;
 	private: System::Windows::Forms::Label^ DownloadTags;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NameColumn;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ TypeColumn;
+
+
+
+
+	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ InstalledColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadNameColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadTypeColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ DownloadInfoColumn;
+	private: System::Windows::Forms::DataGridViewCheckBoxColumn^ EnabledColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModNameColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModTypeColumn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ModInfoColumn;
+
+
+
+
+
+
+
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -145,13 +160,11 @@ namespace InfernoModManager {
 			this->ModEnabled = (gcnew System::Windows::Forms::Label());
 			this->DoModsButton = (gcnew System::Windows::Forms::Button());
 			this->ModsList = (gcnew System::Windows::Forms::DataGridView());
-			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
-			this->NameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->TypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->DownloadsList = (gcnew System::Windows::Forms::DataGridView());
 			this->InstalledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->DownloadNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->DownloadTypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->DownloadInfoColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Tabs = (gcnew System::Windows::Forms::TabControl());
 			this->ManagerTab = (gcnew System::Windows::Forms::TabPage());
 			this->DownloadTab = (gcnew System::Windows::Forms::TabPage());
@@ -165,6 +178,10 @@ namespace InfernoModManager {
 			this->DownloadTags = (gcnew System::Windows::Forms::Label());
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->EnabledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
+			this->ModNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ModTypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ModInfoColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
 			label3 = (gcnew System::Windows::Forms::Label());
@@ -493,9 +510,9 @@ namespace InfernoModManager {
 			this->ModsList->AllowUserToResizeColumns = false;
 			this->ModsList->AllowUserToResizeRows = false;
 			this->ModsList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->ModsList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+			this->ModsList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->EnabledColumn,
-					this->NameColumn, this->TypeColumn
+					this->ModNameColumn, this->ModTypeColumn, this->ModInfoColumn
 			});
 			this->ModsList->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ModsList->Location = System::Drawing::Point(3, 29);
@@ -516,31 +533,6 @@ namespace InfernoModManager {
 			this->ModsList->CellContentDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::ModsList_CellContentClick);
 			this->ModsList->SelectionChanged += gcnew System::EventHandler(this, &MainForm::ModsList_SelectionChanged);
 			// 
-			// EnabledColumn
-			// 
-			this->EnabledColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
-			this->EnabledColumn->HeaderText = L"Enabled";
-			this->EnabledColumn->MinimumWidth = 6;
-			this->EnabledColumn->Name = L"EnabledColumn";
-			this->EnabledColumn->Width = 66;
-			// 
-			// NameColumn
-			// 
-			this->NameColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->NameColumn->HeaderText = L"Name";
-			this->NameColumn->MinimumWidth = 6;
-			this->NameColumn->Name = L"NameColumn";
-			this->NameColumn->ReadOnly = true;
-			// 
-			// TypeColumn
-			// 
-			this->TypeColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
-			this->TypeColumn->HeaderText = L"Type";
-			this->TypeColumn->MinimumWidth = 6;
-			this->TypeColumn->Name = L"TypeColumn";
-			this->TypeColumn->ReadOnly = true;
-			this->TypeColumn->Width = 69;
-			// 
 			// DownloadsList
 			// 
 			this->DownloadsList->AllowUserToAddRows = false;
@@ -548,9 +540,9 @@ namespace InfernoModManager {
 			this->DownloadsList->AllowUserToResizeColumns = false;
 			this->DownloadsList->AllowUserToResizeRows = false;
 			this->DownloadsList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->DownloadsList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+			this->DownloadsList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->InstalledColumn,
-					this->DownloadNameColumn, this->DownloadTypeColumn
+					this->DownloadNameColumn, this->DownloadTypeColumn, this->DownloadInfoColumn
 			});
 			this->DownloadsList->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->DownloadsList->Location = System::Drawing::Point(3, 27);
@@ -595,6 +587,15 @@ namespace InfernoModManager {
 			this->DownloadTypeColumn->Name = L"DownloadTypeColumn";
 			this->DownloadTypeColumn->ReadOnly = true;
 			this->DownloadTypeColumn->Width = 69;
+			// 
+			// DownloadInfoColumn
+			// 
+			this->DownloadInfoColumn->HeaderText = L"Download";
+			this->DownloadInfoColumn->MinimumWidth = 6;
+			this->DownloadInfoColumn->Name = L"DownloadInfoColumn";
+			this->DownloadInfoColumn->ReadOnly = true;
+			this->DownloadInfoColumn->Visible = false;
+			this->DownloadInfoColumn->Width = 125;
 			// 
 			// Tabs
 			// 
@@ -755,6 +756,40 @@ namespace InfernoModManager {
 			this->CheckBTD6Timer->Interval = 1000;
 			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
 			// 
+			// EnabledColumn
+			// 
+			this->EnabledColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::ColumnHeader;
+			this->EnabledColumn->HeaderText = L"Enabled";
+			this->EnabledColumn->MinimumWidth = 6;
+			this->EnabledColumn->Name = L"EnabledColumn";
+			this->EnabledColumn->Width = 66;
+			// 
+			// ModNameColumn
+			// 
+			this->ModNameColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->ModNameColumn->HeaderText = L"Name";
+			this->ModNameColumn->MinimumWidth = 6;
+			this->ModNameColumn->Name = L"ModNameColumn";
+			this->ModNameColumn->ReadOnly = true;
+			// 
+			// ModTypeColumn
+			// 
+			this->ModTypeColumn->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
+			this->ModTypeColumn->HeaderText = L"Type";
+			this->ModTypeColumn->MinimumWidth = 6;
+			this->ModTypeColumn->Name = L"ModTypeColumn";
+			this->ModTypeColumn->ReadOnly = true;
+			this->ModTypeColumn->Width = 69;
+			// 
+			// ModInfoColumn
+			// 
+			this->ModInfoColumn->HeaderText = L"Mod";
+			this->ModInfoColumn->MinimumWidth = 6;
+			this->ModInfoColumn->Name = L"ModInfoColumn";
+			this->ModInfoColumn->ReadOnly = true;
+			this->ModInfoColumn->Visible = false;
+			this->ModInfoColumn->Width = 125;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -801,19 +836,21 @@ namespace InfernoModManager {
 		private: System::Void ModsList_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 			if (e->ColumnIndex == EnabledColumn->Index) {
 				ModsList->EndEdit(); //makes changes actually register
-				System::Windows::Forms::DataGridViewRow^ row = ModsList->Rows[e->RowIndex];
-				if (((System::String^)row->Cells[2]->Value)->Contains(".dll")) {
-					System::String^ oldName;
-					System::String^ newName;
-					if ((bool)row->Cells[0]->Value) {
-						oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll.disabled";
-						newName = System::IO::Path::ChangeExtension(oldName, "");
+				if (e->RowIndex > -1) {
+					System::Windows::Forms::DataGridViewRow^ row = ModsList->Rows[e->RowIndex];
+					if (((System::String^)row->Cells[2]->Value)->Contains(".dll")) {
+						System::String^ oldName;
+						System::String^ newName;
+						if ((bool)row->Cells[0]->Value) {
+							oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll.disabled";
+							newName = System::IO::Path::ChangeExtension(oldName, "");
+						}
+						else {
+							oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll";
+							newName = System::IO::Path::ChangeExtension(oldName, ".dll.disabled");
+						}
+						System::IO::File::Move(oldName, newName);
 					}
-					else {
-						oldName = btd6Install + "\\Mods\\" + row->Cells[1]->Value + ".dll";
-						newName = System::IO::Path::ChangeExtension(oldName, ".dll.disabled");
-					}
-					System::IO::File::Move(oldName, newName);
 				}
 			}
 		}
@@ -889,16 +926,16 @@ namespace InfernoModManager {
 		private: System::Void PopulateModsList() {
 			ModsList->Rows->Clear();
 			for each (InfernoModManager::Mod^ mod in InfernoModManager::Mod::Installed)
-				ModsList->Rows->Add(mod->Status, mod->Name, mod->Type);
-			//ModsList->Sort(ModNameColumn, System::ComponentModel::ListSortDirection::Ascending);
+				ModsList->Rows->Add(mod->Status, mod->Name, mod->Type, mod);
+			ModsList->Sort(ModNameColumn, System::ComponentModel::ListSortDirection::Ascending);
 			UpdateModStats(0);
 		}
 
 		private: System::Void PopulateDownloadsList() {
 			DownloadsList->Rows->Clear();
 			for each (InfernoModManager::Mod ^ mod in InfernoModManager::Mod::Available)
-				DownloadsList->Rows->Add(mod->Status, mod->Name, mod->Type);
-			//DownloadsList->Sort(DownloadNameColumn, System::ComponentModel::ListSortDirection::Ascending);
+				DownloadsList->Rows->Add(mod->Status, mod->Name, mod->Type, mod);
+			DownloadsList->Sort(DownloadNameColumn, System::ComponentModel::ListSortDirection::Ascending);
 			UpdateDownloadStats(0);
 		}
 
@@ -925,7 +962,7 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void UpdateModStats(int index) {
-			InfernoModManager::Mod^ mod = InfernoModManager::Mod::Installed[index];
+			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->Rows[index]->Cells[ModInfoColumn->Index]->Value;
 			ModName->Text = mod->Name;
 			ModEnabled->Text = mod->Status->ToString();
 			ModType->Text = mod->Type;
@@ -933,7 +970,7 @@ namespace InfernoModManager {
 		}
 
 		private: System::Void UpdateDownloadStats(int index) {
-			InfernoModManager::Mod^ mod = InfernoModManager::Mod::Available[index];
+			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)DownloadsList->Rows[index]->Cells[DownloadInfoColumn->Index]->Value;
 			System::IO::MemoryStream^ img =  gcnew System::IO::MemoryStream(System::Convert::FromBase64String(mod->Base64Png));
 			DownloadImage->Image = System::Drawing::Image::FromStream(img);
 			img->Close();
