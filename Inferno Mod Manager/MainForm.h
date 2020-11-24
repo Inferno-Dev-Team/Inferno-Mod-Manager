@@ -991,9 +991,9 @@ namespace InfernoModManager {
 
 		private: System::Void GetAvailable() {
 			InfernoModManager::Mod::Available->Clear();
-			std::vector<const char*> allData = InfernoModManager::WebDownloader::getAllData(true);
-			for (int i = 0; i < allData.size(); i++) {
-				array<System::String^>^ data = msclr::interop::marshal_as<System::String^>(allData[i])->Split('<');
+			System::Collections::Generic::List<System::String^>^ allData = InfernoModManager::WebDownloader::getAllData();
+			for (int i = 0; i < allData->ToArray()->Length; i++) {
+				array<System::String^>^ data = allData[i]->Split('<');
 				if (data->Length > 6) {
 					bool isInstalled = false;
 					for (int i = 0; i < InfernoModManager::Mod::Installed->Count; i++) {

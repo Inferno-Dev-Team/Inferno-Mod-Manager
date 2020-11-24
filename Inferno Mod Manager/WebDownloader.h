@@ -2,12 +2,13 @@
 
 #pragma once
 namespace InfernoModManager {
-	class WebDownloader
+	ref class WebDownloader
 	{
 		public:
-			static std::vector<const char*> Repos;
-			static std::vector<const char*> AllData;
-		    static std::vector<const char*> getAllData(bool forcePull = false, bool log = false);
+			static System::Collections::Generic::List<System::String^>^ Repos;
+			static System::Collections::Generic::List<System::String^>^ AllData;
+			static System::Collections::Generic::List<System::String^>^ getAllData();
+			static void ifBlankSet();
 			static void downloadFile(System::String^ fileloc, System::String^ filename);
 	};
 }

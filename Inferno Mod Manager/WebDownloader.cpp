@@ -1,39 +1,41 @@
 ﻿#include "WebDownloader.h"
 
 #include <iostream>
-#include <msclr\marshal.h>
 #include <string>
 
 namespace InfernoModManager {
-	std::vector<const char*> WebDownloader::getAllData(bool forcePull, bool log)
+	System::Collections::Generic::List<System::String^>^ WebDownloader::getAllData()
 	{
-		if (AllData.size() == 0 || forcePull) {
-			std::vector<const char*> compList = std::vector<const char*>();
-			msclr::interop::marshal_context^ ctx = gcnew msclr::interop::marshal_context();
-			System::Net::WebClient^ web = gcnew System::Net::WebClient();
-			web->Headers->Add("user-agent", "Inferno Mod Manager");
-			for each (const char* addr in WebDownloader::Repos)
-			{
-				System::String^ address = ctx->marshal_as<System::String^>(addr);
-				if (address) {
-					if (address->Replace("н", ""))
-					try {
-						System::String^ data = web->DownloadString(address);
-						data->Replace("\r", "");
-						for each (System::String ^ section in data->Split('\n'))
-						{
-							msclr::interop::marshal_context^ ctx = gcnew msclr::interop::marshal_context();
-							const char* tmp = ctx->marshal_as<const char*>(section);
-							compList.push_back(tmp);
-							if (log) std::cout << tmp << "\n";
-						}
-					} catch (System::Exception^) {}
+		System::Collections::Generic::List<System::String^>^ compList = gcnew System::Collections::Generic::List<System::String^>();
+		System::Net::WebClient^ web = gcnew System::Net::WebClient();
+		web->Headers->Add("user-agent", "Inferno Mod Manager");
+		for each (System::String ^ address in WebDownloader::Repos)
+		{
+			if (address) {
+				try {
+					System::String^ data = web->DownloadString(address);
+					data->Replace("\r", "");
+					for each (System::String ^ section in data->Split('\n'))
+					{
+						compList->Add(section);
+					}
 				}
+				catch (System::Exception^) {}
 			}
-			AllData = compList;
 		}
+		AllData = compList;
 
 		return AllData;
+	}
+
+	void  WebDownloader::ifBlankSet()
+	{
+		if (!WebDownloader::Repos) {
+			WebDownloader::Repos = gcnew System::Collections::Generic::List<System::String^>;
+			WebDownloader::Repos->Add("https://pastebin.com/raw/mmsZH6UC");
+		}
+		if (!WebDownloader::AllData)
+			WebDownloader::AllData = gcnew System::Collections::Generic::List<System::String^>;
 	}
 
 	void WebDownloader::downloadFile(System::String^ fileloc, System::String^ filename)
