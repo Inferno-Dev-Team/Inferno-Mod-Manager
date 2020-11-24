@@ -553,7 +553,7 @@ namespace InfernoModManager {
 			//
 			// DoModsButton
 			//
-			this->DoModsButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->DoModsButton->Font = (gcnew System::Drawing::Font(fontCollection->Families[0], 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->DoModsButton->Location = System::Drawing::Point(3, 2);
 			this->DoModsButton->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);

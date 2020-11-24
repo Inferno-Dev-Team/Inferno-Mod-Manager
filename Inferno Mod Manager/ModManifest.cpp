@@ -32,11 +32,7 @@ namespace InfernoModManager
 		if (!File::Exists("mods.json"))
 			return nullptr;
 
-		List<Mod^>^ mods = nullptr;
-		try {
-			mods = JsonConvert::DeserializeObject<List<Mod^>^>(File::ReadAllText("mods.json"));
-		}
-		catch (System::Exception^) {}
+		List<Mod^>^ mods = GetMods();
 
 		if (mods)
 		{
@@ -51,16 +47,25 @@ namespace InfernoModManager
 		return nullptr;
 	}
 
-	void ModManifest::Sub(Mod^ m)
+	List<Mod^>^ ModManifest::GetMods()
 	{
 		if (!File::Exists("mods.json"))
-			return;
+			return nullptr;
 
 		List<Mod^>^ mods = nullptr;
 		try {
 			mods = JsonConvert::DeserializeObject<List<Mod^>^>(File::ReadAllText("mods.json"));
 		}
 		catch (System::Exception^) {}
+		return mods;
+	}
+
+	void ModManifest::Sub(Mod^ m)
+	{
+		if (!File::Exists("mods.json"))
+			return;
+
+		List<Mod^>^ mods = GetMods();
 
 		if (mods)
 		{

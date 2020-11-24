@@ -176,6 +176,7 @@
     <ClInclude Include="Mod.h" />
     <ClInclude Include="ModManifest.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="WebDownloader.h" />
   </ItemGroup>
@@ -185,9 +186,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="cursor1.cur" />
     <None Include="Lib\Newtonsoft.Json.dll" />
     <None Include="Lib\System.Security.dll" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Inferno Mod Manager.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
