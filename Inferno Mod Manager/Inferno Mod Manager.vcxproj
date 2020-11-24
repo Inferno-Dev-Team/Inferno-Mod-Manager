@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EncryptionManager.cpp" />
+    <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Injection.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="ModManifest.cpp" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EncryptionManager.h" />
+    <ClInclude Include="Helpers.h" />
     <ClInclude Include="InfernoModAttribute.h" />
     <ClInclude Include="Injection.h" />
     <ClInclude Include="MainForm.h">
