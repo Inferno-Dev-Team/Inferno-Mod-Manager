@@ -350,3 +350,6 @@ MigrationBackup/
 .ionide/
 Inferno Mod Manager/Lib/System.Security.dll
 Inferno Mod Manager/LuckiestGuy.ttf
+Inferno Mod Manager/mods.json
+Inferno Mod Manager/Lib/Newtonsoft.Json.dll
+Inferno Mod Manager/Lib/Newtonsoft.Json.xml

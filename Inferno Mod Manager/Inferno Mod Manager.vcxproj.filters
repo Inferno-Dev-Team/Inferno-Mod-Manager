@@ -30,6 +30,9 @@
     <ClCompile Include="WebDownloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ModManifest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -53,8 +56,16 @@
     <ClInclude Include="Mod.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModManifest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Lib\Newtonsoft.Json.dll" />
+    <None Include="Lib\System.Security.dll" />
   </ItemGroup>
 </Project>

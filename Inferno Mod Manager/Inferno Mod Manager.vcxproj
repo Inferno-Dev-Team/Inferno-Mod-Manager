@@ -89,7 +89,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -101,7 +101,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -113,6 +113,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -124,6 +125,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -132,19 +134,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>true</Private>
+    </Reference>
     <Reference Include="System.Security">
       <HintPath>Lib\System.Security.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Forms">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>true</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EncryptionManager.cpp" />
     <ClCompile Include="Injection.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="ModManifest.cpp" />
     <ClCompile Include="SupportedGames.cpp" />
     <ClCompile Include="WebDownloader.cpp" />
   </ItemGroup>
@@ -156,6 +172,8 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Mod.h" />
+    <ClInclude Include="ModManifest.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="WebDownloader.h" />
   </ItemGroup>
@@ -165,6 +183,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lib\Newtonsoft.Json.dll" />
+    <None Include="Lib\System.Security.dll" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

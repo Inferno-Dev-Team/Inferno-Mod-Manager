@@ -9,7 +9,7 @@ namespace InfernoModManager {
 			System::String^ type;
 			System::String^ description;
 			System::String^ location;
-			System::String^ base64png;
+			System::String^ pngLoc;
 			bool status;
 
 		public:
@@ -22,31 +22,31 @@ namespace InfernoModManager {
 			property System::String^ Tags { System::String^ get() { return tags; } }
 			property System::String^ Type { System::String^ get() { return type; } }
 			property System::String^ Description { System::String^ get() { return description; } }
-			property System::String^ Location { 
-				System::String^ get() { return location; } 
-				System::Void set(System::String^ value) { location = value; } 
+			property System::String^ Location {
+				System::String^ get() { return location; }
+				System::Void set(System::String^ value) { location = value; }
 			}
-			property System::String^ Base64Png { System::String^ get() { return base64png; } }
+			property System::String^ PNGLoc { System::String^ get() { return pngLoc; } }
 			property bool Status {
 				bool get() { return status; }
 				System::Void set(bool value) { status = value; }
 			}
 
 			Mod(System::String^ name, System::String^ author, System::String^ version, System::String^ tags, System::String^ type,
-				System::String^ description, System::String^ location, System::String^ base64png, bool status) :
+				System::String^ description, System::String^ location, System::String^ pngLoc, bool status) :
 				name(name), author(author), version(version), tags(tags), type(type), description(description), location(location),
-				base64png(base64png), status(status) {
+				pngLoc(pngLoc), status(status) {
 				// Makes sure that the base64png is the correct length
-				int off = this->base64png->Length % 4;
+				/*int off = this->base64png->Length % 4;
 				if (off != 0) {
 					if (this->base64png->EndsWith(gcnew System::String('=', off)))
 						this->base64png = this->base64png->Substring(0, this->base64png->Length - off);
 					else
 						this->base64png += gcnew System::String('=', 4 - off);
-				}
+				}*/
 			}
 			~Mod() {
-				delete name, author, version, tags, description, location, base64png, status;
+				delete name, author, version, tags, description, location, pngLoc, status;
 			}
 	};
 }
