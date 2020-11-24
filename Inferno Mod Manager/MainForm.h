@@ -941,7 +941,8 @@ namespace InfernoModManager {
 
 		private: System::Void DownloadMod_Click(System::Object^ sender, System::EventArgs^ e) {
 			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)DownloadsList->SelectedRows[0]->Cells[DownloadInfoColumn->Index]->Value;
-			InfernoModManager::WebDownloader::downloadFile(mod->Location, GetInstalledDir() + mod->Name + mod->Type);
+			System::Diagnostics::Debug::WriteLine(GetInstalledDir() + mod->Name + mod->Type);
+			InfernoModManager::WebDownloader::downloadFile(mod->Location, GetInstalledDir() + "\\" + mod->Name + mod->Type);
 			GetInstalled();
 			PopulateModsList();
 		}
