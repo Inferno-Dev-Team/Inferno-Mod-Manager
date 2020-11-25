@@ -37,7 +37,7 @@ namespace Inferno.Extensions {
             towerModel.behaviors.GetModelIndex(behavior);
         public static int GetBehaviorModelIndex(this TowerModel towerModel, string partialName, int number = 0) =>
             towerModel.behaviors.GetModelIndex(partialName, number);
-        public static int GetModelIndex(this TowerModel towerModel, int number, params string[] partialNames) =>
+        public static int GetBehaviorModelIndex(this TowerModel towerModel, int number, params string[] partialNames) =>
             towerModel.behaviors.GetModelIndex(number, partialNames);
 
         public static int[] GetBehaviorModelIndices<T>(this TowerModel towerModel, params T[] behaviors) where T : Model =>
@@ -122,11 +122,11 @@ namespace Inferno.Extensions {
 
         #region Unique extension functions
 
-        public static AttackModel GetAttackModel(this TowerModel towerModel, int attackNumber = 0) {
-            if (towerModel.HasBehaviorModel("AttackModel"))
-                return towerModel.GetBehaviorModel<AttackModel>("AttackModel");
-            return towerModel.GetBehaviorModel<AttackAirUnitModel>("AttackAirUnitModel");
-        }
+        public static AttackModel GetAttackModel(this TowerModel towerModel, int attackNumber = 0) =>
+            towerModel.GetBehaviorModel<AttackModel>(attackNumber, "AttackModel", "AttackAirUnitModel");
+
+        public static int GetAttackModelIndex(this TowerModel towerModel, int attackNumber = 0) =>
+            towerModel.GetBehaviorModelIndex(attackNumber, "AttackModel", "AttackAirUnitModel");
 
         #endregion
     }
