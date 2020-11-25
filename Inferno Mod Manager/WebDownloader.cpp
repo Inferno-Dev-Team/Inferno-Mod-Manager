@@ -32,7 +32,7 @@ namespace InfernoModManager {
 	{
 		if (!WebDownloader::Repos) {
 			WebDownloader::Repos = gcnew System::Collections::Generic::List<System::String^>;
-			WebDownloader::Repos->Add("https://pastebin.com/raw/mmsZH6UC");
+			WebDownloader::Repos->Add("https://raw.githubusercontent.com/Inferno-Dev-Team/Inferno-Mod-Manager/main/git.yo");
 		}
 		if (!WebDownloader::AllData)
 			WebDownloader::AllData = gcnew System::Collections::Generic::List<System::String^>;
