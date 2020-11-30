@@ -135,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>Lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>true</Private>
@@ -187,14 +187,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cursor1.cur" />
-    <None Include="Lib\Newtonsoft.Json.dll" />
-    <None Include="Lib\System.Security.dll" />
+    <None Include="Newtonsoft.Json.dll" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Inferno Mod Manager.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="C:\Users\xande\Downloads\discord-3-569463.png" />
     <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

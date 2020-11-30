@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{5c20f826-f5c9-483b-a5e5-f75c878bb1e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainForm.cpp">
@@ -74,10 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Lib\Newtonsoft.Json.dll" />
-    <None Include="Lib\System.Security.dll" />
     <None Include="cursor1.cur">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Newtonsoft.Json.dll">
+      <Filter>Lib</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\xande\Downloads\discord-3-569463.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
