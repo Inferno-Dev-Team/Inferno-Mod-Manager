@@ -146,6 +146,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 
 
 
+
 	private: System::ComponentModel::IContainer^ components;
 
 		private:
@@ -188,7 +189,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			System::Windows::Forms::PictureBox^ InfernoIcon;
 			System::Windows::Forms::Label^ DiscordLabel;
 			System::Windows::Forms::Label^ Creators;
-			System::Windows::Forms::WebBrowser^ DiscordWidget;
+			System::Windows::Forms::Label^ label16;
 			this->DownloadImage = (gcnew System::Windows::Forms::PictureBox());
 			this->DownloadName = (gcnew System::Windows::Forms::Label());
 			this->DownloadMod = (gcnew System::Windows::Forms::Button());
@@ -255,7 +256,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			InfernoIcon = (gcnew System::Windows::Forms::PictureBox());
 			DiscordLabel = (gcnew System::Windows::Forms::Label());
 			Creators = (gcnew System::Windows::Forms::Label());
-			DiscordWidget = (gcnew System::Windows::Forms::WebBrowser());
+			label16 = (gcnew System::Windows::Forms::Label());
 			tableLayoutPanel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DownloadImage))->BeginInit();
 			tableLayoutPanel2->SuspendLayout();
@@ -568,7 +569,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// BaydockPfp
 			// 
 			BaydockPfp->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"BaydockPfp.Image")));
-			BaydockPfp->Location = System::Drawing::Point(654, 93);
+			BaydockPfp->Location = System::Drawing::Point(301, 93);
 			BaydockPfp->Name = L"BaydockPfp";
 			this->CreditsLayout->SetRowSpan(BaydockPfp, 2);
 			BaydockPfp->Size = System::Drawing::Size(64, 64);
@@ -580,7 +581,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// KosmicPfp
 			// 
 			KosmicPfp->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"KosmicPfp.Image")));
-			KosmicPfp->Location = System::Drawing::Point(654, 23);
+			KosmicPfp->Location = System::Drawing::Point(301, 23);
 			KosmicPfp->Name = L"KosmicPfp";
 			this->CreditsLayout->SetRowSpan(KosmicPfp, 2);
 			KosmicPfp->Size = System::Drawing::Size(64, 64);
@@ -592,7 +593,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// KosmicName
 			// 
 			KosmicName->AutoSize = true;
-			KosmicName->Location = System::Drawing::Point(726, 20);
+			KosmicName->Location = System::Drawing::Point(373, 20);
 			KosmicName->Name = L"KosmicName";
 			KosmicName->Size = System::Drawing::Size(53, 17);
 			KosmicName->TabIndex = 6;
@@ -601,7 +602,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// BaydockName
 			// 
 			BaydockName->AutoSize = true;
-			BaydockName->Location = System::Drawing::Point(726, 90);
+			BaydockName->Location = System::Drawing::Point(373, 90);
 			BaydockName->Name = L"BaydockName";
 			BaydockName->Size = System::Drawing::Size(62, 17);
 			BaydockName->TabIndex = 7;
@@ -641,26 +642,11 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// Creators
 			// 
 			Creators->AutoSize = true;
-			Creators->Location = System::Drawing::Point(654, 0);
+			Creators->Location = System::Drawing::Point(301, 0);
 			Creators->Name = L"Creators";
 			Creators->Size = System::Drawing::Size(66, 17);
 			Creators->TabIndex = 11;
 			Creators->Text = L"Creators:";
-			// 
-			// DiscordWidget
-			// 
-			this->CreditsLayout->SetColumnSpan(DiscordWidget, 2);
-			DiscordWidget->Dock = System::Windows::Forms::DockStyle::Fill;
-			DiscordWidget->Location = System::Drawing::Point(3, 93);
-			DiscordWidget->MinimumSize = System::Drawing::Size(20, 20);
-			DiscordWidget->Name = L"DiscordWidget";
-			this->CreditsLayout->SetRowSpan(DiscordWidget, 3);
-			DiscordWidget->Size = System::Drawing::Size(645, 619);
-			DiscordWidget->TabIndex = 12;
-			//DiscordWidget->DocumentText = cli::safe_cast<System::String^>(resources->GetObject("DiscordWidgetHTML"));
-			//DiscordWidget->Url = (gcnew System::Uri(L"https://discord.com/widget\?id=758553724226109480&amp;theme=dark", System::UriKind::Absolute));
-			//DiscordWidget->Navigate(cli::safe_cast<System::String^>(resources->GetObject("DiscordWidgetHTML")));
-			DiscordWidget->Navigate(L"https://discord.com/widget\?id=758553724226109480&amp;theme=dark");
 			// 
 			// ModManager
 			// 
@@ -1061,25 +1047,24 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// 
 			// CreditsLayout
 			// 
-			this->CreditsLayout->ColumnCount = 4;
+			this->CreditsLayout->ColumnCount = 5;
 			this->CreditsLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
-			this->CreditsLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				50)));
 			this->CreditsLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
-			this->CreditsLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				50)));
-			this->CreditsLayout->Controls->Add(this->BaydockGithub, 3, 4);
-			this->CreditsLayout->Controls->Add(BaydockPfp, 2, 3);
-			this->CreditsLayout->Controls->Add(KosmicPfp, 2, 1);
-			this->CreditsLayout->Controls->Add(KosmicName, 3, 1);
-			this->CreditsLayout->Controls->Add(BaydockName, 3, 3);
-			this->CreditsLayout->Controls->Add(this->KosmicGithub, 3, 2);
+			this->CreditsLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->CreditsLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->CreditsLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			this->CreditsLayout->Controls->Add(this->BaydockGithub, 4, 4);
+			this->CreditsLayout->Controls->Add(BaydockPfp, 3, 3);
+			this->CreditsLayout->Controls->Add(KosmicPfp, 3, 1);
+			this->CreditsLayout->Controls->Add(KosmicName, 4, 1);
+			this->CreditsLayout->Controls->Add(BaydockName, 4, 3);
+			this->CreditsLayout->Controls->Add(this->KosmicGithub, 4, 2);
 			this->CreditsLayout->Controls->Add(this->DiscordButton, 1, 2);
 			this->CreditsLayout->Controls->Add(JoinText, 1, 1);
 			this->CreditsLayout->Controls->Add(InfernoIcon, 0, 1);
 			this->CreditsLayout->Controls->Add(DiscordLabel, 0, 0);
-			this->CreditsLayout->Controls->Add(Creators, 2, 0);
-			this->CreditsLayout->Controls->Add(DiscordWidget, 0, 3);
+			this->CreditsLayout->Controls->Add(Creators, 3, 0);
+			this->CreditsLayout->Controls->Add(label16, 2, 0);
 			this->CreditsLayout->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->CreditsLayout->Location = System::Drawing::Point(3, 3);
 			this->CreditsLayout->Name = L"CreditsLayout";
@@ -1097,9 +1082,10 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// 
 			this->BaydockGithub->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->BaydockGithub->AutoSize = true;
 			this->BaydockGithub->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"BaydockGithub.BackgroundImage")));
 			this->BaydockGithub->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->BaydockGithub->Location = System::Drawing::Point(726, 110);
+			this->BaydockGithub->Location = System::Drawing::Point(373, 110);
 			this->BaydockGithub->Name = L"BaydockGithub";
 			this->BaydockGithub->Size = System::Drawing::Size(47, 47);
 			this->BaydockGithub->TabIndex = 5;
@@ -1110,9 +1096,10 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// 
 			this->KosmicGithub->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->KosmicGithub->AutoSize = true;
 			this->KosmicGithub->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"KosmicGithub.BackgroundImage")));
 			this->KosmicGithub->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-			this->KosmicGithub->Location = System::Drawing::Point(726, 40);
+			this->KosmicGithub->Location = System::Drawing::Point(373, 40);
 			this->KosmicGithub->Name = L"KosmicGithub";
 			this->KosmicGithub->Size = System::Drawing::Size(47, 47);
 			this->KosmicGithub->TabIndex = 4;
@@ -1123,6 +1110,7 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			// 
 			this->DiscordButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->DiscordButton->AutoSize = true;
 			this->DiscordButton->BackColor = System::Drawing::Color::Transparent;
 			this->DiscordButton->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DiscordButton.BackgroundImage")));
 			this->DiscordButton->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
@@ -1138,6 +1126,17 @@ private: System::Windows::Forms::Button^ KosmicGithub;
 			this->CheckBTD6Timer->Enabled = true;
 			this->CheckBTD6Timer->Interval = 1000;
 			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
+			// 
+			// label16
+			// 
+			label16->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom));
+			label16->BackColor = System::Drawing::SystemColors::Window;
+			label16->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			label16->Location = System::Drawing::Point(293, 0);
+			label16->Name = L"label16";
+			this->CreditsLayout->SetRowSpan(label16, 6);
+			label16->Size = System::Drawing::Size(2, 715);
+			label16->TabIndex = 12;
 			// 
 			// MainForm
 			// 
