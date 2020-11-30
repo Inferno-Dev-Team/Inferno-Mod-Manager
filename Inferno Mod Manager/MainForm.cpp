@@ -26,7 +26,8 @@ std::map<long long, const char*> InfernoModManager::Games::GameLocs = {};
 [STAThread]
 int main()
 {
-	freopen("log.log", "w", stdout);
+	freopen_s((FILE**)stdout, "log.log", "w", stdout);
+
 	//Why no work
 	InfernoModManager::WebDownloader::ifBlankSet();
 	if (!IO::File::Exists("repos.json"))
