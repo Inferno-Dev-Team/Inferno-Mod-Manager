@@ -6,7 +6,6 @@
  - Go to "https://melonwiki.xyz/#/README".
  - Follow the download and install instructions.
  - A folder named "Mods" will have been created in your BTD6 installation folder.
- - Put mod files in folder.
  - Run BTD6.
  - Close BTD6 after file generation.
  - Run our mod manager.
