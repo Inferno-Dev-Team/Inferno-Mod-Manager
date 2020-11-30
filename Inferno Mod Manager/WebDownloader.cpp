@@ -24,6 +24,7 @@ namespace InfernoModManager {
 			}
 		}
 		AllData = compList;
+		delete compList;
 
 		return AllData;
 	}
@@ -43,6 +44,7 @@ namespace InfernoModManager {
 		System::Net::WebClient^ web = gcnew System::Net::WebClient();
 		web->Headers->Add("user-agent", "Inferno Mod Manager");
 		web->DownloadFile(fileloc, filename);
+		delete web;
 	}
 
 }
