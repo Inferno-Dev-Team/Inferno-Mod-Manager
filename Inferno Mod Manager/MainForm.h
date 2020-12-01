@@ -7,6 +7,7 @@
 #include "Mod.h"
 #include "ModManifest.h"
 #include <string>
+#include <Windows.h>
 
 #pragma once
 
@@ -20,13 +21,6 @@ namespace InfernoModManager {
 	public:
 		MainForm(void)
 		{
-			if (!System::IO::File::Exists("LuckiestGuy.ttf"))
-			{
-				InfernoModManager::WebDownloader::downloadFile("https://github.com/Inferno-Dev-Team/Assets/blob/main/Luckiest_Guy/LuckiestGuy-Regular.ttf?raw=true", "LuckiestGuy.ttf");
-			}
-			fontCollection = gcnew System::Drawing::Text::PrivateFontCollection();
-			fontCollection->AddFontFile(System::IO::Path::GetFullPath("LuckiestGuy.ttf"));
-
 			InitializeComponent();
 
 			//double buffered renders all at once, therefore faster
@@ -69,10 +63,21 @@ namespace InfernoModManager {
 			}
 		}
 
-	private: System::Drawing::Text::PrivateFontCollection^ fontCollection;
-		private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
+		void OnLoad(System::EventArgs^ e) override
+		{
+			if (!System::IO::File::Exists("LuckiestGuy.ttf"))
+			{
+				InfernoModManager::WebDownloader::downloadFile("https://github.com/Inferno-Dev-Team/Assets/blob/main/Luckiest_Guy/LuckiestGuy-Regular.ttf?raw=true", "LuckiestGuy.ttf");
+			}
+			fontCollection = gcnew System::Drawing::Text::PrivateFontCollection();
+			fontCollection->AddFontFile(System::IO::Path::GetFullPath("LuckiestGuy.ttf"));
+			DoModsButton->Font = gcnew System::Drawing::Font(fontCollection->Families[0], DoModsButton->Font->Size, System::Drawing::FontStyle::Regular);
+		}
 
-		private: System::Windows::Forms::DataGridView^ ModsList;
+	private: System::Drawing::Text::PrivateFontCollection^ fontCollection;
+	private: System::Windows::Forms::FolderBrowserDialog^ BTD6FolderDialog;
+
+	private: System::Windows::Forms::DataGridView^ ModsList;
 
 	private: System::Windows::Forms::Button^ DoModsButton;
 	private: System::Windows::Forms::Timer^ CheckBTD6Timer;
@@ -99,7 +104,7 @@ namespace InfernoModManager {
 
 	private: System::Windows::Forms::PictureBox^ DownloadImage;
 	private: System::Windows::Forms::Label^ DownloadName;
-	//private: System::Windows::Forms::LinkLabel^ DownloadUrl;
+		   //private: System::Windows::Forms::LinkLabel^ DownloadUrl;
 
 	private: System::Windows::Forms::Label^ DownloadAuthor;
 	private: System::Windows::Forms::Label^ DownloadTags;
@@ -119,21 +124,22 @@ namespace InfernoModManager {
 
 	private: System::Windows::Forms::Label^ ModName;
 	private: System::Windows::Forms::Button^ RemoveMod;
-private: System::Windows::Forms::Label^ ModTags;
-private: System::Windows::Forms::Label^ ModAuthor;
-private: System::Windows::Forms::TabPage^ CreditTab;
+	private: System::Windows::Forms::Label^ ModTags;
+	private: System::Windows::Forms::Label^ ModAuthor;
+	private: System::Windows::Forms::TabPage^ CreditTab;
 
-private: System::Windows::Forms::TableLayoutPanel^ CreditsLayout;
-private: System::Windows::Forms::Button^ DiscordButton;
+	private: System::Windows::Forms::TableLayoutPanel^ CreditsLayout;
+	private: System::Windows::Forms::Button^ DiscordButton;
 
 
-private: System::Windows::Forms::Button^ BaydockGithub;
-private: System::Windows::Forms::Button^ KosmicGithub;
-private: System::Windows::Forms::Label^ ModDescription;
-private: System::Windows::Forms::Label^ ModVersion;
-private: System::Windows::Forms::Label^ DownloadDescription;
-private: System::Windows::Forms::Label^ label19;
-private: System::Windows::Forms::Label^ DownloadVersion;
+	private: System::Windows::Forms::Button^ BaydockGithub;
+	private: System::Windows::Forms::Button^ KosmicGithub;
+	private: System::Windows::Forms::Label^ ModDescription;
+	private: System::Windows::Forms::Label^ ModVersion;
+	private: System::Windows::Forms::Label^ DownloadDescription;
+	private: System::Windows::Forms::Label^ label19;
+	private: System::Windows::Forms::Label^ DownloadVersion;
+	private: System::Windows::Forms::ProgressBar^ DownloadProgressBar;
 
 
 
@@ -161,10 +167,10 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 
 	private: System::ComponentModel::IContainer^ components;
 
-		private:
-			/// <summary>
-			/// Required designer variable.
-			/// </summary>
+	private:
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
 
 
 #pragma region Windows Form Designer generated code
@@ -246,6 +252,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			this->DiscordButton = (gcnew System::Windows::Forms::Button());
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->DownloadProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
 			label3 = (gcnew System::Windows::Forms::Label());
@@ -362,7 +369,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			label7->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->DownloadManager->SetColumnSpan(label7, 2);
 			label7->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label7->Location = System::Drawing::Point(655, 84);
+			label7->Location = System::Drawing::Point(655, 92);
 			label7->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			label7->Name = L"label7";
 			label7->Size = System::Drawing::Size(324, 2);
@@ -374,7 +381,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			label8->AutoSize = true;
 			label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label8->Location = System::Drawing::Point(655, 93);
+			label8->Location = System::Drawing::Point(655, 101);
 			label8->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			label8->Name = L"label8";
 			label8->Size = System::Drawing::Size(59, 1);
@@ -388,7 +395,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			label9->AutoSize = true;
 			label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label9->Location = System::Drawing::Point(655, 93);
+			label9->Location = System::Drawing::Point(655, 101);
 			label9->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			label9->Name = L"label9";
 			label9->Size = System::Drawing::Size(159, 13);
@@ -402,7 +409,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			label10->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->DownloadManager->SetColumnSpan(label10, 2);
 			label10->ForeColor = System::Drawing::SystemColors::ActiveBorder;
-			label10->Location = System::Drawing::Point(655, 580);
+			label10->Location = System::Drawing::Point(655, 588);
 			label10->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			label10->Name = L"label10";
 			label10->Size = System::Drawing::Size(324, 2);
@@ -414,7 +421,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			label11->AutoSize = true;
 			label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label11->Location = System::Drawing::Point(655, 156);
+			label11->Location = System::Drawing::Point(655, 164);
 			label11->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			label11->Name = L"label11";
 			label11->Size = System::Drawing::Size(75, 13);
@@ -433,7 +440,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			tableLayoutPanel1->Controls->Add(this->DownloadName, 1, 0);
 			tableLayoutPanel1->Controls->Add(this->DownloadMod, 2, 0);
 			tableLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Fill;
-			tableLayoutPanel1->Location = System::Drawing::Point(653, 21);
+			tableLayoutPanel1->Location = System::Drawing::Point(653, 29);
 			tableLayoutPanel1->Margin = System::Windows::Forms::Padding(0);
 			tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			tableLayoutPanel1->RowCount = 1;
@@ -486,7 +493,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			label5->AutoSize = true;
 			label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label5->Location = System::Drawing::Point(655, 117);
+			label5->Location = System::Drawing::Point(655, 125);
 			label5->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			label5->Name = L"label5";
 			label5->Size = System::Drawing::Size(48, 13);
@@ -510,7 +517,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			label13->AutoSize = true;
 			label13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			label13->Location = System::Drawing::Point(655, 130);
+			label13->Location = System::Drawing::Point(655, 138);
 			label13->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			label13->Name = L"label13";
 			label13->Size = System::Drawing::Size(39, 13);
@@ -909,7 +916,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 					this->DownloadNameColumn, this->DownloadTypeColumn, this->DownloadInfoColumn
 			});
 			this->DownloadsList->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadsList->Location = System::Drawing::Point(2, 23);
+			this->DownloadsList->Location = System::Drawing::Point(2, 31);
 			this->DownloadsList->Margin = System::Windows::Forms::Padding(2);
 			this->DownloadsList->MultiSelect = false;
 			this->DownloadsList->Name = L"DownloadsList";
@@ -1023,6 +1030,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			this->DownloadManager->Controls->Add(this->DownloadVersion, 2, 8);
 			this->DownloadManager->Controls->Add(this->DownloadDescription, 1, 10);
 			this->DownloadManager->Controls->Add(label10, 1, 11);
+			this->DownloadManager->Controls->Add(this->DownloadProgressBar, 2, 0);
 			this->DownloadManager->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->DownloadManager->Location = System::Drawing::Point(0, 0);
 			this->DownloadManager->Margin = System::Windows::Forms::Padding(2);
@@ -1047,7 +1055,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			// DownloadInstalled
 			//
 			this->DownloadInstalled->AutoSize = true;
-			this->DownloadInstalled->Location = System::Drawing::Point(818, 93);
+			this->DownloadInstalled->Location = System::Drawing::Point(818, 101);
 			this->DownloadInstalled->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->DownloadInstalled->Name = L"DownloadInstalled";
 			this->DownloadInstalled->Size = System::Drawing::Size(97, 1);
@@ -1058,7 +1066,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			//
 			this->DownloadType->AutoSize = true;
 			this->DownloadType->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadType->Location = System::Drawing::Point(818, 93);
+			this->DownloadType->Location = System::Drawing::Point(818, 101);
 			this->DownloadType->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->DownloadType->Name = L"DownloadType";
 			this->DownloadType->Size = System::Drawing::Size(161, 13);
@@ -1083,7 +1091,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			//
 			this->DownloadTags->AutoSize = true;
 			this->DownloadTags->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->DownloadTags->Location = System::Drawing::Point(818, 130);
+			this->DownloadTags->Location = System::Drawing::Point(818, 138);
 			this->DownloadTags->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->DownloadTags->Name = L"DownloadTags";
 			this->DownloadTags->Size = System::Drawing::Size(161, 13);
@@ -1095,7 +1103,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			this->label19->AutoSize = true;
 			this->label19->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label19->Location = System::Drawing::Point(656, 143);
+			this->label19->Location = System::Drawing::Point(656, 151);
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(53, 13);
 			this->label19->TabIndex = 29;
@@ -1104,7 +1112,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			// DownloadAuthor
 			//
 			this->DownloadAuthor->AutoSize = true;
-			this->DownloadAuthor->Location = System::Drawing::Point(818, 117);
+			this->DownloadAuthor->Location = System::Drawing::Point(818, 125);
 			this->DownloadAuthor->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->DownloadAuthor->Name = L"DownloadAuthor";
 			this->DownloadAuthor->Size = System::Drawing::Size(89, 13);
@@ -1114,7 +1122,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			// DownloadVersion
 			//
 			this->DownloadVersion->AutoSize = true;
-			this->DownloadVersion->Location = System::Drawing::Point(819, 143);
+			this->DownloadVersion->Location = System::Drawing::Point(819, 151);
 			this->DownloadVersion->Name = L"DownloadVersion";
 			this->DownloadVersion->Size = System::Drawing::Size(93, 13);
 			this->DownloadVersion->TabIndex = 30;
@@ -1123,7 +1131,7 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			// DownloadDescription
 			//
 			this->DownloadDescription->AutoSize = true;
-			this->DownloadDescription->Location = System::Drawing::Point(656, 175);
+			this->DownloadDescription->Location = System::Drawing::Point(656, 183);
 			this->DownloadDescription->Name = L"DownloadDescription";
 			this->DownloadDescription->Size = System::Drawing::Size(111, 13);
 			this->DownloadDescription->TabIndex = 28;
@@ -1232,6 +1240,13 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 			this->CheckBTD6Timer->Interval = 1000;
 			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
 			//
+			// DownloadProgressBar
+			//
+			this->DownloadProgressBar->Location = System::Drawing::Point(819, 3);
+			this->DownloadProgressBar->Name = L"DownloadProgressBar";
+			this->DownloadProgressBar->Size = System::Drawing::Size(158, 23);
+			this->DownloadProgressBar->TabIndex = 31;
+			//
 			// MainForm
 			//
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1268,253 +1283,284 @@ private: System::Windows::Forms::Label^ DownloadVersion;
 		}
 #pragma endregion
 
-		private: System::String^ btd6Install = nullptr;
+	private: System::String^ btd6Install = nullptr;
 
-		private: System::Void FolderUpdate(System::Object^ sender, System::IO::FileSystemEventArgs^ e) {
-			GetInstalled();
-			PopulateModsList();
-		}
-		private: System::Void FolderUpdate(System::Object^ sender, System::IO::RenamedEventArgs^ e) {
-			FolderUpdate(sender, (System::IO::FileSystemEventArgs^)e);
-		}
+	private: System::Void FolderUpdate(System::Object^ sender, System::IO::FileSystemEventArgs^ e) {
+		GetInstalled();
+		PopulateModsList();
+	}
+	private: System::Void FolderUpdate(System::Object^ sender, System::IO::RenamedEventArgs^ e) {
+		FolderUpdate(sender, (System::IO::FileSystemEventArgs^)e);
+	}
 
-		private: System::Void ModsList_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-			if (e->ColumnIndex == EnabledColumn->Index) {
-				ModsList->EndEdit(); //makes changes actually register
-				if (e->RowIndex > -1) {
-					InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->Rows[e->RowIndex]->Cells[ModInfoColumn->Index]->Value;
-					mod->Status = !mod->Status;
-					System::String^ newLoc = (mod->Status ? GetInstalledDir() : GetDisabledDir()) +
-						"\\" + System::IO::Path::GetFileName(mod->Location)->Replace("%20", " ");
-					System::String^ oldLoc = (mod->Status ? GetDisabledDir() : GetInstalledDir()) +
-						"\\" + System::IO::Path::GetFileName(mod->Location)->Replace("%20", " ");
-					System::IO::File::Move(oldLoc, newLoc);
-					mod->Location = newLoc;
-					UpdateModStats(mod);
-				}
+	private: System::Void ModsList_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+		if (e->ColumnIndex == EnabledColumn->Index) {
+			ModsList->EndEdit(); //makes changes actually register
+			if (e->RowIndex > -1) {
+				InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->Rows[e->RowIndex]->Cells[ModInfoColumn->Index]->Value;
+				mod->Status = !mod->Status;
+				System::String^ newLoc = (mod->Status ? GetInstalledDir() : GetDisabledDir()) +
+					"\\" + System::IO::Path::GetFileName(mod->Location)->Replace("%20", " ");
+				System::String^ oldLoc = (mod->Status ? GetDisabledDir() : GetInstalledDir()) +
+					"\\" + System::IO::Path::GetFileName(mod->Location)->Replace("%20", " ");
+				System::IO::File::Move(oldLoc, newLoc);
+				mod->Location = newLoc;
+				UpdateModStats(mod);
 			}
 		}
+	}
 
-		private: System::Void CheckBTD6Open(System::Object^ sender, System::EventArgs^ e) {
-			CheckBTD6Open();
-		}
+	private: System::Void CheckBTD6Open(System::Object^ sender, System::EventArgs^ e) {
+		CheckBTD6Open();
+	}
 
-		private: System::Void ModsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
-			if(ModsList->SelectedRows->Count > 0)
-				UpdateModStats(ModsList->SelectedRows[0]->Index);
-		}
+	private: System::Void ModsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (ModsList->SelectedRows->Count > 0)
+			UpdateModStats(ModsList->SelectedRows[0]->Index);
+	}
 
-		private: System::Void DownloadsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
-			if (DownloadsList->SelectedRows->Count > 0)
-				UpdateDownloadStats(DownloadsList->SelectedRows[0]->Index);
-		}
+	private: System::Void DownloadsList_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (DownloadsList->SelectedRows->Count > 0)
+			UpdateDownloadStats(DownloadsList->SelectedRows[0]->Index);
+	}
 
-		private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
-		{
-			System::Diagnostics::ProcessStartInfo^ psi = gcnew System::Diagnostics::ProcessStartInfo("steam://rungameid/960090");
-			System::Diagnostics::Process::Start(psi);
-			System::Threading::Thread::Sleep(5);
-		}
+	private: System::Void LaunchGame(System::Object^ sender, System::EventArgs^ e)
+	{
+		System::Diagnostics::ProcessStartInfo^ psi = gcnew System::Diagnostics::ProcessStartInfo("steam://rungameid/960090");
+		System::Diagnostics::Process::Start(psi);
+		System::Threading::Thread::Sleep(5);
+	}
 
-		private: System::Void Tabs_Selected(System::Object^ sender, System::Windows::Forms::TabControlEventArgs^ e) {
-			if(e->TabPageIndex == 1) {
-				GetAvailable();
-				PopulateDownloadsList();
-			}
-		}
-
-		private: System::Void Image_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-			e->Graphics->Clear(System::Drawing::SystemColors::Window);
-			e->Graphics->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
-			e->Graphics->DrawImage(((System::Windows::Forms::PictureBox^)sender)->Image, e->ClipRectangle);
-		}
-
-		private: System::Void DownloadMod_Click(System::Object^ sender, System::EventArgs^ e) {
-			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)DownloadsList->SelectedRows[0]->Cells[DownloadInfoColumn->Index]->Value;
-			System::Diagnostics::Debug::WriteLine(GetInstalledDir() + mod->Name + mod->Type);
-			InfernoModManager::WebDownloader::downloadFile(mod->Location, GetInstalledDir() + "\\" + mod->Name->Replace("%20", " ") + mod->Type);
-			ModManifest::Add(mod);
-			GetInstalled();
-			PopulateModsList();
+	private: System::Void Tabs_Selected(System::Object^ sender, System::Windows::Forms::TabControlEventArgs^ e) {
+		if (e->TabPageIndex == 1) {
+			DownloadProgressBar->Value = 0;
+			GetAvailable();
 			PopulateDownloadsList();
 		}
+	}
 
-		private: System::Void RemoveMod_Click(System::Object^ sender, System::EventArgs^ e) {
-			InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->SelectedRows[0]->Cells[ModInfoColumn->Index]->Value;
-			System::IO::File::Delete(GetInstalledDir() + "\\" + mod->Name->Replace("%20", " ") + mod->Type);
-			ModManifest::Sub(mod);
-			GetInstalled();
-			PopulateModsList();
-		}
+	private: System::Void Image_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		e->Graphics->Clear(System::Drawing::SystemColors::Window);
+		e->Graphics->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::HighQualityBilinear;
+		e->Graphics->DrawImage(((System::Windows::Forms::PictureBox^)sender)->Image, e->ClipRectangle);
+	}
 
-		private: System::Void KosmicGithub_Click(System::Object^ sender, System::EventArgs^ e) {
-			System::Diagnostics::Process::Start("https://github.com/KosmicShovel");
-		}
+	private: System::Void DownloadProgressCompleted(System::Object^ sender, System::ComponentModel::AsyncCompletedEventArgs^ e)
+	{
+		DownloadMod->Enabled = 1;
+		GetInstalled();
+		PopulateModsList();
+		System::Windows::Forms::MessageBox::Show("Download completed!");
+	}
 
-		private: System::Void BaydockGithub_Click(System::Object^ sender, System::EventArgs^ e) {
-			System::Diagnostics::Process::Start("https://github.com/Baydock");
-		}
+	private: System::Void DownloadProgressChanged(System::Object^ sender, System::Net::DownloadProgressChangedEventArgs^ e)
+	{
+		DownloadProgressBar->Value = e->ProgressPercentage;
+	}
 
-		private: System::Void DiscordButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			System::Diagnostics::Process::Start("https://discord.gg/BDMGnBhVPZ");
-		}
+	private: System::Void DownloadModStart(System::String^ fileloc, System::String^ filename)
+	{
+		System::Net::WebClient^ web = gcnew System::Net::WebClient();
+		web->Headers->Add("user-agent", "Inferno Mod Manager");
+		web->DownloadProgressChanged += gcnew System::Net::DownloadProgressChangedEventHandler(this, &MainForm::DownloadProgressChanged);
+		web->DownloadFileCompleted += gcnew System::ComponentModel::AsyncCompletedEventHandler(this, &MainForm::DownloadProgressCompleted);
+		web->DownloadFileAsync(gcnew System::Uri(fileloc), filename);
+	}
 
-		private: System::Void GetFiles(array<System::String^>^ files, bool enabled) {
-			for each (System::String ^ file in files)
-				if (InfernoModManager::Games::IsCompatibleType(file)) {
-					System::Diagnostics::FileVersionInfo^ fvi = System::Diagnostics::FileVersionInfo::GetVersionInfo(file);
+	private: System::Void DownloadMod_Click(System::Object^ sender, System::EventArgs^ e) {
+		DownloadMod->Enabled = 0;
+		InfernoModManager::Mod^ mod = safe_cast<InfernoModManager::Mod^>(DownloadsList->SelectedRows[0]->Cells[DownloadInfoColumn->Index]->Value);
+		System::Diagnostics::Debug::WriteLine(GetInstalledDir() + mod->Name + mod->Type);
+		DownloadModStart(mod->Location, GetInstalledDir() + "\\" + mod->Name->Replace("%20", " ") + mod->Type);
+		ModManifest::Add(mod);
+		GetInstalled();
+		PopulateDownloadsList();
+	}
+
+	private: System::Void RemoveMod_Click(System::Object^ sender, System::EventArgs^ e) {
+		InfernoModManager::Mod^ mod = (InfernoModManager::Mod^)ModsList->SelectedRows[0]->Cells[ModInfoColumn->Index]->Value;
+		System::IO::File::Delete(GetInstalledDir() + "\\" + mod->Name->Replace("%20", " ") + mod->Type);
+		ModManifest::Sub(mod);
+		GetInstalled();
+		PopulateModsList();
+	}
+
+	private: System::Void KosmicGithub_Click(System::Object^ sender, System::EventArgs^ e) {
+		System::Diagnostics::Process::Start("https://github.com/KosmicShovel");
+	}
+
+	private: System::Void BaydockGithub_Click(System::Object^ sender, System::EventArgs^ e) {
+		System::Diagnostics::Process::Start("https://github.com/Baydock");
+	}
+
+	private: System::Void DiscordButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		System::Diagnostics::Process::Start("https://discord.gg/BDMGnBhVPZ");
+	}
+
+	private: System::Void GetFiles(array<System::String^>^ files, bool enabled) {
+		for each (System::String ^ file in files)
+			if (InfernoModManager::Games::IsCompatibleType(file)) {
+				System::Diagnostics::FileVersionInfo^ fvi = System::Diagnostics::FileVersionInfo::GetVersionInfo(file);
+				if (fvi->OriginalFilename) {
 					Mod^ templateMod = gcnew InfernoModManager::Mod(NameOf(file), "Unknown", "0.0", "???", System::IO::Path::GetExtension(file), "A mod for BTD6", file, "", enabled);
-					Mod^ tried = InfernoModManager::ModManifest::GetModFromName(fvi->OriginalFilename->Replace(".dll", ""));
-					if (tried)
-					{
-						tried->Status = true;
-						InfernoModManager::Mod::Installed->Add(tried);
-					} else
-					{
-						Mod^ tried2 = InfernoModManager::ModManifest::GetModFromName(NameOf(file));
-						if (tried2)
+					try {
+						Mod^ tried = InfernoModManager::ModManifest::GetModFromName(fvi->OriginalFilename->Replace(".dll", ""));
+						if (tried)
 						{
-							tried2->Status = true;
-							InfernoModManager::Mod::Installed->Add(tried2);
-						} else
-							InfernoModManager::Mod::Installed->Add(templateMod);
-					}
-				}
-		}
-
-		private: System::Void GetInstalled() {
-			InfernoModManager::Mod::Installed->Clear();
-			GetFiles(System::IO::Directory::GetFiles(GetInstalledDir()), true);
-			GetFiles(System::IO::Directory::GetFiles(GetDisabledDir()), false);
-		}
-
-		private: System::Void GetAvailable() {
-			InfernoModManager::Mod::Available->Clear();
-			System::Collections::Generic::List<System::String^>^ allData = InfernoModManager::WebDownloader::getAllData();
-			for (int i = 0; i < allData->ToArray()->Length; i++) {
-				array<System::String^>^ data = allData[i]->Split('<');
-				if (data->Length > 6) {
-					bool isInstalled = false;
-					for (int i = 0; i < InfernoModManager::Mod::Installed->Count; i++) {
-						if (InfernoModManager::Mod::Installed[i]->Name->Equals(data[1])) {
-							isInstalled = true;
-							break;
+							tried->Status = true;
+							InfernoModManager::Mod::Installed->Add(tried);
+						}
+						else
+						{
+							Mod^ tried2 = InfernoModManager::ModManifest::GetModFromName(NameOf(file));
+							if (tried2)
+							{
+								tried2->Status = true;
+								InfernoModManager::Mod::Installed->Add(tried2);
+							}
+							else
+								InfernoModManager::Mod::Installed->Add(templateMod);
 						}
 					}
-					InfernoModManager::Mod::Available->Add(gcnew InfernoModManager::Mod(data[1], data[2], data[7], data[4], data[5],
-						data[3], data[0], data[6], isInstalled));
+					catch (System::Exception^) {}
 				}
 			}
-		}
+	}
 
-		private: System::Void PopulateModsList() {
-			ModsList->Rows->Clear();
-			for each (InfernoModManager::Mod^ mod in InfernoModManager::Mod::Installed)
-				ModsList->Rows->Add(mod->Status, mod->Name, mod->Type, mod);
-			ModsList->Sort(ModNameColumn, System::ComponentModel::ListSortDirection::Ascending);
-			UpdateModStats(0);
-		}
+	private: System::Void GetInstalled() {
+		InfernoModManager::Mod::Installed->Clear();
+		GetFiles(System::IO::Directory::GetFiles(GetInstalledDir()), true);
+		GetFiles(System::IO::Directory::GetFiles(GetDisabledDir()), false);
+	}
 
-		private: System::Void PopulateDownloadsList() {
-			DownloadsList->Rows->Clear();
-			for each (InfernoModManager::Mod ^ mod in InfernoModManager::Mod::Available) {
-				if (!InfernoModManager::ModManifest::GetModFromName(mod->Name) || !ShowInstalledCheck->Checked)
-					DownloadsList->Rows->Add(mod->Status, mod->Name, mod->Type, mod);
+	private: System::Void GetAvailable() {
+		InfernoModManager::Mod::Available->Clear();
+		System::Collections::Generic::List<System::String^>^ allData = InfernoModManager::WebDownloader::getAllData();
+		for (int i = 0; i < allData->ToArray()->Length; i++) {
+			array<System::String^>^ data = allData[i]->Split('<');
+			if (data->Length > 6) {
+				bool isInstalled = false;
+				for (int i = 0; i < InfernoModManager::Mod::Installed->Count; i++) {
+					if (InfernoModManager::Mod::Installed[i]->Name->Equals(data[1])) {
+						isInstalled = true;
+						break;
+					}
+				}
+				InfernoModManager::Mod::Available->Add(gcnew InfernoModManager::Mod(data[1], data[2], data[7], data[4], data[5],
+					data[3], data[0], data[6], isInstalled));
 			}
-			DownloadsList->Sort(DownloadNameColumn, System::ComponentModel::ListSortDirection::Ascending);
-			UpdateDownloadStats(0);
 		}
+	}
 
-		private: System::String^ NameOf(System::String^ file) {
-			System::String^ name = System::IO::Path::GetFileName(file);
-			int end = name->LastIndexOf('.');
-			if(end > 0)
-				name = name->Substring(0, end);
-			return name;
+	private: System::Void PopulateModsList() {
+		ModsList->Rows->Clear();
+		for each (InfernoModManager::Mod ^ mod in InfernoModManager::Mod::Installed)
+			ModsList->Rows->Add(mod->Status, mod->Name, mod->Type, mod);
+		ModsList->Sort(ModNameColumn, System::ComponentModel::ListSortDirection::Ascending);
+		UpdateModStats(0);
+	}
+
+	private: System::Void PopulateDownloadsList() {
+		DownloadsList->Rows->Clear();
+		for each (InfernoModManager::Mod ^ mod in InfernoModManager::Mod::Available) {
+			if (!InfernoModManager::ModManifest::GetModFromName(mod->Name) || !ShowInstalledCheck->Checked)
+				DownloadsList->Rows->Add(mod->Status, mod->Name, mod->Type, mod);
 		}
+		DownloadsList->Sort(DownloadNameColumn, System::ComponentModel::ListSortDirection::Ascending);
+		UpdateDownloadStats(0);
+	}
 
-		private: System::Void CheckBTD6Open() {
-			if (InfernoModManager::Injection::GetTargetThreadIDFromProcName("BloonsTD6") != -1)
-				DoModsButton->Text = "Inject";
-			else
-				DoModsButton->Text = "Launch";
+	private: System::String^ NameOf(System::String^ file) {
+		System::String^ name = System::IO::Path::GetFileName(file);
+		int end = name->LastIndexOf('.');
+		if (end > 0)
+			name = name->Substring(0, end);
+		return name;
+	}
+
+	private: System::Void CheckBTD6Open() {
+		if (InfernoModManager::Injection::GetTargetThreadIDFromProcName("BloonsTD6") != -1)
+			DoModsButton->Text = "Inject";
+		else
+			DoModsButton->Text = "Launch";
+	}
+
+	private: System::Void UpdateModStats(InfernoModManager::Mod^ mod) {
+		try {
+			System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
+			request->AllowWriteStreamBuffering = true;
+			request->Timeout = 30000;
+
+			System::Net::WebResponse^ webResponse = request->GetResponse();
+
+			System::IO::Stream^ stream = webResponse->GetResponseStream();
+
+			ModImage->Image = System::Drawing::Image::FromStream(stream);
+			delete stream;
 		}
-
-		private: System::Void UpdateModStats(InfernoModManager::Mod^ mod) {
-			try {
-				System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
-				request->AllowWriteStreamBuffering = true;
-				request->Timeout = 30000;
-
-				System::Net::WebResponse^ webResponse = request->GetResponse();
-
-				System::IO::Stream^ stream = webResponse->GetResponseStream();
-
-				ModImage->Image = System::Drawing::Image::FromStream(stream);
-				delete stream;
-			}
-			catch (System::Exception^)
-			{
-				System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
-				ModImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ModImage.ErrorImage")));
-			}
-			ModName->Text = mod->Name;
-			ModVersion->Text = mod->Version;
-			ModEnabled->Text = (gcnew System::Boolean(mod->Status))->ToString();
-			ModType->Text = mod->Type;
-			ModDescription->Text = mod->Description;
-			ModAuthor->Text = mod->Author;
-			ModTags->Text = mod->Tags;
-		}
-
-		private: System::Void UpdateModStats(int index) {
-			if (index > -1 && index < ModsList->Rows->Count)
-				UpdateModStats((InfernoModManager::Mod^)ModsList->Rows[index]->Cells[ModInfoColumn->Index]->Value);
-		}
-
-		private: System::Void UpdateDownloadStats(InfernoModManager::Mod^ mod) {
-			try {
-				System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
-				request->AllowWriteStreamBuffering = true;
-				request->Timeout = 30000;
-
-				System::Net::WebResponse^ webResponse = request->GetResponse();
-
-				System::IO::Stream^ stream = webResponse->GetResponseStream();
-
-				DownloadImage->Image = System::Drawing::Image::FromStream(stream);
-				delete stream;
-			} catch (System::Exception^)
-			{
-				System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
-				DownloadImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.ErrorImage")));
-			}
-			DownloadName->Text = mod->Name;
-			DownloadVersion->Text = mod->Version;
-			DownloadInstalled->Text = (gcnew System::Boolean(mod->Status))->ToString();
-			DownloadType->Text = mod->Type;
-			DownloadAuthor->Text = mod->Author;
-			DownloadTags->Text = mod->Tags;
-			DownloadDescription->Text = mod->Description;
-			//DownloadUrl->Text = mod->Location;
-		}
-
-		private: System::Void UpdateDownloadStats(int index) {
-			if (index > -1 && index < DownloadsList->Rows->Count)
-				UpdateDownloadStats((InfernoModManager::Mod^)DownloadsList->Rows[index]->Cells[DownloadInfoColumn->Index]->Value);
-		}
-
-		private: System::Void OnCheckedChanged(System::Object^ sender, System::EventArgs^ e)
+		catch (System::Exception^)
 		{
-			PopulateDownloadsList();
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
+			ModImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ModImage.ErrorImage")));
 		}
+		ModName->Text = mod->Name;
+		ModVersion->Text = mod->Version;
+		ModEnabled->Text = (gcnew System::Boolean(mod->Status))->ToString();
+		ModType->Text = mod->Type;
+		ModDescription->Text = mod->Description;
+		ModAuthor->Text = mod->Author;
+		ModTags->Text = mod->Tags;
+	}
 
-		private: System::String^ GetInstalledDir() {
-			return btd6Install + "\\Mods";
-		}
+	private: System::Void UpdateModStats(int index) {
+		if (index > -1 && index < ModsList->Rows->Count)
+			UpdateModStats((InfernoModManager::Mod^)ModsList->Rows[index]->Cells[ModInfoColumn->Index]->Value);
+	}
 
-		private: System::String^ GetDisabledDir() {
-			return btd6Install + "\\Mods\\Disabled";
+	private: System::Void UpdateDownloadStats(InfernoModManager::Mod^ mod) {
+		try {
+			System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
+			request->AllowWriteStreamBuffering = true;
+			request->Timeout = 30000;
+
+			System::Net::WebResponse^ webResponse = request->GetResponse();
+
+			System::IO::Stream^ stream = webResponse->GetResponseStream();
+
+			DownloadImage->Image = System::Drawing::Image::FromStream(stream);
+			delete stream;
 		}
-};
+		catch (System::Exception^)
+		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
+			DownloadImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.ErrorImage")));
+		}
+		DownloadName->Text = mod->Name;
+		DownloadVersion->Text = mod->Version;
+		DownloadInstalled->Text = (gcnew System::Boolean(mod->Status))->ToString();
+		DownloadType->Text = mod->Type;
+		DownloadAuthor->Text = mod->Author;
+		DownloadTags->Text = mod->Tags;
+		DownloadDescription->Text = mod->Description;
+		//DownloadUrl->Text = mod->Location;
+	}
+
+	private: System::Void UpdateDownloadStats(int index) {
+		if (index > -1 && index < DownloadsList->Rows->Count)
+			UpdateDownloadStats((InfernoModManager::Mod^)DownloadsList->Rows[index]->Cells[DownloadInfoColumn->Index]->Value);
+	}
+
+	private: System::Void OnCheckedChanged(System::Object^ sender, System::EventArgs^ e)
+	{
+		PopulateDownloadsList();
+	}
+
+	private: System::String^ GetInstalledDir() {
+		return btd6Install + "\\Mods";
+	}
+
+	private: System::String^ GetDisabledDir() {
+		return btd6Install + "\\Mods\\Disabled";
+	}
+	};
 }
