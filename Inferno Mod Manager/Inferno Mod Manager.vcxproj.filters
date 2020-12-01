@@ -24,9 +24,6 @@
     <ClCompile Include="Injection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EncryptionManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SupportedGames.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Injection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EncryptionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WebDownloader.h">
@@ -94,6 +88,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="C:\Users\xande\Downloads\discord-3-569463.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="BaydockGithub.BackgroundImage.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\2matt\Pictures\Git no body holllow_jpeg_webrip_png.mov_pml.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\2matt\Pictures\Day.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

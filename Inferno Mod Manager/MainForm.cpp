@@ -30,16 +30,16 @@ int main()
 
 	//Why no work
 	InfernoModManager::WebDownloader::ifBlankSet();
+	InfernoModManager::WebDownloader::getAllData();
 	if (!IO::File::Exists("repos.json"))
 	{
 		IO::File::Create("repos.json")->Close();
 		IO::File::WriteAllText("repos.json", Newtonsoft::Json::JsonConvert::SerializeObject(InfernoModManager::WebDownloader::Repos));
 	} else
 	{
-		Collections::Generic::List<String^>^ list = Newtonsoft::Json::JsonConvert::DeserializeObject<Collections::Generic::List<String^>^>(IO::File::ReadAllText("repos.json")->Replace("\n", ""));
+		Collections::Generic::List<String^>^ list = Newtonsoft::Json::JsonConvert::DeserializeObject<Collections::Generic::List<String^>^>(IO::File::ReadAllText("repos.json"));
 		InfernoModManager::WebDownloader::Repos = list;
 	}
-	InfernoModManager::WebDownloader::getAllData();
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	InfernoModManager::MainForm form;

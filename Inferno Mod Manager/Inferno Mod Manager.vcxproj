@@ -158,7 +158,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EncryptionManager.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Injection.cpp" />
     <ClCompile Include="MainForm.cpp" />
@@ -167,7 +166,6 @@
     <ClCompile Include="WebDownloader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EncryptionManager.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="InfernoModAttribute.h" />
     <ClInclude Include="Injection.h" />
@@ -195,6 +193,9 @@
     <ResourceCompile Include="Inferno Mod Manager.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="BaydockGithub.BackgroundImage.bmp" />
+    <Image Include="C:\Users\2matt\Pictures\Day.png" />
+    <Image Include="C:\Users\2matt\Pictures\Git no body holllow_jpeg_webrip_png.mov_pml.png" />
     <Image Include="C:\Users\xande\Downloads\discord-3-569463.png" />
     <Image Include="icon1.ico" />
   </ItemGroup>

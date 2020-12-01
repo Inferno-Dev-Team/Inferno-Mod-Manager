@@ -29,8 +29,9 @@ namespace InfernoModManager
 
 	Mod^ ModManifest::GetModFromName(System::String^ s)
 	{
-		if (!File::Exists("mods.json"))
+		if (!File::Exists("mods.json")) {
 			return nullptr;
+		}
 
 		List<Mod^>^ mods = GetMods();
 
@@ -38,7 +39,7 @@ namespace InfernoModManager
 		{
 			for each (Mod^ m in mods)
 			{
-				if (m->Name->Equals(s)) {
+				if (m->Name->ToLower()->Equals(s->ToLower())) {
 					return m;
 				}
 			}
