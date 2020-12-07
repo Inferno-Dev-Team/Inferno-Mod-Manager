@@ -6,8 +6,13 @@
 #include "WebDownloader.h"
 #include "Mod.h"
 #include "ModManifest.h"
+#include "Prompt.h"
 #include <string>
 #include <Windows.h>
+#include <windows.h>
+#include <Lmcons.h>
+#include <msclr\marshal.h>
+#define string System::String^
 
 #pragma once
 
@@ -22,7 +27,6 @@ namespace InfernoModManager {
 		MainForm(void)
 		{
 			InitializeComponent();
-
 			//double buffered renders all at once, therefore faster
 			System::Windows::Forms::DataGridView::typeid->GetProperty("DoubleBuffered",
 				System::Reflection::BindingFlags::Instance | System::Reflection::BindingFlags::NonPublic)
@@ -140,6 +144,8 @@ namespace InfernoModManager {
 	private: System::Windows::Forms::Label^ label19;
 	private: System::Windows::Forms::Label^ DownloadVersion;
 	private: System::Windows::Forms::ProgressBar^ DownloadProgressBar;
+	private: System::Windows::Forms::Label^ WelcomeBackUser;
+private: System::Windows::Forms::Button^ AddRepo;
 
 
 
@@ -228,6 +234,7 @@ namespace InfernoModManager {
 			this->ModTypeColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ModInfoColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ModVersion = (gcnew System::Windows::Forms::Label());
+			this->WelcomeBackUser = (gcnew System::Windows::Forms::Label());
 			this->DownloadsList = (gcnew System::Windows::Forms::DataGridView());
 			this->InstalledColumn = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
 			this->DownloadNameColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -245,6 +252,7 @@ namespace InfernoModManager {
 			this->DownloadAuthor = (gcnew System::Windows::Forms::Label());
 			this->DownloadVersion = (gcnew System::Windows::Forms::Label());
 			this->DownloadDescription = (gcnew System::Windows::Forms::Label());
+			this->DownloadProgressBar = (gcnew System::Windows::Forms::ProgressBar());
 			this->CreditTab = (gcnew System::Windows::Forms::TabPage());
 			this->CreditsLayout = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->BaydockGithub = (gcnew System::Windows::Forms::Button());
@@ -252,7 +260,7 @@ namespace InfernoModManager {
 			this->DiscordButton = (gcnew System::Windows::Forms::Button());
 			this->BTD6FolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->CheckBTD6Timer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->DownloadProgressBar = (gcnew System::Windows::Forms::ProgressBar());
+			this->AddRepo = (gcnew System::Windows::Forms::Button());
 			label1 = (gcnew System::Windows::Forms::Label());
 			label2 = (gcnew System::Windows::Forms::Label());
 			label3 = (gcnew System::Windows::Forms::Label());
@@ -745,6 +753,7 @@ namespace InfernoModManager {
 			this->ModManager->Controls->Add(label3, 1, 9);
 			this->ModManager->Controls->Add(label17, 1, 8);
 			this->ModManager->Controls->Add(this->ModVersion, 2, 8);
+			this->ModManager->Controls->Add(this->WelcomeBackUser, 1, 0);
 			this->ModManager->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ModManager->Location = System::Drawing::Point(0, 0);
 			this->ModManager->Margin = System::Windows::Forms::Padding(2);
@@ -904,6 +913,15 @@ namespace InfernoModManager {
 			this->ModVersion->TabIndex = 33;
 			this->ModVersion->Text = L"Mod Version";
 			//
+			// WelcomeBackUser
+			//
+			this->WelcomeBackUser->AutoSize = true;
+			this->WelcomeBackUser->Location = System::Drawing::Point(657, 0);
+			this->WelcomeBackUser->Name = L"WelcomeBackUser";
+			this->WelcomeBackUser->Size = System::Drawing::Size(0, 13);
+			this->WelcomeBackUser->TabIndex = 34;
+			this->WelcomeBackUser->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			//
 			// DownloadsList
 			//
 			this->DownloadsList->AllowUserToAddRows = false;
@@ -1031,6 +1049,7 @@ namespace InfernoModManager {
 			this->DownloadManager->Controls->Add(this->DownloadDescription, 1, 10);
 			this->DownloadManager->Controls->Add(label10, 1, 11);
 			this->DownloadManager->Controls->Add(this->DownloadProgressBar, 2, 0);
+			this->DownloadManager->Controls->Add(this->AddRepo, 1, 0);
 			this->DownloadManager->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->DownloadManager->Location = System::Drawing::Point(0, 0);
 			this->DownloadManager->Margin = System::Windows::Forms::Padding(2);
@@ -1137,6 +1156,13 @@ namespace InfernoModManager {
 			this->DownloadDescription->TabIndex = 28;
 			this->DownloadDescription->Text = L"Download Description";
 			//
+			// DownloadProgressBar
+			//
+			this->DownloadProgressBar->Location = System::Drawing::Point(819, 3);
+			this->DownloadProgressBar->Name = L"DownloadProgressBar";
+			this->DownloadProgressBar->Size = System::Drawing::Size(158, 23);
+			this->DownloadProgressBar->TabIndex = 31;
+			//
 			// CreditTab
 			//
 			this->CreditTab->BackColor = System::Drawing::SystemColors::Window;
@@ -1240,12 +1266,15 @@ namespace InfernoModManager {
 			this->CheckBTD6Timer->Interval = 1000;
 			this->CheckBTD6Timer->Tick += gcnew System::EventHandler(this, &MainForm::CheckBTD6Open);
 			//
-			// DownloadProgressBar
+			// AddRepo
 			//
-			this->DownloadProgressBar->Location = System::Drawing::Point(819, 3);
-			this->DownloadProgressBar->Name = L"DownloadProgressBar";
-			this->DownloadProgressBar->Size = System::Drawing::Size(158, 23);
-			this->DownloadProgressBar->TabIndex = 31;
+			this->AddRepo->Location = System::Drawing::Point(656, 3);
+			this->AddRepo->Name = L"AddRepo";
+			this->AddRepo->Size = System::Drawing::Size(83, 23);
+			this->AddRepo->TabIndex = 32;
+			this->AddRepo->Text = L"Add Repo";
+			this->AddRepo->UseVisualStyleBackColor = true;
+			this->AddRepo->Click += gcnew System::EventHandler(this, &MainForm::AddRepo_Click);
 			//
 			// MainForm
 			//
@@ -1486,19 +1515,26 @@ namespace InfernoModManager {
 	}
 
 	private: System::Void UpdateModStats(InfernoModManager::Mod^ mod) {
-		try {
-			System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
-			request->AllowWriteStreamBuffering = true;
-			request->Timeout = 30000;
+		if (!mod->PNGLoc->ToLower()->Equals("nothingyet") && !mod->PNGLoc->Equals("")) {
+			try {
+				System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
+				request->AllowWriteStreamBuffering = true;
+				request->Timeout = 30000;
 
-			System::Net::WebResponse^ webResponse = request->GetResponse();
+				System::Net::WebResponse^ webResponse = request->GetResponse();
 
-			System::IO::Stream^ stream = webResponse->GetResponseStream();
+				System::IO::Stream^ stream = webResponse->GetResponseStream();
 
-			ModImage->Image = System::Drawing::Image::FromStream(stream);
-			delete stream;
+				ModImage->Image = System::Drawing::Image::FromStream(stream);
+				delete stream;
+			}
+			catch (System::Exception^)
+			{
+				System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
+				ModImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ModImage.ErrorImage")));
+			}
 		}
-		catch (System::Exception^)
+		else
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			ModImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ModImage.ErrorImage")));
@@ -1518,19 +1554,26 @@ namespace InfernoModManager {
 	}
 
 	private: System::Void UpdateDownloadStats(InfernoModManager::Mod^ mod) {
-		try {
-			System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
-			request->AllowWriteStreamBuffering = true;
-			request->Timeout = 30000;
+		if (!mod->PNGLoc->ToLower()->Equals("nothingyet") && !mod->PNGLoc->Equals("")) {
+			try {
+				System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(mod->PNGLoc);
+				request->AllowWriteStreamBuffering = true;
+				request->Timeout = 30000;
 
-			System::Net::WebResponse^ webResponse = request->GetResponse();
+				System::Net::WebResponse^ webResponse = request->GetResponse();
 
-			System::IO::Stream^ stream = webResponse->GetResponseStream();
+				System::IO::Stream^ stream = webResponse->GetResponseStream();
 
-			DownloadImage->Image = System::Drawing::Image::FromStream(stream);
-			delete stream;
+				DownloadImage->Image = System::Drawing::Image::FromStream(stream);
+				delete stream;
+			}
+			catch (System::Exception^)
+			{
+				System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
+				DownloadImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.ErrorImage")));
+			}
 		}
-		catch (System::Exception^)
+		else
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			DownloadImage->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DownloadImage.ErrorImage")));
@@ -1562,5 +1605,35 @@ namespace InfernoModManager {
 	private: System::String^ GetDisabledDir() {
 		return btd6Install + "\\Mods\\Disabled";
 	}
-	};
+
+	private: System::Void AddRepo_Click(System::Object^ sender, System::EventArgs^ e) {
+		string s = Prompt::ShowDialog("Yes", "Enter URL for repo.");
+		bool shouldWarn = false;
+		if (!s->Equals(""))
+		{
+			try {
+				System::Net::HttpWebRequest^ request = (System::Net::HttpWebRequest^)System::Net::HttpWebRequest::Create(s);
+				request->Timeout = 30000;
+
+				System::Net::WebResponse^ webResponse = request->GetResponse();
+			}
+			catch (System::Exception^) {
+				shouldWarn = true;
+			}
+		}
+		else
+			shouldWarn = true;
+
+		if (shouldWarn) {
+			System::Windows::Forms::MessageBox::Show("Download completed!");
+			return;
+		}
+
+		System::Collections::Generic::List<string>^ list = Newtonsoft::Json::JsonConvert::DeserializeObject<System::Collections::Generic::List<string>^>(System::IO::File::ReadAllText("repos.json"));
+		list->Add(s);
+		InfernoModManager::WebDownloader::Repos = list;
+		System::IO::File::WriteAllText("repos.json", Newtonsoft::Json::JsonConvert::SerializeObject(InfernoModManager::WebDownloader::Repos));
+		PopulateDownloadsList();
+	}
+};
 }
