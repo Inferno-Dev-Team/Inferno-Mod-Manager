@@ -51,7 +51,7 @@ namespace InfernoModManager
 
 				System::Collections::Generic::List<System::String^>^ allPossible = gcnew System::Collections::Generic::List<System::String^>();
 				System::String^ config = steamDir + "\\steamapps\\libraryfolders.vdf";
-				allPossible->Add(config);
+				allPossible->Add(steamDir);
 
 				System::IO::StreamReader^ din = System::IO::File::OpenText(config);
 
@@ -79,7 +79,7 @@ namespace InfernoModManager
 
 				for each (System::String^ possible in allPossible)
 				{
-					System::String^ gameFolder = (possible + "\\steamapps\\common\\" + gameName)->Replace("\\libraryfolders.vdf", "");
+					System::String^ gameFolder = (possible + "\\steamapps\\common\\" + gameName);
 					if (System::IO::Directory::Exists(gameFolder))
 					{
 						msclr::interop::marshal_context^ ctx = gcnew msclr::interop::marshal_context();
