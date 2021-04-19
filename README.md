@@ -10,5 +10,5 @@
  - Enjoy! :)
 
 ## Troubleshooting
- - For any issues with the mod manager join our [Discord server here](https://discord.gg/D7v6h3KSQN) and look for info in [#ModLoader-Troubleshoot](https://discordapp.com/channels/758553724226109480/782770073432752158)
+ - For any issues with the mod manager join our [Discord server here](https://discord.gg/JB8KHnJj69) and look for info in [#ModLoader-Troubleshoot](https://discordapp.com/channels/758553724226109480/782770073432752158)
  - If for some reason you don't have Discord you can create an [Issue on our Github page](https://github.com/Inferno-Dev-Team/Inferno-Mod-Manager/issues)
